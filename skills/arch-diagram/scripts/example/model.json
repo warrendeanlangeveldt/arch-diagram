@@ -1,0 +1,28 @@
+{
+  "objects": [
+    {"id": "ACT-01", "type": "Actor", "name": "Customer"},
+    {"id": "ACT-02", "type": "Actor", "name": "Service agent"},
+    {"id": "APP-01", "type": "Application", "name": "Service Portal", "status": "Built", "owner": "ORG-01"},
+    {"id": "APP-02", "type": "Application", "name": "Portal web app", "parent": "APP-01", "status": "Built"},
+    {"id": "APP-03", "type": "Application", "name": "Case service", "parent": "APP-01", "status": "Built"},
+    {"id": "APP-CRM", "type": "Application", "name": "CRM", "status": "Built"},
+    {"id": "APP-NOTIFY", "type": "Application", "name": "Notification service", "status": "Proposed"},
+    {"id": "INT-01", "type": "Interface", "name": "Case API", "status": "Built"},
+    {"id": "INT-02", "type": "Interface", "name": "Customer lookup", "status": "Built"},
+    {"id": "TEC-01", "type": "Technology", "name": "Container platform", "status": "Built"},
+    {"id": "LOC-01", "type": "Location", "name": "Cloud region (primary)"},
+    {"id": "ORG-01", "type": "Organization", "name": "Customer Service"}
+  ],
+  "relationships": [
+    {"from": "ACT-01", "type": "uses", "to": "APP-02"},
+    {"from": "ACT-02", "type": "uses", "to": "APP-02"},
+    {"from": "APP-03", "type": "exposes", "to": "INT-01"},
+    {"from": "APP-02", "type": "uses", "to": "INT-01"},
+    {"from": "APP-CRM", "type": "exposes", "to": "INT-02"},
+    {"from": "APP-03", "type": "consumes", "to": "INT-02"},
+    {"from": "APP-01", "type": "depends on", "to": "APP-NOTIFY"},
+    {"from": "APP-01", "type": "hosted on", "to": "TEC-01"},
+    {"from": "TEC-01", "type": "located in", "to": "LOC-01"},
+    {"from": "ORG-01", "type": "owns", "to": "APP-01"}
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "arch-diagram",
+  "version": "1.0.0",
+  "description": "Print-grade architecture diagrams as hand-laid inline SVG: ten house diagram types (deployment, system context, integration, data flow, sequence, deploy path, steps, state, swimlane, phases), C4 views, and CoreEA enterprise-architecture viewpoints drawn from one validated object model",
+  "author": {
+    "name": "Warren Langeveldt"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/warrendeanlangeveldt/arch-diagram",
+  "homepage": "https://github.com/warrendeanlangeveldt/arch-diagram#readme",
+  "keywords": ["architecture", "diagrams", "svg", "c4", "coreea", "enterprise-architecture", "orbusinfinity", "sad"]
+}

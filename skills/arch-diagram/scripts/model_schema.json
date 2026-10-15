@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CoreEA object model",
+  "description": "One model per solution. Every CoreEA view is drawn from it; it exports as the OrbusInfinity catalogue. Semantic checks (prefix matches type, verb joins allowed types, endpoints exist) are in coreea_lib.validate().",
+  "type": "object",
+  "required": [
+    "objects",
+    "relationships"
+  ],
+  "properties": {
+    "objects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "name"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^(ACT|APC|APP|CAP|CTL|DAT|DRV|DTC|GOL|INT|LOC|OBJ|ORG|PRC|PRJ|PRN|REQ|ROL|RSK|TCC|TEC|VST)-[A-Za-z0-9-]+$",
+            "description": "Type prefix + suffix, e.g. APP-01, APP-CRM. Stable across views and revisions."
+          },
+          "type": {
+            "enum": [
+              "Driver",
+              "Goal",
+              "Objective",
+              "Requirement",
+              "Principle",
+              "Capability",
+              "Value Stream",
+              "Process",
+              "Organization",
+              "Actor",
+              "Role",
+              "Application",
+              "Application Category",
+              "Interface",
+              "Data Entity",
+              "Data Category",
+              "Technology",
+              "Technology Category",
+              "Location",
+              "Project",
+              "Risk",
+              "Control"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "Built",
+              "Built in UAT",
+              "Designed",
+              "Not started",
+              "Proposed",
+              "Retired"
+            ],
+            "description": "Proposed / Designed / Not started draw dashed."
+          },
+          "owner": {
+            "type": "string",
+            "description": "Id of an Organization or Role in the model, or a named role from the brief. Never invented."
+          },
+          "ref": {
+            "type": "string",
+            "description": "The source document's own id (FR-04, SEC-RISK-02) for traceability."
+          },
+          "parent": {
+            "type": "string",
+            "description": "Id of an object of the same type this is part of (component of an application, sub-capability). Drawn box-in-box."
+          },
+          "category": {
+            "type": "string",
+            "description": "Free classification text shown as a sub-line, e.g. Confidential."
+          },
+          "sad": {
+            "type": "string",
+            "description": "SAD section that describes the object."
+          }
+        }
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "from",
+          "type",
+          "to"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "achieved by",
+              "applies to",
+              "assigned to",
+              "categorised as",
+              "classified as",
+              "constrains",
+              "consumes",
+              "delivers",
+              "depends on",
+              "exposes",
+              "hosted on",
+              "located in",
+              "mitigates",
+              "motivates",
+              "owns",
+              "performs",
+              "reads",
+              "realises",
+              "relates to",
+              "satisfies",
+              "supported by",
+              "supports",
+              "threatens",
+              "uses",
+              "writes"
+            ]
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
