@@ -1,0 +1,33 @@
+{
+ "view": "LAYERED",
+ "title": "Service Portal: layered view",
+ "metamodel": "archimate",
+ "viewpoint": "Layered",
+ "objects": [
+  "BACT-01",
+  "BPRC-01",
+  "ASVC-01",
+  "ACMP-01",
+  "ACMP-02",
+  "ACMP-03",
+  "ACMP-CRM",
+  "AIF-01",
+  "ACMP-NOTIFY",
+  "DOBJ-01",
+  "LOC-01",
+  "NODE-01",
+  "SSW-01"
+ ],
+ "relationships": [
+  "R-BACT-01-assignment-BPRC-01",
+  "R-ASVC-01-serving-BPRC-01",
+  "R-ACMP-03-realization-ASVC-01",
+  "R-ACMP-03-serving-ACMP-02",
+  "R-AIF-01-serving-ACMP-03",
+  "R-ACMP-03-flow-ACMP-NOTIFY-case_events",
+  "R-ACMP-03-access-DOBJ-01",
+  "R-NODE-01-serving-ACMP-01",
+  "R-SSW-01-serving-ACMP-03"
+ ],
+ "warnings": []
+}

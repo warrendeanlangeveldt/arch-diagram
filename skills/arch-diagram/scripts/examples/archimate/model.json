@@ -1,0 +1,36 @@
+{
+ "metamodel": "archimate",
+ "name": "Service Portal",
+ "description": "Customer case lodgement: the portal, its case service and the platform it runs on.",
+ "objects": [
+  {"id": "BACT-01", "type": "Business Actor", "name": "Customer"},
+  {"id": "BPRC-01", "type": "Business Process", "name": "Lodge a case", "ref": "FR-04"},
+  {"id": "ASVC-01", "type": "Application Service", "name": "Case management", "status": "Built"},
+  {"id": "ACMP-01", "type": "Application Component", "name": "Service Portal", "status": "Built", "owner": "Customer Service"},
+  {"id": "ACMP-02", "type": "Application Component", "name": "Portal web app", "status": "Built"},
+  {"id": "ACMP-03", "type": "Application Component", "name": "Case service", "status": "Built"},
+  {"id": "ACMP-CRM", "type": "Application Component", "name": "CRM", "status": "Built", "description": "Defined in the CRM solution architecture."},
+  {"id": "AIF-01", "type": "Application Interface", "name": "Customer lookup API", "status": "Built"},
+  {"id": "ACMP-NOTIFY", "type": "Application Component", "name": "Notification service", "status": "Proposed"},
+  {"id": "DOBJ-01", "type": "Data Object", "name": "Case", "properties": {"classification": "Confidential"}},
+  {"id": "NODE-01", "type": "Node", "name": "Container platform", "status": "Built"},
+  {"id": "SSW-01", "type": "System Software", "name": "PostgreSQL", "status": "Built"},
+  {"id": "LOC-01", "type": "Location", "name": "Cloud region (primary)"}
+ ],
+ "relationships": [
+  {"from": "BACT-01", "type": "assignment", "to": "BPRC-01"},
+  {"from": "ASVC-01", "type": "serving", "to": "BPRC-01"},
+  {"from": "ACMP-03", "type": "realization", "to": "ASVC-01"},
+  {"from": "ACMP-01", "type": "composition", "to": "ACMP-02"},
+  {"from": "ACMP-01", "type": "composition", "to": "ACMP-03"},
+  {"from": "ACMP-03", "type": "serving", "to": "ACMP-02"},
+  {"from": "ACMP-CRM", "type": "composition", "to": "AIF-01"},
+  {"from": "AIF-01", "type": "serving", "to": "ACMP-03"},
+  {"from": "ACMP-03", "type": "flow", "to": "ACMP-NOTIFY", "name": "case events"},
+  {"from": "ACMP-03", "type": "access", "to": "DOBJ-01", "access": "write"},
+  {"from": "NODE-01", "type": "serving", "to": "ACMP-01"},
+  {"from": "NODE-01", "type": "composition", "to": "SSW-01"},
+  {"from": "SSW-01", "type": "serving", "to": "ACMP-03"},
+  {"from": "LOC-01", "type": "aggregation", "to": "NODE-01"}
+ ]
+}

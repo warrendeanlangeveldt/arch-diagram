@@ -1,12 +1,28 @@
 {
   "name": "arch-diagram",
-  "version": "1.0.0",
-  "description": "Print-grade architecture diagrams as hand-laid inline SVG: ten house diagram types (deployment, system context, integration, data flow, sequence, deploy path, steps, state, swimlane, phases), C4 views, and CoreEA enterprise-architecture viewpoints drawn from one validated object model",
+  "version": "2.0.0",
+  "description": "Print-grade architecture diagrams as hand-laid inline SVG: ten house diagram types, C4 views, ArchiMate 3.2, TOGAF, Essential and CoreEA enterprise-architecture views drawn from one validated model, BPMN 2.0 processes, AWS/Azure/Google Cloud icon packs, and exports to EA tools (ArchiMate exchange, BPMN XML, OrbusInfinity import)",
   "author": {
     "name": "Warren Langeveldt"
   },
   "license": "MIT",
   "repository": "https://github.com/warrendeanlangeveldt/arch-diagram",
   "homepage": "https://github.com/warrendeanlangeveldt/arch-diagram#readme",
-  "keywords": ["architecture", "diagrams", "svg", "c4", "coreea", "enterprise-architecture", "orbusinfinity", "sad"]
+  "keywords": [
+    "architecture",
+    "diagrams",
+    "svg",
+    "c4",
+    "archimate",
+    "coreea",
+    "togaf",
+    "essential",
+    "bpmn",
+    "enterprise-architecture",
+    "aws",
+    "azure",
+    "gcp",
+    "orbusinfinity",
+    "sad"
+  ]
 }

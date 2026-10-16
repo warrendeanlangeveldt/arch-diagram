@@ -1,0 +1,638 @@
+{
+ "key": "coreea",
+ "name": "CoreEA",
+ "notation": "box",
+ "source": "The CoreEA metamodel used by OrbusInfinity: typed objects, the agreed relationship verbs and the standard CoreEA viewpoints, as defined in references/coreea.md.",
+ "layer_order": [
+  "Motivation",
+  "Business",
+  "Application",
+  "Data",
+  "Technology",
+  "Risk",
+  "Control",
+  "Project"
+ ],
+ "layers": {
+  "Motivation": [
+   "#734c74",
+   "#f4eef4"
+  ],
+  "Business": [
+   "#b46a12",
+   "#fdf3e6"
+  ],
+  "Application": [
+   "#3f7f8c",
+   "#eef6f8"
+  ],
+  "Data": [
+   "#3b6a8f",
+   "#edf3f8"
+  ],
+  "Technology": [
+   "#4f7d3a",
+   "#eff5ea"
+  ],
+  "Risk": [
+   "#b4443c",
+   "#fbeeed"
+  ],
+  "Control": [
+   "#475569",
+   "#f1f5f9"
+  ],
+  "Project": [
+   "#64748b",
+   "#f8fafc"
+  ]
+ },
+ "types": {
+  "Driver": {
+   "prefix": "DRV",
+   "layer": "Motivation"
+  },
+  "Goal": {
+   "prefix": "GOL",
+   "layer": "Motivation"
+  },
+  "Objective": {
+   "prefix": "OBJ",
+   "layer": "Motivation"
+  },
+  "Requirement": {
+   "prefix": "REQ",
+   "layer": "Motivation"
+  },
+  "Principle": {
+   "prefix": "PRN",
+   "layer": "Motivation"
+  },
+  "Capability": {
+   "prefix": "CAP",
+   "layer": "Business"
+  },
+  "Value Stream": {
+   "prefix": "VST",
+   "layer": "Business"
+  },
+  "Process": {
+   "prefix": "PRC",
+   "layer": "Business"
+  },
+  "Organization": {
+   "prefix": "ORG",
+   "layer": "Business"
+  },
+  "Actor": {
+   "prefix": "ACT",
+   "layer": "Business"
+  },
+  "Role": {
+   "prefix": "ROL",
+   "layer": "Business"
+  },
+  "Application": {
+   "prefix": "APP",
+   "layer": "Application"
+  },
+  "Application Category": {
+   "prefix": "APC",
+   "layer": "Application"
+  },
+  "Interface": {
+   "prefix": "INT",
+   "layer": "Application",
+   "shape": "pill"
+  },
+  "Data Entity": {
+   "prefix": "DAT",
+   "layer": "Data"
+  },
+  "Data Category": {
+   "prefix": "DTC",
+   "layer": "Data"
+  },
+  "Technology": {
+   "prefix": "TEC",
+   "layer": "Technology"
+  },
+  "Technology Category": {
+   "prefix": "TCC",
+   "layer": "Technology"
+  },
+  "Location": {
+   "prefix": "LOC",
+   "layer": "Technology"
+  },
+  "Risk": {
+   "prefix": "RSK",
+   "layer": "Risk"
+  },
+  "Control": {
+   "prefix": "CTL",
+   "layer": "Control"
+  },
+  "Project": {
+   "prefix": "PRJ",
+   "layer": "Project"
+  }
+ },
+ "relationships": {
+  "realises": {
+   "pairs": [
+    [
+     [
+      "Application"
+     ],
+     [
+      "Capability"
+     ]
+    ],
+    [
+     [
+      "Control"
+     ],
+     [
+      "Requirement"
+     ]
+    ]
+   ]
+  },
+  "supports": {
+   "pairs": [
+    [
+     [
+      "Application"
+     ],
+     [
+      "Process"
+     ]
+    ],
+    [
+     [
+      "Capability"
+     ],
+     [
+      "Objective"
+     ]
+    ]
+   ]
+  },
+  "motivates": {
+   "pairs": [
+    [
+     [
+      "Driver"
+     ],
+     [
+      "Goal"
+     ]
+    ]
+   ]
+  },
+  "achieved by": {
+   "pairs": [
+    [
+     [
+      "Goal"
+     ],
+     [
+      "Objective"
+     ]
+    ]
+   ]
+  },
+  "owns": {
+   "pairs": [
+    [
+     [
+      "Organization"
+     ],
+     [
+      "Application",
+      "Data Entity",
+      "Technology"
+     ]
+    ]
+   ]
+  },
+  "performs": {
+   "pairs": [
+    [
+     [
+      "Role"
+     ],
+     [
+      "Process"
+     ]
+    ]
+   ]
+  },
+  "assigned to": {
+   "pairs": [
+    [
+     [
+      "Actor"
+     ],
+     [
+      "Role"
+     ]
+    ]
+   ]
+  },
+  "uses": {
+   "pairs": [
+    [
+     [
+      "Actor",
+      "Role",
+      "Application"
+     ],
+     [
+      "Application",
+      "Interface"
+     ]
+    ]
+   ]
+  },
+  "exposes": {
+   "pairs": [
+    [
+     [
+      "Application"
+     ],
+     [
+      "Interface"
+     ]
+    ]
+   ]
+  },
+  "consumes": {
+   "pairs": [
+    [
+     [
+      "Application"
+     ],
+     [
+      "Interface"
+     ]
+    ]
+   ]
+  },
+  "reads": {
+   "pairs": [
+    [
+     [
+      "Application"
+     ],
+     [
+      "Data Entity"
+     ]
+    ]
+   ]
+  },
+  "writes": {
+   "pairs": [
+    [
+     [
+      "Application"
+     ],
+     [
+      "Data Entity"
+     ]
+    ]
+   ]
+  },
+  "relates to": {
+   "pairs": [
+    [
+     [
+      "Data Entity"
+     ],
+     [
+      "Data Entity"
+     ]
+    ]
+   ]
+  },
+  "classified as": {
+   "pairs": [
+    [
+     [
+      "Data Entity"
+     ],
+     [
+      "Data Category"
+     ]
+    ]
+   ]
+  },
+  "hosted on": {
+   "pairs": [
+    [
+     [
+      "Application"
+     ],
+     [
+      "Technology"
+     ]
+    ]
+   ]
+  },
+  "located in": {
+   "pairs": [
+    [
+     [
+      "Technology"
+     ],
+     [
+      "Location"
+     ]
+    ]
+   ]
+  },
+  "categorised as": {
+   "pairs": [
+    [
+     [
+      "Application"
+     ],
+     [
+      "Application Category"
+     ]
+    ],
+    [
+     [
+      "Technology"
+     ],
+     [
+      "Technology Category"
+     ]
+    ]
+   ]
+  },
+  "satisfies": {
+   "pairs": [
+    [
+     [
+      "Application",
+      "Technology"
+     ],
+     [
+      "Requirement"
+     ]
+    ]
+   ]
+  },
+  "constrains": {
+   "pairs": [
+    [
+     [
+      "Principle"
+     ],
+     [
+      "Application",
+      "Technology"
+     ]
+    ]
+   ]
+  },
+  "mitigates": {
+   "pairs": [
+    [
+     [
+      "Control"
+     ],
+     [
+      "Risk"
+     ]
+    ]
+   ]
+  },
+  "applies to": {
+   "pairs": [
+    [
+     [
+      "Control"
+     ],
+     [
+      "Application",
+      "Data Entity",
+      "Technology",
+      "Interface"
+     ]
+    ]
+   ]
+  },
+  "threatens": {
+   "pairs": [
+    [
+     [
+      "Risk"
+     ],
+     [
+      "Application",
+      "Data Entity"
+     ]
+    ]
+   ]
+  },
+  "delivers": {
+   "pairs": [
+    [
+     [
+      "Project"
+     ],
+     [
+      "Application",
+      "Technology"
+     ]
+    ]
+   ]
+  },
+  "depends on": {
+   "pairs": [
+    [
+     [
+      "Application",
+      "Technology"
+     ],
+     [
+      "Application",
+      "Technology"
+     ]
+    ]
+   ]
+  },
+  "supported by": {
+   "pairs": [
+    [
+     [
+      "Application"
+     ],
+     [
+      "Organization",
+      "Role"
+     ]
+    ]
+   ]
+  }
+ },
+ "viewpoints": {
+  "Core EA Master Diagram": {
+   "kind": "diagram",
+   "view": "Solution context",
+   "purpose": "Project, key requirements, capabilities, applications, interfaces, data, technology and the top risks and controls, in layered rows.",
+   "types": [
+    "Project",
+    "Requirement",
+    "Capability",
+    "Application",
+    "Interface",
+    "Data Entity",
+    "Technology",
+    "Risk",
+    "Control"
+   ]
+  },
+  "Project Context": {
+   "kind": "diagram",
+   "view": "Project traceability",
+   "purpose": "Project, its requirements (grouped) and the applications and controls that satisfy or realise them; principles that constrain them.",
+   "types": [
+    "Project",
+    "Requirement",
+    "Application",
+    "Technology",
+    "Control",
+    "Principle"
+   ]
+  },
+  "Business Strategy Diagram": {
+   "kind": "diagram",
+   "view": "Business outcome alignment",
+   "purpose": "Drivers to goals to objectives to the capabilities and requirements that serve them.",
+   "types": [
+    "Driver",
+    "Goal",
+    "Objective",
+    "Capability",
+    "Requirement"
+   ]
+  },
+  "Application Landscape Diagram": {
+   "kind": "diagram",
+   "view": "Current landscape",
+   "purpose": "Current applications in their application categories, with the organisations that own them.",
+   "types": [
+    "Application",
+    "Application Category",
+    "Organization"
+   ]
+  },
+  "Capability Diagram": {
+   "kind": "diagram",
+   "view": "Capability alignment",
+   "purpose": "Capabilities nested by parent, the applications that realise them and the processes they support.",
+   "types": [
+    "Capability",
+    "Application",
+    "Process"
+   ]
+  },
+  "Application Context Diagram": {
+   "kind": "diagram",
+   "view": "Target solution context",
+   "purpose": "Subject applications with their parts, actors, interfaces, external applications, technology and location.",
+   "types": [
+    "Application",
+    "Actor",
+    "Role",
+    "Interface",
+    "Technology",
+    "Location",
+    "Organization"
+   ]
+  },
+  "Application Reference Model": {
+   "kind": "diagram",
+   "view": "Application components",
+   "purpose": "Components by application category and the technology they are hosted on.",
+   "types": [
+    "Application",
+    "Application Category",
+    "Technology"
+   ]
+  },
+  "Application Integration Diagram": {
+   "kind": "diagram",
+   "view": "Integration flows",
+   "purpose": "Applications, the interfaces between them, the data they carry and middleware technology.",
+   "types": [
+    "Application",
+    "Interface",
+    "Data Entity",
+    "Technology"
+   ]
+  },
+  "Logical Data Diagram": {
+   "kind": "diagram",
+   "view": "Logical data",
+   "purpose": "Data entities nested in data categories, with their associations.",
+   "types": [
+    "Data Entity",
+    "Data Category"
+   ]
+  },
+  "Infrastructure Diagram": {
+   "kind": "diagram",
+   "view": "Infrastructure",
+   "purpose": "Technology by technology category within locations, and the applications hosted on it.",
+   "types": [
+    "Technology",
+    "Technology Category",
+    "Location",
+    "Application"
+   ]
+  },
+  "Risk Catalogue": {
+   "kind": "diagram",
+   "view": "Control traceability",
+   "purpose": "Risks, the controls that mitigate them, the requirements the controls realise and what they apply to.",
+   "types": [
+    "Risk",
+    "Control",
+    "Requirement",
+    "Application",
+    "Data Entity",
+    "Technology",
+    "Interface"
+   ]
+  },
+  "Organization Diagram": {
+   "kind": "diagram",
+   "view": "Operational support",
+   "purpose": "Organisations, roles and actors and the applications and technology they own or support.",
+   "types": [
+    "Organization",
+    "Role",
+    "Actor",
+    "Application",
+    "Technology",
+    "Data Entity"
+   ]
+  },
+  "CRUD matrix": {
+   "kind": "matrix",
+   "view": "CRUD matrix",
+   "purpose": "Data entities against applications, cells from reads and writes.",
+   "types": [
+    "Data Entity",
+    "Application"
+   ],
+   "rows": "Data Entity",
+   "columns": "Application"
+  }
+ }
+}

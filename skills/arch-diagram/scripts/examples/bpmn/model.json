@@ -1,0 +1,40 @@
+{
+ "metamodel": "bpmn",
+ "name": "Case lodgement",
+ "description": "How a lodged case is registered, triaged, assessed and closed.",
+ "objects": [
+  {"id": "P-CUST", "type": "participant", "name": "Customer"},
+  {"id": "P-SVC", "type": "participant", "name": "Service centre"},
+  {"id": "L-AGENT", "type": "lane", "name": "Service agent", "parent": "P-SVC"},
+  {"id": "L-SYS", "type": "lane", "name": "Case system", "parent": "P-SVC"},
+  {"id": "E-START", "type": "startEvent", "trigger": "message", "name": "Case lodged", "parent": "L-SYS"},
+  {"id": "T-REG", "type": "serviceTask", "name": "Register case", "parent": "L-SYS"},
+  {"id": "G-TRIAGE", "type": "exclusiveGateway", "name": "Lodgement complete?", "parent": "L-SYS"},
+  {"id": "T-REQ", "type": "sendTask", "name": "Request missing information", "parent": "L-AGENT"},
+  {"id": "E-HOLD", "type": "endEvent", "name": "Awaiting information", "parent": "L-AGENT"},
+  {"id": "T-ASSESS", "type": "userTask", "name": "Assess case", "parent": "L-AGENT"},
+  {"id": "B-SLA", "type": "boundaryEvent", "trigger": "timer", "name": "5 days", "attachedTo": "T-ASSESS", "interrupting": false, "timer": "P5D"},
+  {"id": "T-ESC", "type": "userTask", "name": "Escalate to team lead", "parent": "L-AGENT"},
+  {"id": "E-ESC", "type": "endEvent", "name": "Escalated", "parent": "L-AGENT"},
+  {"id": "T-NOTIFY", "type": "sendTask", "name": "Notify outcome", "parent": "L-SYS", "status": "Proposed"},
+  {"id": "E-END", "type": "endEvent", "name": "Case closed", "parent": "L-SYS"},
+  {"id": "D-CASE", "type": "dataObject", "name": "Case record", "parent": "L-SYS"},
+  {"id": "A-TRIAGE", "type": "textAnnotation", "name": "Complete = identity verified and evidence attached", "parent": "L-SYS"}
+ ],
+ "relationships": [
+  {"from": "E-START", "type": "sequenceFlow", "to": "T-REG"},
+  {"from": "T-REG", "type": "sequenceFlow", "to": "G-TRIAGE"},
+  {"from": "G-TRIAGE", "type": "sequenceFlow", "to": "T-ASSESS", "name": "yes"},
+  {"from": "G-TRIAGE", "type": "sequenceFlow", "to": "T-REQ", "name": "no", "default": true},
+  {"from": "T-REQ", "type": "sequenceFlow", "to": "E-HOLD"},
+  {"from": "T-ASSESS", "type": "sequenceFlow", "to": "T-NOTIFY"},
+  {"from": "B-SLA", "type": "sequenceFlow", "to": "T-ESC"},
+  {"from": "T-ESC", "type": "sequenceFlow", "to": "E-ESC"},
+  {"from": "T-NOTIFY", "type": "sequenceFlow", "to": "E-END"},
+  {"from": "P-CUST", "type": "messageFlow", "to": "E-START", "name": "lodgement"},
+  {"from": "T-REQ", "type": "messageFlow", "to": "P-CUST", "name": "information request"},
+  {"from": "T-NOTIFY", "type": "messageFlow", "to": "P-CUST", "name": "outcome"},
+  {"from": "T-REG", "type": "dataOutput", "to": "D-CASE"},
+  {"from": "A-TRIAGE", "type": "association", "to": "G-TRIAGE"}
+ ]
+}

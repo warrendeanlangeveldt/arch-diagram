@@ -34,8 +34,12 @@ Workflow:
    ids in `ref` (FR-04, SEC-RISK-02). Owners are organisations or roles
    from the brief, never invented. Status is honest: Built / Built in
    UAT / Designed / Proposed / Not started / Retired.
-2. `python3 scripts/coreea_lib.py model.json` until it validates.
-3. One generator script per view using `scripts/coreea_lib.py`; every
+2. `python3 scripts/ea.py validate model.json` (or
+   `python3 scripts/coreea_lib.py model.json`) until it validates. A model
+   without a `metamodel` field is read as CoreEA, so 1.x model files work
+   as they are.
+3. One generator script per view using `scripts/coreea_lib.py` (or `ealib`,
+   whose View API is the same and is described in `ea.md`); every
    `edge()` passes `check=[(from, verb, to)]`, so a line that is not in
    the model cannot be drawn.
 4. Render, read the PNG, fix, repeat (SKILL.md step 5).
@@ -154,14 +158,14 @@ view has both. No colour that is not in the legend.
 | Infrastructure | Infrastructure Diagram | Technology by Technology Category, nested in Location; Applications hosted on them | Infrastructure | `deployment`: location frame → category bands |
 | Control traceability | Risk Catalogue | Risks → Controls → Requirements; applies-to targets | Security / risk | three columns left→right |
 | Operational support | Organization Diagram | Organizations, Roles, Actors; Applications/Technology they own or support | Operations / support | `swimlane`: one lane per organisation |
-| CRUD matrix | (catalogue report) | rows Data Entities × columns Applications/Roles, cells C/R/U/D | Data | **a table, not a diagram** — derive from `reads`/`writes` |
+| CRUD matrix | (catalogue report) | rows Data Entities × columns Applications/Roles, cells C/R/U/D | Data | **a table, not a diagram**: `v.matrix(x, y, rows, cols, v.cells_from({"writes": "CU", "reads": "R"}, rows, cols))` |
 
 Name each view `V<n> <View>` and record its CoreEA view type in the
 caption so the office can recreate it in OrbusInfinity.
 
 ## Skeleton — Application Context Diagram
 
-Prefer the helper (`scripts/example/app_context.py` is this diagram).
+Prefer the helper (`scripts/examples/coreea/app_context.py` is this diagram).
 Hand-written SVG must follow the same anatomy:
 
 ```svg
@@ -200,3 +204,15 @@ Hand-written SVG must follow the same anatomy:
 - Wide views (> ~20 nodes): group, or split the view; never shrink fonts
   below the anatomy sizes.
 - A box with no model object behind it is a `frame()`, never a `node()`.
+
+## Into OrbusInfinity
+
+CoreEA is OrbusInfinity's own metamodel, so a tenant's type names should
+match the model's and `ea.py orbus discover` should fill most of the mapping by
+name; anything it leaves empty needs the tenant's type id. The model then
+loads through the Orbus REST API with `plan` and `push`. `exports.md` has the steps. The
+`catalogue_rows()` CSVs remain the route for a spreadsheet import.
+
+Icons: `View.node(..., icon="S3")` and `references/icons.md`, as for the other
+frameworks. `View(..., viewpoint="Application Context Diagram")` warns when a
+view draws a type outside that CoreEA view type.

@@ -1,0 +1,33 @@
+{
+ "view": "V1",
+ "title": "V1 Business Capability to Application",
+ "metamodel": "essential",
+ "viewpoint": "Business Capability to Application",
+ "objects": [
+  "BDM-01",
+  "BCP-01",
+  "BCP-02",
+  "BCP-03",
+  "BCP-04",
+  "ACP-01",
+  "ACP-02",
+  "ASV-01",
+  "ASV-02",
+  "ASV-03",
+  "APR-01",
+  "APR-03"
+ ],
+ "relationships": [
+  "R-ACP-01-supports_capability-BCP-02",
+  "R-ACP-01-supports_capability-BCP-03",
+  "R-ACP-02-supports_capability-BCP-04",
+  "R-ASV-01-realises-ACP-01",
+  "R-ASV-02-realises-ACP-01",
+  "R-ASV-03-realises-ACP-02",
+  "R-APR-01-provides-ASV-01",
+  "R-APR-01-provides-ASV-02",
+  "R-APR-03-provides-ASV-03",
+  "R-APR-01-sends_information_to-APR-03"
+ ],
+ "warnings": []
+}

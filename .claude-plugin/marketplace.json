@@ -1,6 +1,6 @@
 {
   "name": "arch-diagram",
-  "description": "arch-diagram: print-grade architecture diagrams, C4 views and CoreEA viewpoints as inline SVG",
+  "description": "arch-diagram: print-grade architecture diagrams, C4, ArchiMate, TOGAF, Essential, CoreEA and BPMN views as inline SVG",
   "owner": {
     "name": "Warren Langeveldt"
   },
@@ -8,10 +8,19 @@
     {
       "name": "arch-diagram",
       "source": "./",
-      "description": "Print-grade architecture diagrams as hand-laid inline SVG: ten house diagram types, C4 views, and CoreEA enterprise-architecture viewpoints drawn from one validated object model",
-      "version": "1.0.0",
+      "description": "Print-grade architecture diagrams as hand-laid inline SVG: ten house diagram types, C4 views, ArchiMate 3.2, TOGAF, Essential and CoreEA enterprise-architecture views drawn from one validated model, BPMN 2.0 processes, AWS/Azure/Google Cloud icon packs, and exports to EA tools (ArchiMate exchange, BPMN XML, OrbusInfinity import)",
+      "version": "2.0.0",
       "category": "documentation",
-      "tags": ["architecture", "diagrams", "svg", "c4", "coreea"],
+      "tags": [
+        "architecture",
+        "diagrams",
+        "svg",
+        "c4",
+        "archimate",
+        "coreea",
+        "togaf",
+        "bpmn"
+      ],
       "license": "MIT"
     }
   ]
