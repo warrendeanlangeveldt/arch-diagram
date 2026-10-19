@@ -4,18 +4,18 @@
  "metamodel": "archimate",
  "viewpoint": "Layered",
  "objects": [
+  "ACMP-01",
+  "ACMP-CRM",
+  "LOC-01",
+  "NODE-01",
   "BACT-01",
   "BPRC-01",
   "ASVC-01",
-  "ACMP-01",
   "ACMP-02",
   "ACMP-03",
-  "ACMP-CRM",
   "AIF-01",
   "ACMP-NOTIFY",
   "DOBJ-01",
-  "LOC-01",
-  "NODE-01",
   "SSW-01"
  ],
  "relationships": [
@@ -29,5 +29,7 @@
   "R-NODE-01-serving-ACMP-01",
   "R-SSW-01-serving-ACMP-03"
  ],
- "warnings": []
+ "warnings": [
+  "LAYERED: layout: a row is too wide for the page, so ACMP-NOTIFY, DOBJ-01 moved to a row below"
+ ]
 }

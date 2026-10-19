@@ -100,6 +100,11 @@ def load_metamodel(key):
 
 
 def load_model(path):
+    """A model from model.json, or the model a view-language file (.ead)
+    declares or imports."""
+    if str(path).endswith(".ead"):
+        from .dsl import load_document
+        return load_document(path).model
     with open(path) as f:
         return json.load(f)
 

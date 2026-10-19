@@ -1,0 +1,21 @@
+# TOGAF Phase C artifacts for the Service Portal, from model.json.
+#   python3 ../../ea.py render views.ead
+
+model "model.json"
+
+view V1 "V1 Application Communication diagram" {
+  viewpoint "Application Communication diagram"
+  PAC-01 icon=user-browser
+  PAC-02 icon=server
+  frame "External" {
+    PAC-03 icon=saas
+  }
+  PAC-04 icon=notify
+  key "Edge label: what flows between the components"
+}
+
+view V2 "V2 Application/Data matrix" {
+  viewpoint "Application/Data matrix"
+  matrix "operates on" rows DAT-01 DAT-02 DAT-03 cols PAC-01 PAC-02 PAC-03 PAC-04 row_w=200 col_w=126
+  key "C create" "R read" "U update" "D delete" "Cells come from the model's 'operates on' relationships"
+}

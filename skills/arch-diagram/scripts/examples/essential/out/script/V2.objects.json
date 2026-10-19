@@ -1,0 +1,15 @@
+{
+ "view": "V2",
+ "title": "V2 Application to Information CRUD matrix",
+ "metamodel": "essential",
+ "viewpoint": "Application to Information CRUD matrix",
+ "objects": [
+  "IRP-01",
+  "IRP-02",
+  "APR-01",
+  "APR-02",
+  "APR-03"
+ ],
+ "relationships": [],
+ "warnings": []
+}

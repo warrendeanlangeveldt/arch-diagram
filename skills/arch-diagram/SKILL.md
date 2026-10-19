@@ -1,6 +1,6 @@
 ---
 name: arch-diagram
-description: House-style architecture, infrastructure, and process diagrams as print-grade inline SVG, with the official AWS, Azure and Google Cloud icon packs plus generic glyphs for everything else. Use when asked for an architecture, deployment, integration, sequence, data-flow, step, state, swimlane, or phase/timeline diagram — especially anything client-facing or destined for a PDF. Also use for C4 diagrams (system context, container, component, deployment, dynamic); for enterprise-architecture views in ArchiMate 3.2, the TOGAF Content Metamodel (catalogs, matrices, diagrams), the Essential Meta-Model, or CoreEA / OrbusInfinity viewpoints and SAD views (Application Context, Application Integration, Logical Data, Infrastructure, Capability, Business Strategy, Project Context, Risk Catalogue, Organization diagrams, CRUD matrix); for BPMN 2.0 process diagrams; and for exporting a model to EA tools (ArchiMate exchange XML, BPMN XML, CSV catalogues, OrbusInfinity import).
+description: House-style architecture, infrastructure, and process diagrams as print-grade inline SVG, with the official AWS, Azure and Google Cloud icon packs plus generic glyphs for everything else. Use when asked for an architecture, deployment, integration, sequence, data-flow, step, state, swimlane, or phase/timeline diagram — especially anything client-facing or destined for a PDF. Also use for C4 diagrams (system context, container, component, deployment, dynamic); for enterprise-architecture views in ArchiMate 3.2, the TOGAF Content Metamodel (catalogs, matrices, diagrams), the Essential Meta-Model, or CoreEA / OrbusInfinity viewpoints and SAD views (Application Context, Application Integration, Logical Data, Infrastructure, Capability, Business Strategy, Project Context, Risk Catalogue, Organization diagrams, CRUD matrix); for BPMN 2.0 process diagrams; for writing those views as text in a view language that lays itself out (diagrams as code, like Mermaid); and for exporting a model to EA tools (ArchiMate exchange XML, BPMN XML, CSV catalogues, OrbusInfinity import).
 ---
 
 # arch-diagram — print-grade architecture SVG
@@ -49,7 +49,14 @@ request names one or clearly needs one; it then overrides the type table
 | Import into / export for an EA tool: Archi, Sparx, BiZZdesign, ADOIT, OrbusInfinity, Essential, Camunda | exports | `references/exports.md` |
 
 The EA frameworks are model-first: build one `model.json`, validate it with
-`scripts/ea.py validate`, then draw every view from it with `scripts/ealib`.
+`scripts/ea.py validate`, then write the views as a view file (`views.ead`,
+`references/dsl.md`) and draw them with `scripts/ea.py render`, which lays
+them out. Place a view by hand with the `scripts/ealib` View API only as the
+exception: `render` warned about it (`layout:` warnings), the PNG confirms the
+problem, and the hints in `dsl.md` didn't fix it, or the view needs something
+the language can't say. Keep that view in the view file as
+`view ID script="file.py"` so one `render` still draws every view, and tell the
+person which view is placed by hand and why.
 When the person names no framework, SAD views and EA viewpoints stay in
 CoreEA as in 1.x; for anything else, ask when the choice changes the result,
 and say which framework you used. The design system below
@@ -122,7 +129,8 @@ Read `references/icons.md`. In short:
    ```
 
    (Elsewhere use `google-chrome` / `chromium`, or `CHROME_PATH`. EA and
-   BPMN views render themselves: `View.save()` writes the PNG.)
+   BPMN views render themselves: `ea.py render` and `View.save()` write the
+   PNG.)
 
    Read the PNG. Check: no text clipped behind boxes, no arrowhead
    piercing a box, no label crossing a line, frames contain children

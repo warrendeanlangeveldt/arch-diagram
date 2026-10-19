@@ -1,0 +1,29 @@
+# Essential views for the Service Portal, from model.json.
+#   python3 ../../ea.py render views.ead
+
+model "model.json"
+
+view V1 "V1 Business Capability to Application" {
+  viewpoint "Business Capability to Application"
+  BDM-01 {
+    BCP-01 {
+      BCP-02
+      BCP-03
+    }
+    BCP-04
+  }
+  ACP-01
+  ACP-02
+  ASV-01
+  ASV-02
+  ASV-03
+  APR-01 icon=server
+  APR-03 icon=notify
+  key "Box in a box: belongs to (domain) or part of (parent capability)" "Pill: application service"
+}
+
+view V2 "V2 Application to Information CRUD matrix" {
+  viewpoint "Application to Information CRUD matrix"
+  matrix "uses information" rows IRP-01 IRP-02 cols APR-01 APR-02 APR-03 row_w=220 col_w=150
+  key "C create" "R read" "U update" "D delete" "Cells come from APP_PRO_TO_INFOREP_RELATION ('uses information', crud)"
+}

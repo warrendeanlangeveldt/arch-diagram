@@ -138,38 +138,40 @@
     <diagrams>
       <view identifier="v-layered" xsi:type="Diagram" viewpoint="Layered">
         <name xml:lang="en">Service Portal: layered view</name>
-        <node identifier="n-layered-BACT-01" elementRef="BACT-01" xsi:type="Element" x="16" y="16" w="150" h="36"/>
-        <node identifier="n-layered-BPRC-01" elementRef="BPRC-01" xsi:type="Element" x="236" y="16" w="170" h="36"/>
-        <node identifier="n-layered-ASVC-01" elementRef="ASVC-01" xsi:type="Element" x="236" y="88" w="170" h="36"/>
-        <node identifier="n-layered-ACMP-01" elementRef="ACMP-01" xsi:type="Element" x="16" y="164" w="456" h="105">
-          <node identifier="n-layered-ACMP-02" elementRef="ACMP-02" xsi:type="Element" x="32" y="195" w="170" h="58"/>
-          <node identifier="n-layered-ACMP-03" elementRef="ACMP-03" xsi:type="Element" x="286" y="195" w="170" h="58"/>
+        <node identifier="n-layered-ACMP-01" elementRef="ACMP-01" xsi:type="Element" x="58" y="176" w="380" h="81">
+          <node identifier="n-layered-ACMP-02" elementRef="ACMP-02" xsi:type="Element" x="74" y="207" w="150" h="36"/>
+          <node identifier="n-layered-ACMP-03" elementRef="ACMP-03" xsi:type="Element" x="272" y="207" w="150" h="36"/>
         </node>
-        <node identifier="n-layered-ACMP-CRM" elementRef="ACMP-CRM" xsi:type="Element" x="540" y="120" w="184" h="91">
-          <node identifier="n-layered-AIF-01" elementRef="AIF-01" xsi:type="Element" x="550" y="149" w="164" h="40"/>
+        <node identifier="n-layered-ACMP-CRM" elementRef="ACMP-CRM" xsi:type="Element" x="486" y="176" w="195" h="81">
+          <node identifier="n-layered-AIF-01" elementRef="AIF-01" xsi:type="Element" x="502" y="207" w="163" h="36"/>
         </node>
-        <node identifier="n-layered-ACMP-NOTIFY" elementRef="ACMP-NOTIFY" xsi:type="Element" x="540" y="216" w="184" h="46"/>
-        <node identifier="n-layered-DOBJ-01" elementRef="DOBJ-01" xsi:type="Element" x="540" y="309" w="184" h="46"/>
-        <node identifier="n-layered-LOC-01" elementRef="LOC-01" xsi:type="Element" x="16" y="299" w="456" h="139">
-          <node identifier="n-layered-NODE-01" elementRef="NODE-01" xsi:type="Element" x="32" y="332" w="300" h="92">
-            <node identifier="n-layered-SSW-01" elementRef="SSW-01" xsi:type="Element" x="48" y="361" w="160" h="40"/>
+        <node identifier="n-layered-LOC-01" elementRef="LOC-01" xsi:type="Element" x="191" y="389" w="214" h="136">
+          <node identifier="n-layered-NODE-01" elementRef="NODE-01" xsi:type="Element" x="207" y="420" w="182" h="91">
+            <node identifier="n-layered-SSW-01" elementRef="SSW-01" xsi:type="Element" x="223" y="451" w="150" h="46"/>
           </node>
         </node>
+        <node identifier="n-layered-BACT-01" elementRef="BACT-01" xsi:type="Element" x="88" y="16" w="150" h="36"/>
+        <node identifier="n-layered-BPRC-01" elementRef="BPRC-01" xsi:type="Element" x="286" y="16" w="150" h="36"/>
+        <node identifier="n-layered-ASVC-01" elementRef="ASVC-01" xsi:type="Element" x="281" y="96" w="150" h="36"/>
+        <node identifier="n-layered-ACMP-NOTIFY" elementRef="ACMP-NOTIFY" xsi:type="Element" x="174" y="309" w="154" h="36"/>
+        <node identifier="n-layered-DOBJ-01" elementRef="DOBJ-01" xsi:type="Element" x="368" y="309" w="150" h="36"/>
         <connection identifier="c-layered-0" relationshipRef="R-BACT-01-assignment-BPRC-01" xsi:type="Relationship" source="n-layered-BACT-01" target="n-layered-BPRC-01"/>
         <connection identifier="c-layered-1" relationshipRef="R-ASVC-01-serving-BPRC-01" xsi:type="Relationship" source="n-layered-ASVC-01" target="n-layered-BPRC-01"/>
         <connection identifier="c-layered-2" relationshipRef="R-ACMP-03-realization-ASVC-01" xsi:type="Relationship" source="n-layered-ACMP-03" target="n-layered-ASVC-01"/>
         <connection identifier="c-layered-3" relationshipRef="R-ACMP-03-serving-ACMP-02" xsi:type="Relationship" source="n-layered-ACMP-03" target="n-layered-ACMP-02"/>
-        <connection identifier="c-layered-4" relationshipRef="R-AIF-01-serving-ACMP-03" xsi:type="Relationship" source="n-layered-AIF-01" target="n-layered-ACMP-03">
-          <bendpoint x="504" y="169"/>
-          <bendpoint x="504" y="209"/>
-        </connection>
+        <connection identifier="c-layered-4" relationshipRef="R-AIF-01-serving-ACMP-03" xsi:type="Relationship" source="n-layered-AIF-01" target="n-layered-ACMP-03"/>
         <connection identifier="c-layered-5" relationshipRef="R-ACMP-03-flow-ACMP-NOTIFY-case_events" xsi:type="Relationship" source="n-layered-ACMP-03" target="n-layered-ACMP-NOTIFY"/>
-        <connection identifier="c-layered-6" relationshipRef="R-ACMP-03-access-DOBJ-01" xsi:type="Relationship" source="n-layered-ACMP-03" target="n-layered-DOBJ-01">
-          <bendpoint x="411" y="332"/>
+        <connection identifier="c-layered-6" relationshipRef="R-ACMP-03-access-DOBJ-01" xsi:type="Relationship" source="n-layered-ACMP-03" target="n-layered-DOBJ-01"/>
+        <connection identifier="c-layered-7" relationshipRef="R-NODE-01-serving-ACMP-01" xsi:type="Relationship" source="n-layered-NODE-01" target="n-layered-ACMP-01">
+          <bendpoint x="334" y="353"/>
+          <bendpoint x="336" y="353"/>
+          <bendpoint x="336" y="265"/>
+          <bendpoint x="324" y="265"/>
         </connection>
-        <connection identifier="c-layered-7" relationshipRef="R-NODE-01-serving-ACMP-01" xsi:type="Relationship" source="n-layered-NODE-01" target="n-layered-ACMP-01"/>
         <connection identifier="c-layered-8" relationshipRef="R-SSW-01-serving-ACMP-03" xsi:type="Relationship" source="n-layered-SSW-01" target="n-layered-ACMP-03">
-          <bendpoint x="341" y="381"/>
+          <bendpoint x="413" y="474"/>
+          <bendpoint x="413" y="353"/>
+          <bendpoint x="347" y="353"/>
         </connection>
       </view>
     </diagrams>

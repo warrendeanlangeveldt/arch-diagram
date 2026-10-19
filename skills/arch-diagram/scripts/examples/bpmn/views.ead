@@ -1,0 +1,8 @@
+# BPMN collaboration for case lodgement, from model.json.
+#   python3 ../../ea.py render views.ead --export bpmn
+
+model "model.json"
+
+view LODGEMENT "Case lodgement: collaboration" {
+  width 960
+}

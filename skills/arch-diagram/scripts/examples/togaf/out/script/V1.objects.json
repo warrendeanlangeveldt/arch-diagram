@@ -1,0 +1,18 @@
+{
+ "view": "V1",
+ "title": "V1 Application Communication diagram",
+ "metamodel": "togaf",
+ "viewpoint": "Application Communication diagram",
+ "objects": [
+  "PAC-01",
+  "PAC-02",
+  "PAC-03",
+  "PAC-04"
+ ],
+ "relationships": [
+  "R-PAC-01-communicates_with-PAC-02",
+  "R-PAC-02-communicates_with-PAC-03",
+  "R-PAC-02-communicates_with-PAC-04"
+ ],
+ "warnings": []
+}

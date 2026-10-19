@@ -4,6 +4,7 @@ import json
 import os
 import shutil
 import subprocess
+import sys
 from xml.sax.saxutils import escape
 
 SCRIPTS = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -28,6 +29,30 @@ HOUSE = {
     "band": "#f8fafc",     # matrix header, pool label band
     "tag": ("#b4443c", "#fbeeed"),
 }
+
+
+def _hex(rgb):
+    return "#" + "".join(f"{round(max(0, min(1, c)) * 255):02x}" for c in rgb)
+
+
+def shade(stroke, fill, step, of=1):
+    """Shade `step` of a layer's (stroke, fill), so the types of one layer
+    stay in the layer's colour family but read apart. Step 0 is the layer
+    colour itself; positive steps lighten the stroke and deepen the fill,
+    negative steps darken the stroke and keep the fill pale, each with a
+    small turn of the hue. `of` is the largest step in use, which narrows
+    the turn when a layer has many types."""
+    if not step:
+        return stroke, fill
+    import colorsys
+    turn = min(8.0, 24.0 / of) / 360 * step
+    h, l, s = colorsys.rgb_to_hls(*(int(stroke[i:i + 2], 16) / 255 for i in (1, 3, 5)))
+    stroke = _hex(colorsys.hls_to_rgb((h + turn) % 1, min(0.52, max(0.18, l + 0.07 * step)), s))
+    h, l, s = colorsys.rgb_to_hls(*(int(fill[i:i + 2], 16) / 255 for i in (1, 3, 5)))
+    deeper = 0.035 * step if step > 0 else 0.012 * -step
+    fill = _hex(colorsys.hls_to_rgb((h + turn) % 1, min(0.98, max(0.6, l - deeper)),
+                                    min(1, s + (0.12 * step if step > 0 else 0))))
+    return stroke, fill
 
 
 def find_chrome():
@@ -108,6 +133,8 @@ class Canvas:
         self.parts = []
         self.defs = {}
         self.slug = "".join(c for c in vid.lower() if c.isalnum()) or "v"
+        self.warnings = []          # printed by save() and kept in the manifest
+        self.layout_warnings = []   # the automatic layout's share (ealib.layout)
 
     def add(self, s):
         self.parts.append(s)
@@ -154,6 +181,8 @@ class Canvas:
     def save(self, height, outdir, render=True, scale=2):
         """Write <vid>.svg, <vid>.html, <vid>.objects.json (what was drawn,
         for traceability) and, with render, <vid>.png. Returns the paths."""
+        for w in self.warnings:
+            print("warning:", w, file=sys.stderr)
         height = int(round(height))
         self.height = height
         os.makedirs(outdir, exist_ok=True)

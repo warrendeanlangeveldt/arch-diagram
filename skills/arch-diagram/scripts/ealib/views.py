@@ -25,10 +25,9 @@ the view refuses an object that is not in the model and an edge whose
 was drawn.
 """
 import copy
-import sys
 
 from . import archimate_icons
-from .common import HOUSE, NOT_BUILT, Canvas, box, esc, text_width, wrap
+from .common import HOUSE, NOT_BUILT, Canvas, box, esc, shade, text_width, wrap
 from .metamodel import metamodel_of, relationship_id
 
 DASH = {"solid": None, "dashed": "5 3", "dotted": "1.5 2.2", "dashed-long": "7 3"}
@@ -52,14 +51,17 @@ MARKERS = {
 
 
 def make_theme(base=None, **overrides):
-    """Copy of the house theme with overrides. `layers` merges per layer:
-    make_theme(layers={"Application": ("#1d4ed8", "#eff6ff")})."""
+    """Copy of the house theme with overrides. `layers` and `types` merge
+    per key: make_theme(layers={"Application": ("#1d4ed8", "#eff6ff")}),
+    make_theme(types={"Application Interface": ("#1e40af", "#dbeafe")}).
+    type_shades=False draws every type in its plain layer colour."""
     t = copy.deepcopy(base or HOUSE)
-    t.setdefault("layers", {})
-    layers = overrides.pop("layers", None)
+    for key in ("layers", "types"):
+        t.setdefault(key, {})
+        extra = overrides.pop(key, None)
+        if extra:
+            t[key].update(extra)
     t.update(overrides)
-    if layers:
-        t["layers"].update(layers)
     return t
 
 
@@ -84,13 +86,36 @@ class View(Canvas):
         self.drawn, self.types, self.rel_types = [], [], []
         self.placed = {}          # oid -> (box, kind) for exchange-format export
         self.edges = []           # (relationship index, points) for export
-        self.warnings = []
         self.used_dashed = False
+        self.forms = {}           # type -> how it was drawn: box, pill, junction, matrix
         self.marker = self.define("arr", self._marker_svg("arrow-filled"))
+        self.type_colours = self._type_colours()
 
     # ---- lookups
-    def colours(self, otype):
+    def _type_colours(self):
+        """Colour layer, shade type. The types of one layer that the model
+        uses get their own shade of the layer colour, in metamodel order, so
+        every view of the model draws a type the same way."""
+        used = {o["type"] for o in self.model["objects"]}
+        by_layer = {}
+        for t in self.mm.type_order:
+            if t in used:
+                by_layer.setdefault(self.mm.layer(t), []).append(t)
+        out = {}
+        for types in by_layer.values():
+            steps = [(i + 1) // 2 * (1 if i % 2 else -1) for i in range(len(types))]
+            of = max(abs(n) for n in steps) or 1
+            for t, n in zip(types, steps):
+                base = self.layer_colours(t)
+                out[t] = shade(*base, n, of) if self.t.get("type_shades", True) else base
+        out.update({t: tuple(c) for t, c in self.t.get("types", {}).items()})
+        return out
+
+    def layer_colours(self, otype):
         return self.mm.colours(otype, self.t.get("layers"))
+
+    def colours(self, otype):
+        return self.type_colours.get(otype) or self.layer_colours(otype)
 
     def not_built(self, oid):
         return self.obj[oid].get("status") in NOT_BUILT
@@ -114,7 +139,7 @@ class View(Canvas):
     def children(self, oid):
         return [o["id"] for o in self.model["objects"] if o.get("parent") == oid]
 
-    def _mark(self, oid, bx=None, kind="node"):
+    def _mark(self, oid, bx=None, kind="node", form="box"):
         if oid not in self.obj:
             raise KeyError(f"{self.vid}: object {oid} is not in the model")
         if oid not in self.drawn:
@@ -122,6 +147,7 @@ class View(Canvas):
         t = self.obj[oid]["type"]
         if t not in self.types:
             self.types.append(t)
+        self.forms.setdefault(t, set()).add(form)
         if self.vp_types is not None and t not in self.vp_types:
             w = f"{self.vid}: {t} {oid} is outside the {self.viewpoint} viewpoint"
             if w not in self.warnings:
@@ -341,7 +367,7 @@ class View(Canvas):
         o = self.obj.get(oid)
         if o is None or o["type"] not in ("And Junction", "Or Junction"):
             raise ValueError(f"{self.vid}: {oid} is not a junction in the model")
-        self._mark(oid, box(cx - r, cy - r, 2 * r, 2 * r))
+        self._mark(oid, box(cx - r, cy - r, 2 * r, 2 * r), form="junction")
         fill = self.t["body"] if o["type"] == "And Junction" else self.t["paper"]
         self.add(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{r}" fill="{fill}" '
                  f'stroke="{self.t["body"]}" stroke-width="1.2"/>')
@@ -373,7 +399,7 @@ class View(Canvas):
         stroke, _ = self.colours(o["type"])
         w = w or self.pill_width(oid)
         h = self.pill_height(oid, w)
-        self._mark(oid, box(x, y, w, h))
+        self._mark(oid, box(x, y, w, h), form="pill")
         self._rect(x, y, w, h, 11, self.t["paper"], stroke, self.not_built(oid))
         size = 8.5
         if h == self.PILL_H:
@@ -466,7 +492,7 @@ class View(Canvas):
         from relationships so every mark traces to the model. Returns the y
         below it."""
         for oid in list(rows) + list(cols):
-            self._mark(oid)
+            self._mark(oid, form="matrix")
         col_w = col_w or max(44, min(96, (self.W - 16 - x - row_w) / max(1, len(cols))))
         head_lines = max(len(wrap(self.obj[c]["name"], 8.5, col_w - 8, True)) for c in cols)
         hh = 18 + head_lines * 11
@@ -538,8 +564,20 @@ class View(Canvas):
         return out
 
     # ---- legend and key
+    def _pill_only(self, otype):
+        return self.forms.get(otype, set()) - {"matrix"} == {"pill"}
+
+    def _swatch_width(self, otype):
+        return 22 if self.archimate or self._pill_only(otype) else 16
+
     def _legend_swatch(self, x, y, otype):
+        """The type as it is drawn: its shape, shade and (ArchiMate) symbol,
+        or a pill when the view only draws it as one. Returns the width."""
         stroke, fill = self.colours(otype)
+        if self._pill_only(otype):
+            self.add(f'<rect x="{x}" y="{y - 1:.1f}" width="22" height="12" rx="6" '
+                     f'fill="{self.t["paper"]}" stroke="{stroke}" stroke-width="1.2"/>')
+            return 22
         if self.archimate:
             shape = self.mm.types[otype].get("shape")
             if shape == "junction":
@@ -581,38 +619,64 @@ class View(Canvas):
         return 26
 
     def legend(self, y):
-        """Legend: the types drawn (metamodel order), the relationship types
-        drawn (ArchiMate), plus the dashed meaning when used. Returns the y
-        below it."""
+        """Legend: colour by layer, shade and shape by type. Each layer drawn
+        is a heading in its colour followed by its types as they are drawn
+        (metamodel order); then the dashed meaning when used and, for
+        ArchiMate, the relationship types drawn. Types that appear only in a
+        matrix carry no colour and are left out. Returns the y below it."""
         W = self.W
         self.add(f'<line x1="16" y1="{y:.1f}" x2="{W - 16}" y2="{y:.1f}" '
                  f'stroke="{self.t["rule"]}" stroke-width="1"/>')
         y += 12
-        x = 16
-        entries = [("type", t) for t in self.mm.type_order if t in self.types]
-        if self.used_dashed:
-            entries.append(("dashed", "Proposed / designed / not started"))
-        entries += [("rel", r) for r in self.mm.relationships if r in self.rel_types]
         row = 20 if self.archimate else 18
-        for kind, label in entries:
-            text = label
-            sw = 22 if self.archimate else 16
-            if kind == "rel":
-                text = label.capitalize()
-                sw = 26
-            lw = text_width(text, 8.5) + sw + 10
-            if x + lw > W - 16:
+        drawn = [t for t in self.mm.type_order
+                 if t in self.types and self.forms.get(t, set()) - {"matrix"}]
+        groups = []
+        for layer in self.mm.layers:
+            types = [t for t in drawn if self.mm.layer(t) == layer]
+            if types:
+                groups.append((layer, types))
+        x = 16
+
+        def fit(width):
+            nonlocal x, y
+            if x > 16 and x + width > W - 16:
                 x, y = 16, y + row
-            if kind == "type":
-                sw = self._legend_swatch(x, y, label)
-            elif kind == "rel":
-                sw = self._legend_line(x, y, label)
+
+        for layer, types in groups:
+            head = layer.upper()
+            hw = text_width(head, 7.5, True) + len(head) * 0.6
+            widths = [text_width(t, 8.5) + self._swatch_width(t) + 5 for t in types]
+            # keep a layer's heading with its first type, and the whole layer
+            # together when it fits on one row
+            fit(hw + 8 + (sum(widths) + 10 * (len(types) - 1) if
+                          hw + 8 + sum(widths) + 10 * len(types) <= W - 32 else widths[0]))
+            self.text(x, y + 8.5, head, 7.5, self.layer_colours(types[0])[0], weight=700, spacing=0.6)
+            x += hw + 8
+            for t, w in zip(types, widths):
+                fit(w)
+                tw = self._legend_swatch(x, y, t)
+                self.text(x + tw + 5, y + 8.5, t, 8.5, self.t["body"])
+                x += w + 10
+            x += 8
+        rest = []
+        if self.used_dashed:
+            rest.append(("dashed", "Proposed / designed / not started"))
+        rest += [("rel", r) for r in self.mm.relationships if r in self.rel_types]
+        if rest and groups:
+            x, y = 16, y + row
+        for kind, label in rest:
+            text = label.capitalize() if kind == "rel" else label
+            lw = text_width(text, 8.5) + (26 if kind == "rel" else 16) + 5
+            fit(lw)
+            if kind == "rel":
+                w = self._legend_line(x, y, label)
             else:
                 self.add(f'<rect x="{x}" y="{y:.1f}" width="16" height="10" rx="2" '
                          f'fill="{self.t["paper"]}" stroke="{self.t["body"]}" '
                          f'stroke-width="1.2" stroke-dasharray="3 2"/>')
-                sw = 16
-            self.text(x + sw + 5, y + 8.5, text, 8.5, self.t["body"])
+                w = 16
+            self.text(x + w + 5, y + 8.5, text, 8.5, self.t["body"])
             x += lw + 10
         return y + row
 
@@ -634,8 +698,3 @@ class View(Canvas):
                 "viewpoint": self.viewpoint, "objects": self.drawn,
                 "relationships": [relationship_id(self.rels[i]) for i, _ in self.edges],
                 "warnings": self.warnings}
-
-    def save(self, height, outdir, render=True, scale=2):
-        for w in self.warnings:
-            print("warning:", w, file=sys.stderr)
-        return super().save(height, outdir, render, scale)

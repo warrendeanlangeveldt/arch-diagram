@@ -1,0 +1,17 @@
+{
+ "view": "V2",
+ "title": "V2 Application/Data matrix",
+ "metamodel": "togaf",
+ "viewpoint": "Application/Data matrix",
+ "objects": [
+  "DAT-01",
+  "DAT-02",
+  "DAT-03",
+  "PAC-01",
+  "PAC-02",
+  "PAC-03",
+  "PAC-04"
+ ],
+ "relationships": [],
+ "warnings": []
+}

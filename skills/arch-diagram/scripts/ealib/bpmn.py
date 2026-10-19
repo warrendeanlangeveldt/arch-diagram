@@ -441,10 +441,19 @@ class BpmnView(Canvas):
         filled = t in ("endEvent", "intermediateThrowEvent")
         self.add(self._trigger(trig, cx, cy, r, colour, filled))
         if o.get("name") and label:
+            # label: below | above | right | left | below-right | below-left
             lines = wrap(o["name"], 8.5, 104, True)
-            ly = cy + r + 11 if label == "below" else cy - r - 5 - (len(lines) - 1) * 10
+            lx, anchor = cx, "middle"
+            if label in ("right", "left"):
+                ly = cy + 3 - (len(lines) - 1) * 5
+                lx, anchor = (cx + r + 5, "start") if label == "right" else (cx - r - 5, "end")
+            elif label in ("below-right", "below-left"):
+                ly = cy + r + 11
+                lx, anchor = (cx + 5, "start") if label == "below-right" else (cx - 5, "end")
+            else:
+                ly = cy + r + 11 if label == "below" else cy - r - 5 - (len(lines) - 1) * 10
             for ln in lines:
-                self.text(cx, ly, ln, 8.5, self.t["ink"], anchor="middle", weight=600, halo=True)
+                self.text(lx, ly, ln, 8.5, self.t["ink"], anchor=anchor, weight=600, halo=True)
                 ly += 10
         self.shapes[eid] = (box(cx - r, cy - r, 2 * r, 2 * r), {})
         self._kind(f"{t}:{trig}" if trig != "none" else t)
@@ -686,7 +695,8 @@ class BpmnView(Canvas):
 
     def manifest(self):
         return {"view": self.vid, "title": self.title, "metamodel": "bpmn",
-                "objects": list(self.shapes), "relationships": [relationship_id(self.rels[i]) for i, _ in self.edges]}
+                "objects": list(self.shapes), "relationships": [relationship_id(self.rels[i]) for i, _ in self.edges],
+                "warnings": self.warnings}
 
 
 # ------------------------------------------------------------------ XML

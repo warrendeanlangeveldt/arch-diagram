@@ -1,0 +1,15 @@
+id,from,fromName,fromType,relationship,class,to,toName,toType,name,note,crud,access
+R-BACT-01-assignment-BPRC-01,BACT-01,Customer,Business Actor,assignment,Assignment,BPRC-01,Lodge a case,Business Process,,,,
+R-ASVC-01-serving-BPRC-01,ASVC-01,Case management,Application Service,serving,Serving,BPRC-01,Lodge a case,Business Process,,,,
+R-ACMP-03-realization-ASVC-01,ACMP-03,Case service,Application Component,realization,Realization,ASVC-01,Case management,Application Service,,,,
+R-ACMP-01-composition-ACMP-02,ACMP-01,Service Portal,Application Component,composition,Composition,ACMP-02,Portal web app,Application Component,,,,
+R-ACMP-01-composition-ACMP-03,ACMP-01,Service Portal,Application Component,composition,Composition,ACMP-03,Case service,Application Component,,,,
+R-ACMP-03-serving-ACMP-02,ACMP-03,Case service,Application Component,serving,Serving,ACMP-02,Portal web app,Application Component,,,,
+R-ACMP-CRM-composition-AIF-01,ACMP-CRM,CRM,Application Component,composition,Composition,AIF-01,Customer lookup API,Application Interface,,,,
+R-AIF-01-serving-ACMP-03,AIF-01,Customer lookup API,Application Interface,serving,Serving,ACMP-03,Case service,Application Component,,,,
+R-ACMP-03-flow-ACMP-NOTIFY-case_events,ACMP-03,Case service,Application Component,flow,Flow,ACMP-NOTIFY,Notification service,Application Component,case events,,,
+R-ACMP-03-access-DOBJ-01,ACMP-03,Case service,Application Component,access,Access,DOBJ-01,Case,Data Object,,,,write
+R-NODE-01-serving-ACMP-01,NODE-01,Container platform,Node,serving,Serving,ACMP-01,Service Portal,Application Component,,,,
+R-NODE-01-composition-SSW-01,NODE-01,Container platform,Node,composition,Composition,SSW-01,PostgreSQL,System Software,,,,
+R-SSW-01-serving-ACMP-03,SSW-01,PostgreSQL,System Software,serving,Serving,ACMP-03,Case service,Application Component,,,,
+R-LOC-01-aggregation-NODE-01,LOC-01,Cloud region (primary),Location,aggregation,Aggregation,NODE-01,Container platform,Node,,,,

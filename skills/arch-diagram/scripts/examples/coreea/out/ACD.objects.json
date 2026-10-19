@@ -1,13 +1,31 @@
-[
- "ACT-01",
- "ACT-02",
- "APP-01",
- "APP-02",
- "APP-03",
- "INT-01",
- "APP-CRM",
- "INT-02",
- "APP-NOTIFY",
- "TEC-01",
- "LOC-01"
-]
+{
+ "view": "ACD",
+ "title": "Service Portal: application context",
+ "metamodel": "coreea",
+ "viewpoint": null,
+ "objects": [
+  "APP-01",
+  "APP-CRM",
+  "ACT-01",
+  "ACT-02",
+  "APP-02",
+  "APP-03",
+  "INT-02",
+  "APP-NOTIFY",
+  "TEC-01",
+  "LOC-01",
+  "INT-01"
+ ],
+ "relationships": [
+  "R-ACT-01-uses-APP-02",
+  "R-ACT-02-uses-APP-02",
+  "R-APP-02-uses-INT-01",
+  "R-APP-03-consumes-INT-02",
+  "R-APP-01-depends_on-APP-NOTIFY",
+  "R-APP-01-hosted_on-TEC-01",
+  "R-TEC-01-located_in-LOC-01"
+ ],
+ "warnings": [
+  "ACD: layout: lines ACT-02 -[uses]-> APP-02 and APP-02 -[uses]-> INT-01 cross"
+ ]
+}
