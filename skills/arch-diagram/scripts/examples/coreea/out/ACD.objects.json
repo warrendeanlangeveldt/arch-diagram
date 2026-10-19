@@ -25,7 +25,5 @@
   "R-APP-01-hosted_on-TEC-01",
   "R-TEC-01-located_in-LOC-01"
  ],
- "warnings": [
-  "ACD: layout: lines ACT-02 -[uses]-> APP-02 and APP-02 -[uses]-> INT-01 cross"
- ]
+ "warnings": []
 }

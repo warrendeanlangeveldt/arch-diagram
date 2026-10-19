@@ -95,11 +95,12 @@ class Router:
 
         return fill(xs, 4, self.W - 4), fill(ys, 4, self.H - 4)
 
-    def route(self, sbox, tbox, obstacles, skind="box", tkind="box", soft=()):
+    def route(self, sbox, tbox, obstacles, skind="box", tkind="box", soft=(), forbid=()):
         """Points from sbox's border to tbox's border avoiding `obstacles`
         (rects); sbox and tbox are avoided too, apart from their ports.
         `soft` rects (the containers the line has to leave or enter) may be
-        crossed but not run along."""
+        crossed but not run along. Ports at the points in `forbid` aren't
+        used."""
         obs = [o for o in obstacles] + [sbox, tbox]
         sp = [p for p in _ports(sbox, skind)]
         tp = [p for p in _ports(tbox, tkind)]
@@ -130,6 +131,9 @@ class Router:
                 elif ty + th <= sy:
                     sp.append((m, sy, 0, -1, 0))
                     tp.append((m, ty + th, 0, 1, 0))
+        if forbid:
+            sp = [p for p in sp if (p[0], p[1]) not in forbid]
+            tp = [p for p in tp if (p[0], p[1]) not in forbid]
         stub = lambda p: (round(p[0] + p[2] * CLEAR, 1), round(p[1] + p[3] * CLEAR, 1))  # noqa: E731
         extra = [stub(p) for p in sp + tp] + [(p[0], p[1]) for p in sp + tp]
         xs, ys = self._lines(self.boxes + obs, extra)
@@ -309,15 +313,19 @@ def _crossings(p, q):
 
 def route_all(router, jobs):
     """Route `jobs` [(key, sbox, tbox, obstacles, skind, tkind, soft)] in
-    order, then untangle: two lines that share a box and cross are routed
-    again in the other order, and kept if that crosses less. Returns
-    ({key: points}, [keys the grid found no route for, drawn as a plain
-    elbow])."""
+    order, then untangle two lines that share a box and cross. Routing one
+    line at a time, the first takes the port that suits it and can leave the
+    second only a port it has to cross to reach, whichever goes first. So
+    the pair is routed again three ways: in the other order, and with each
+    line in turn kept off the port it used on the shared box (it goes
+    first, the other line routes around it). The way that crosses least is
+    kept, if it crosses less than before. Returns ({key: points}, [keys the
+    grid found no route for, drawn as a plain elbow])."""
     out, prints = {}, {}
 
-    def one(job):
+    def one(job, forbid=()):
         key, sbox, tbox, obstacles, sk, tk, soft = job
-        pts = router.route(sbox, tbox, obstacles, sk, tk, soft)
+        pts = router.route(sbox, tbox, obstacles, sk, tk, soft, forbid)
         if pts is None:
             return _fallback(sbox, tbox), None
         return pts, router.last
@@ -338,26 +346,56 @@ def route_all(router, jobs):
                 share = {tuple(ja[1]), tuple(ja[2])} & {tuple(jb[1]), tuple(jb[2])}
                 if not share or not _crossings(out[a], out[b]):
                     continue
-                before = total(keys)
+                before = total(keys) + len(keys) * sum(prints[k] is None for k in keys)
                 saved = {k: (out[k], prints[k]) for k in (a, b)}
-                for k in (a, b):
-                    if prints[k]:
-                        router.occupy(prints[k], -1)
-                out[b], prints[b] = one(jb)
-                out[a], prints[a] = one(ja)
-                if total(keys) < before:
-                    changed = True
+                shared = [r for r in share]
+                tries = [((b, ()), (a, ()))]
+                for first, second in ((a, b), (b, a)):
+                    used = _ports_on(prints[first], shared)
+                    if used:
+                        tries.append(((first, used), (second, ())))
+                best = None
+                for attempt in tries:
+                    for k in (a, b):
+                        if prints[k]:
+                            router.occupy(prints[k], -1)
+                    for k, forbid in attempt:
+                        out[k], prints[k] = one(byk[k], forbid)
+                    score = total(keys) + len(keys) * sum(prints[k] is None for k in keys)
+                    if score < before and (best is None or score < best[0]):
+                        best = (score, {k: (out[k], prints[k]) for k in (a, b)})
+                    for k in (a, b):
+                        if prints[k]:
+                            router.occupy(prints[k], -1)
+                    for k in (a, b):
+                        out[k], prints[k] = saved[k]
+                        if prints[k]:
+                            router.occupy(prints[k], 1)
+                if best is None:
                     continue
                 for k in (a, b):
                     if prints[k]:
                         router.occupy(prints[k], -1)
                 for k in (a, b):
-                    out[k], prints[k] = saved[k]
+                    out[k], prints[k] = best[1][k]
                     if prints[k]:
                         router.occupy(prints[k], 1)
+                changed = True
         if not changed:
             break
     return out, [k for k in keys if prints[k] is None]
+
+
+def _ports_on(footprint, rects):
+    """The ports of a routed line (its footprint) that sit on one of `rects`."""
+    if not footprint:
+        return ()
+    out = []
+    for px, py in footprint[1]:
+        for x, y, w, h in rects:
+            if x - EPS <= px <= x + w + EPS and y - EPS <= py <= y + h + EPS:
+                out.append((px, py))
+    return tuple(out)
 
 
 def crossing_pairs(lines):
