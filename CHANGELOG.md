@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## 2.1.0 — 2026-10-19
+
+Views can be written as text and laid out automatically, with warnings when the layout isn't clean and hand placement for the views that need it. Colour now separates types within a layer.
 
 ### Added
 
@@ -19,6 +21,7 @@
 
 - The legend draws a type as a pill when the view only draws it as one; it showed a filled box in the layer colour before.
 - Types that appear only in a matrix are no longer in the legend, since the matrix doesn't colour them.
+- Two lines meeting the same box no longer cross just because each took its own cheapest port: the router also tries each line with its port on that box ruled out, and keeps the routing that crosses least. The CoreEA example's Service agent line no longer crosses the line to the Case API.
 
 ## 2.0.0 — 2026-10-19
 

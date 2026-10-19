@@ -8,8 +8,8 @@
     {
       "name": "arch-diagram",
       "source": "./",
-      "description": "Print-grade architecture diagrams as hand-laid inline SVG: ten house diagram types, C4 views, ArchiMate 3.2, TOGAF, Essential and CoreEA enterprise-architecture views drawn from one validated model, BPMN 2.0 processes, AWS/Azure/Google Cloud icon packs, and exports to EA tools (ArchiMate exchange, BPMN XML, OrbusInfinity import)",
-      "version": "2.0.0",
+      "description": "Print-grade architecture diagrams as hand-laid inline SVG: ten house diagram types, C4 views, ArchiMate 3.2, TOGAF, Essential and CoreEA enterprise-architecture views drawn from one validated model, BPMN 2.0 processes, a view language that lays EA and BPMN views out from text (diagrams as code, like Mermaid), AWS/Azure/Google Cloud icon packs, and exports to EA tools (ArchiMate exchange, BPMN XML, OrbusInfinity import)",
+      "version": "2.1.0",
       "category": "documentation",
       "tags": [
         "architecture",

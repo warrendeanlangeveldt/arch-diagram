@@ -122,9 +122,10 @@ The layout comes from the model, and most views need no hints:
   box when they fit, otherwise on the next row.
 - Lines are orthogonal, keep 8px clear of every box they don't belong to,
   cross container edges but never run along them, and avoid the text in
-  container headers. Two lines that cross are routed again in the other order
-  when that removes the crossing. Labels go where they touch no box, label or
-  other line.
+  container headers. Two lines that meet the same box and cross are routed
+  again, in the other order and with each kept off the port it took on that
+  box, and the way that crosses least is kept. Labels go where they touch no
+  box, label or other line.
 
 When the result isn't what the view needs:
 
@@ -144,7 +145,7 @@ cleanly, and say what's wrong:
 
 ```
 warning: LAYERED: layout: a row is too wide for the page, so ACMP-NOTIFY, DOBJ-01 moved to a row below
-warning: ACD: layout: lines ACT-02 -[uses]-> APP-02 and APP-02 -[uses]-> INT-01 cross
+warning: LODGEMENT: layout: flows T-ASSESS -[sequenceFlow]-> T-NOTIFY and B-SLA -[sequenceFlow]-> T-ESC cross
 ```
 
 The warnings cover a row wrapped onto the next one, a view wider than the

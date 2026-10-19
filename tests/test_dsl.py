@@ -529,10 +529,14 @@ class LayoutWarnings(unittest.TestCase):
         self.assertTrue(any("wider than the 740px page" in w for w in v.layout_warnings), v.layout_warnings)
 
     def test_clean_layout_has_no_warnings(self):
-        d = doc_of("essential")
-        for spec in d.views:
-            v, _ = draw(d.model, spec)
-            self.assertEqual(v.layout_warnings, [], spec.vid)
+        # coreea: the actor lines and the line to the Case API pill all meet
+        # the Portal web app, and only cross when each takes its own
+        # cheapest port; the untangle pass moves them apart
+        for name in ("essential", "coreea"):
+            d = doc_of(name)
+            for spec in d.views:
+                v, _ = draw(d.model, spec)
+                self.assertEqual(v.layout_warnings, [], f"{name} {spec.vid}")
 
     def test_crossings_and_label_spots(self):
         from ealib.layout import crossing_pairs, place_label
