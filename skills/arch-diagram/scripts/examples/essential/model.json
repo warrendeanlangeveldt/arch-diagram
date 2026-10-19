@@ -1,0 +1,42 @@
+{
+ "metamodel": "essential",
+ "name": "Service Portal",
+ "description": "Customer case management in Essential meta-model terms.",
+ "objects": [
+  {"id": "BDM-01", "type": "Business Domain", "name": "Customer Service"},
+  {"id": "BCP-01", "type": "Business Capability", "name": "Case Management"},
+  {"id": "BCP-02", "type": "Business Capability", "name": "Case Intake", "parent": "BCP-01"},
+  {"id": "BCP-03", "type": "Business Capability", "name": "Case Assessment", "parent": "BCP-01"},
+  {"id": "BCP-04", "type": "Business Capability", "name": "Customer Communication"},
+  {"id": "ACP-01", "type": "Application Capability", "name": "Case Handling"},
+  {"id": "ACP-02", "type": "Application Capability", "name": "Customer Messaging"},
+  {"id": "ASV-01", "type": "Application Service", "name": "Case registration"},
+  {"id": "ASV-02", "type": "Application Service", "name": "Assessment workflow"},
+  {"id": "ASV-03", "type": "Application Service", "name": "Outbound notifications"},
+  {"id": "APR-01", "type": "Application Provider", "name": "Service Portal", "status": "Built"},
+  {"id": "APR-02", "type": "Application Provider", "name": "CRM", "status": "Built"},
+  {"id": "APR-03", "type": "Application Provider", "name": "Notification service", "status": "Proposed"},
+  {"id": "IRP-01", "type": "Information Representation", "name": "Case record"},
+  {"id": "IRP-02", "type": "Information Representation", "name": "Customer profile"},
+  {"id": "TPR-01", "type": "Technology Product", "name": "PostgreSQL 16"}
+ ],
+ "relationships": [
+  {"from": "BCP-01", "type": "belongs to", "to": "BDM-01"},
+  {"from": "BCP-04", "type": "belongs to", "to": "BDM-01"},
+  {"from": "ACP-01", "type": "supports capability", "to": "BCP-02"},
+  {"from": "ACP-01", "type": "supports capability", "to": "BCP-03"},
+  {"from": "ACP-02", "type": "supports capability", "to": "BCP-04"},
+  {"from": "ASV-01", "type": "realises", "to": "ACP-01"},
+  {"from": "ASV-02", "type": "realises", "to": "ACP-01"},
+  {"from": "ASV-03", "type": "realises", "to": "ACP-02"},
+  {"from": "APR-01", "type": "provides", "to": "ASV-01"},
+  {"from": "APR-01", "type": "provides", "to": "ASV-02"},
+  {"from": "APR-03", "type": "provides", "to": "ASV-03"},
+  {"from": "APR-01", "type": "sends information to", "to": "APR-03", "note": "case events"},
+  {"from": "APR-01", "type": "uses information", "to": "IRP-01", "crud": "CRU"},
+  {"from": "APR-01", "type": "uses information", "to": "IRP-02", "crud": "R"},
+  {"from": "APR-02", "type": "uses information", "to": "IRP-02", "crud": "CRUD"},
+  {"from": "APR-03", "type": "uses information", "to": "IRP-01", "crud": "R"},
+  {"from": "APR-01", "type": "runs on", "to": "TPR-01"}
+ ]
+}

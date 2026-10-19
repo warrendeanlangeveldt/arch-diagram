@@ -1,0 +1,40 @@
+{
+ "view": "LODGEMENT",
+ "title": "Case lodgement: collaboration",
+ "metamodel": "bpmn",
+ "objects": [
+  "P-CUST",
+  "P-SVC",
+  "L-AGENT",
+  "L-SYS",
+  "E-START",
+  "T-REG",
+  "G-TRIAGE",
+  "T-REQ",
+  "E-HOLD",
+  "T-ASSESS",
+  "B-SLA",
+  "T-ESC",
+  "E-ESC",
+  "T-NOTIFY",
+  "E-END",
+  "D-CASE",
+  "A-TRIAGE"
+ ],
+ "relationships": [
+  "R-E-START-sequenceFlow-T-REG",
+  "R-T-REG-sequenceFlow-G-TRIAGE",
+  "R-G-TRIAGE-sequenceFlow-T-REQ-no",
+  "R-T-REQ-sequenceFlow-E-HOLD",
+  "R-G-TRIAGE-sequenceFlow-T-ASSESS-yes",
+  "R-B-SLA-sequenceFlow-T-ESC",
+  "R-T-ESC-sequenceFlow-E-ESC",
+  "R-T-ASSESS-sequenceFlow-T-NOTIFY",
+  "R-T-NOTIFY-sequenceFlow-E-END",
+  "R-T-REG-dataOutput-D-CASE",
+  "R-A-TRIAGE-association-G-TRIAGE",
+  "R-P-CUST-messageFlow-E-START-lodgement",
+  "R-T-REQ-messageFlow-P-CUST-information_request",
+  "R-T-NOTIFY-messageFlow-P-CUST-outcome"
+ ]
+}

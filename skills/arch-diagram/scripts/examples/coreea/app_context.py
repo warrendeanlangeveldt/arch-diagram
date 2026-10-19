@@ -6,7 +6,7 @@ import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.dirname(HERE))
+sys.path.insert(0, os.path.dirname(os.path.dirname(HERE)))
 from coreea_lib import load_model, validate, View  # noqa: E402
 
 model = load_model(os.path.join(HERE, "model.json"))

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model xmlns="http://www.opengroup.org/xsd/archimate/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengroup.org/xsd/archimate/3.0/ http://www.opengroup.org/xsd/archimate/3.1/archimate3_Diagram.xsd" identifier="id-service-portal">
+  <name xml:lang="en">Service Portal</name>
+  <documentation xml:lang="en">Customer case lodgement: the portal, its case service and the platform it runs on.</documentation>
+  <elements>
+    <element identifier="BACT-01" xsi:type="BusinessActor">
+      <name xml:lang="en">Customer</name>
+    </element>
+    <element identifier="BPRC-01" xsi:type="BusinessProcess">
+      <name xml:lang="en">Lodge a case</name>
+      <properties>
+        <property propertyDefinitionRef="pd-ref">
+          <value xml:lang="en">FR-04</value>
+        </property>
+      </properties>
+    </element>
+    <element identifier="ASVC-01" xsi:type="ApplicationService">
+      <name xml:lang="en">Case management</name>
+      <properties>
+        <property propertyDefinitionRef="pd-status">
+          <value xml:lang="en">Built</value>
+        </property>
+      </properties>
+    </element>
+    <element identifier="ACMP-01" xsi:type="ApplicationComponent">
+      <name xml:lang="en">Service Portal</name>
+      <properties>
+        <property propertyDefinitionRef="pd-status">
+          <value xml:lang="en">Built</value>
+        </property>
+        <property propertyDefinitionRef="pd-owner">
+          <value xml:lang="en">Customer Service</value>
+        </property>
+      </properties>
+    </element>
+    <element identifier="ACMP-02" xsi:type="ApplicationComponent">
+      <name xml:lang="en">Portal web app</name>
+      <properties>
+        <property propertyDefinitionRef="pd-status">
+          <value xml:lang="en">Built</value>
+        </property>
+      </properties>
+    </element>
+    <element identifier="ACMP-03" xsi:type="ApplicationComponent">
+      <name xml:lang="en">Case service</name>
+      <properties>
+        <property propertyDefinitionRef="pd-status">
+          <value xml:lang="en">Built</value>
+        </property>
+      </properties>
+    </element>
+    <element identifier="ACMP-CRM" xsi:type="ApplicationComponent">
+      <name xml:lang="en">CRM</name>
+      <documentation xml:lang="en">Defined in the CRM solution architecture.</documentation>
+      <properties>
+        <property propertyDefinitionRef="pd-status">
+          <value xml:lang="en">Built</value>
+        </property>
+      </properties>
+    </element>
+    <element identifier="AIF-01" xsi:type="ApplicationInterface">
+      <name xml:lang="en">Customer lookup API</name>
+      <properties>
+        <property propertyDefinitionRef="pd-status">
+          <value xml:lang="en">Built</value>
+        </property>
+      </properties>
+    </element>
+    <element identifier="ACMP-NOTIFY" xsi:type="ApplicationComponent">
+      <name xml:lang="en">Notification service</name>
+      <properties>
+        <property propertyDefinitionRef="pd-status">
+          <value xml:lang="en">Proposed</value>
+        </property>
+      </properties>
+    </element>
+    <element identifier="DOBJ-01" xsi:type="DataObject">
+      <name xml:lang="en">Case</name>
+      <properties>
+        <property propertyDefinitionRef="pd-classification">
+          <value xml:lang="en">Confidential</value>
+        </property>
+      </properties>
+    </element>
+    <element identifier="NODE-01" xsi:type="Node">
+      <name xml:lang="en">Container platform</name>
+      <properties>
+        <property propertyDefinitionRef="pd-status">
+          <value xml:lang="en">Built</value>
+        </property>
+      </properties>
+    </element>
+    <element identifier="SSW-01" xsi:type="SystemSoftware">
+      <name xml:lang="en">PostgreSQL</name>
+      <properties>
+        <property propertyDefinitionRef="pd-status">
+          <value xml:lang="en">Built</value>
+        </property>
+      </properties>
+    </element>
+    <element identifier="LOC-01" xsi:type="Location">
+      <name xml:lang="en">Cloud region (primary)</name>
+    </element>
+  </elements>
+  <relationships>
+    <relationship identifier="R-BACT-01-assignment-BPRC-01" source="BACT-01" target="BPRC-01" xsi:type="Assignment"/>
+    <relationship identifier="R-ASVC-01-serving-BPRC-01" source="ASVC-01" target="BPRC-01" xsi:type="Serving"/>
+    <relationship identifier="R-ACMP-03-realization-ASVC-01" source="ACMP-03" target="ASVC-01" xsi:type="Realization"/>
+    <relationship identifier="R-ACMP-01-composition-ACMP-02" source="ACMP-01" target="ACMP-02" xsi:type="Composition"/>
+    <relationship identifier="R-ACMP-01-composition-ACMP-03" source="ACMP-01" target="ACMP-03" xsi:type="Composition"/>
+    <relationship identifier="R-ACMP-03-serving-ACMP-02" source="ACMP-03" target="ACMP-02" xsi:type="Serving"/>
+    <relationship identifier="R-ACMP-CRM-composition-AIF-01" source="ACMP-CRM" target="AIF-01" xsi:type="Composition"/>
+    <relationship identifier="R-AIF-01-serving-ACMP-03" source="AIF-01" target="ACMP-03" xsi:type="Serving"/>
+    <relationship identifier="R-ACMP-03-flow-ACMP-NOTIFY-case_events" source="ACMP-03" target="ACMP-NOTIFY" xsi:type="Flow">
+      <name xml:lang="en">case events</name>
+    </relationship>
+    <relationship identifier="R-ACMP-03-access-DOBJ-01" source="ACMP-03" target="DOBJ-01" xsi:type="Access" accessType="Write"/>
+    <relationship identifier="R-NODE-01-serving-ACMP-01" source="NODE-01" target="ACMP-01" xsi:type="Serving"/>
+    <relationship identifier="R-NODE-01-composition-SSW-01" source="NODE-01" target="SSW-01" xsi:type="Composition"/>
+    <relationship identifier="R-SSW-01-serving-ACMP-03" source="SSW-01" target="ACMP-03" xsi:type="Serving"/>
+    <relationship identifier="R-LOC-01-aggregation-NODE-01" source="LOC-01" target="NODE-01" xsi:type="Aggregation"/>
+  </relationships>
+  <propertyDefinitions>
+    <propertyDefinition identifier="pd-status" type="string">
+      <name xml:lang="en">Status</name>
+    </propertyDefinition>
+    <propertyDefinition identifier="pd-owner" type="string">
+      <name xml:lang="en">Owner</name>
+    </propertyDefinition>
+    <propertyDefinition identifier="pd-ref" type="string">
+      <name xml:lang="en">Source reference</name>
+    </propertyDefinition>
+    <propertyDefinition identifier="pd-classification" type="string">
+      <name xml:lang="en">classification</name>
+    </propertyDefinition>
+  </propertyDefinitions>
+  <views>
+    <diagrams>
+      <view identifier="v-layered" xsi:type="Diagram" viewpoint="Layered">
+        <name xml:lang="en">Service Portal: layered view</name>
+        <node identifier="n-layered-BACT-01" elementRef="BACT-01" xsi:type="Element" x="16" y="16" w="150" h="36"/>
+        <node identifier="n-layered-BPRC-01" elementRef="BPRC-01" xsi:type="Element" x="236" y="16" w="170" h="36"/>
+        <node identifier="n-layered-ASVC-01" elementRef="ASVC-01" xsi:type="Element" x="236" y="88" w="170" h="36"/>
+        <node identifier="n-layered-ACMP-01" elementRef="ACMP-01" xsi:type="Element" x="16" y="164" w="456" h="105">
+          <node identifier="n-layered-ACMP-02" elementRef="ACMP-02" xsi:type="Element" x="32" y="195" w="170" h="58"/>
+          <node identifier="n-layered-ACMP-03" elementRef="ACMP-03" xsi:type="Element" x="286" y="195" w="170" h="58"/>
+        </node>
+        <node identifier="n-layered-ACMP-CRM" elementRef="ACMP-CRM" xsi:type="Element" x="540" y="120" w="184" h="91">
+          <node identifier="n-layered-AIF-01" elementRef="AIF-01" xsi:type="Element" x="550" y="149" w="164" h="40"/>
+        </node>
+        <node identifier="n-layered-ACMP-NOTIFY" elementRef="ACMP-NOTIFY" xsi:type="Element" x="540" y="216" w="184" h="46"/>
+        <node identifier="n-layered-DOBJ-01" elementRef="DOBJ-01" xsi:type="Element" x="540" y="309" w="184" h="46"/>
+        <node identifier="n-layered-LOC-01" elementRef="LOC-01" xsi:type="Element" x="16" y="299" w="456" h="139">
+          <node identifier="n-layered-NODE-01" elementRef="NODE-01" xsi:type="Element" x="32" y="332" w="300" h="92">
+            <node identifier="n-layered-SSW-01" elementRef="SSW-01" xsi:type="Element" x="48" y="361" w="160" h="40"/>
+          </node>
+        </node>
+        <connection identifier="c-layered-0" relationshipRef="R-BACT-01-assignment-BPRC-01" xsi:type="Relationship" source="n-layered-BACT-01" target="n-layered-BPRC-01"/>
+        <connection identifier="c-layered-1" relationshipRef="R-ASVC-01-serving-BPRC-01" xsi:type="Relationship" source="n-layered-ASVC-01" target="n-layered-BPRC-01"/>
+        <connection identifier="c-layered-2" relationshipRef="R-ACMP-03-realization-ASVC-01" xsi:type="Relationship" source="n-layered-ACMP-03" target="n-layered-ASVC-01"/>
+        <connection identifier="c-layered-3" relationshipRef="R-ACMP-03-serving-ACMP-02" xsi:type="Relationship" source="n-layered-ACMP-03" target="n-layered-ACMP-02"/>
+        <connection identifier="c-layered-4" relationshipRef="R-AIF-01-serving-ACMP-03" xsi:type="Relationship" source="n-layered-AIF-01" target="n-layered-ACMP-03">
+          <bendpoint x="504" y="169"/>
+          <bendpoint x="504" y="209"/>
+        </connection>
+        <connection identifier="c-layered-5" relationshipRef="R-ACMP-03-flow-ACMP-NOTIFY-case_events" xsi:type="Relationship" source="n-layered-ACMP-03" target="n-layered-ACMP-NOTIFY"/>
+        <connection identifier="c-layered-6" relationshipRef="R-ACMP-03-access-DOBJ-01" xsi:type="Relationship" source="n-layered-ACMP-03" target="n-layered-DOBJ-01">
+          <bendpoint x="411" y="332"/>
+        </connection>
+        <connection identifier="c-layered-7" relationshipRef="R-NODE-01-serving-ACMP-01" xsi:type="Relationship" source="n-layered-NODE-01" target="n-layered-ACMP-01"/>
+        <connection identifier="c-layered-8" relationshipRef="R-SSW-01-serving-ACMP-03" xsi:type="Relationship" source="n-layered-SSW-01" target="n-layered-ACMP-03">
+          <bendpoint x="341" y="381"/>
+        </connection>
+      </view>
+    </diagrams>
+  </views>
+</model>

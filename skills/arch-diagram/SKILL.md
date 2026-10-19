@@ -1,6 +1,6 @@
 ---
 name: arch-diagram
-description: House-style architecture, infrastructure, and process diagrams as print-grade inline SVG, with a vendor-agnostic icon library (AWS/Azure/GCP components map to concept glyphs). Use when asked for an architecture, deployment, integration, sequence, data-flow, step, state, swimlane, or phase/timeline diagram — especially anything client-facing or destined for a PDF. Also use for C4 diagrams (system context, container, component, deployment, dynamic) and for CoreEA / OrbusInfinity enterprise-architecture viewpoints and SAD views (Application Context, Application Integration, Logical Data, Infrastructure, Capability, Business Strategy, Project Context, Risk Catalogue, Organization diagrams, CRUD matrix).
+description: House-style architecture, infrastructure, and process diagrams as print-grade inline SVG, with the official AWS, Azure and Google Cloud icon packs plus generic glyphs for everything else. Use when asked for an architecture, deployment, integration, sequence, data-flow, step, state, swimlane, or phase/timeline diagram — especially anything client-facing or destined for a PDF. Also use for C4 diagrams (system context, container, component, deployment, dynamic); for enterprise-architecture views in ArchiMate 3.2, the TOGAF Content Metamodel (catalogs, matrices, diagrams), the Essential Meta-Model, or CoreEA / OrbusInfinity viewpoints and SAD views (Application Context, Application Integration, Logical Data, Infrastructure, Capability, Business Strategy, Project Context, Risk Catalogue, Organization diagrams, CRUD matrix); for BPMN 2.0 process diagrams; and for exporting a model to EA tools (ArchiMate exchange XML, BPMN XML, CSV catalogues, OrbusInfinity import).
 ---
 
 # arch-diagram — print-grade architecture SVG
@@ -35,17 +35,25 @@ type's reference file before writing any SVG**:
 ## Methodologies
 
 Default is the house types above. Switch methodology only when the
-request names one; it then overrides the type table (its reference maps
-back to the house recipes it reuses):
+request names one or clearly needs one; it then overrides the type table
+(its reference maps back to the house recipes it reuses):
 
 | Request mentions | Methodology | Reference |
 |---|---|---|
 | C4; context / container / component / code diagram | C4 (Simon Brown) | `references/c4.md` |
-| CoreEA, OrbusInfinity, EA viewpoint, SAD view: Application Context, Application Integration, Logical Data, Infrastructure, Capability, Business Strategy, Project Context, Risk Catalogue, Organization diagram, CRUD matrix | CoreEA | `references/coreea.md` + `scripts/` |
+| ArchiMate; layered, application cooperation, capability map, motivation, migration view | ArchiMate 3.2 | `references/ea.md` + `references/archimate.md` |
+| TOGAF; ADM phase deliverables; catalog / matrix; Business Footprint, Application Communication, Environments and Locations, Project Context | TOGAF Content Metamodel | `references/ea.md` + `references/togaf.md` |
+| Essential, Essential Project / EAS; capability-to-application, application provider, technology reference model | Essential Meta-Model | `references/ea.md` + `references/essential.md` |
+| CoreEA, OrbusInfinity, EA viewpoint, SAD view: Application Context, Application Integration, Logical Data, Infrastructure, Capability, Business Strategy, Project Context, Risk Catalogue, Organization diagram, CRUD matrix | CoreEA | `references/ea.md` + `references/coreea.md` |
+| BPMN; business process, pools and lanes, events and gateways, process to import into Camunda / Signavio | BPMN 2.0 | `references/ea.md` + `references/bpmn.md` |
+| Import into / export for an EA tool: Archi, Sparx, BiZZdesign, ADOIT, OrbusInfinity, Essential, Camunda | exports | `references/exports.md` |
 
-CoreEA is model-first: build and `validate()` one `model.json`, then
-draw every view from it with `scripts/coreea_lib.py`. The design
-system below still applies to both.
+The EA frameworks are model-first: build one `model.json`, validate it with
+`scripts/ea.py validate`, then draw every view from it with `scripts/ealib`.
+When the person names no framework, SAD views and EA viewpoints stay in
+CoreEA as in 1.x; for anything else, ask when the choice changes the result,
+and say which framework you used. The design system below
+applies to all of them.
 
 ## Design system (applies to every type)
 
@@ -79,22 +87,25 @@ band-a      #f8fafc   band-b #eef2f7   accent-fill #f0fdfa   line #e2e8f0
 
 ## Icons
 
-`icons.svg` holds 40 stroke glyphs (24×24, stroke 1.7, round caps).
-Copy a symbol's INNER elements inline within
-`<g transform="translate(x y) scale(0.833)">` (→ 20px) and set the
-colour to the node's stroke. In a 58-high box: glyph at
-(x+14, y+19), text centred at boxX + 34 + (w−34)/2.
+Read `references/icons.md`. In short:
 
-**Never vendor logos.** Map component names to concept glyphs with
-`references/icon-aliases.md` (AWS/Azure/GCP/generic + web frameworks);
-unknown components take the nearest concept or a plain box. BaaS
-platforms (Supabase/Firebase) compose from `database` + `bucket` +
-`identity` rather than getting one blob.
+- Platform components (S3, Cosmos DB, Cloud Run …) use the official AWS,
+  Azure or Google Cloud icon when that pack is fetched
+  (`scripts/icons.py status`; fetching needs the person to accept the
+  vendor's terms, `icons.py fetch aws --accept-terms`).
+- Everything else, and platform components whose pack isn't fetched, uses
+  the 64 generic glyphs in `icons.svg` (24×24, stroke 1.7, round caps).
+- `scripts/icons.py resolve "<component>"` picks the icon;
+  `icons.py svg "<component>" --x X --y Y --size 20` prints the fragment to
+  paste into hand-laid SVG. In a 58-high box: icon at (x+14, y+19), text
+  centred at boxX + 34 + (w−34)/2.
+- Never draw product logos (Salesforce, Kafka, React); they map to generic
+  glyphs through `scripts/icon_aliases.json`.
 
 ## Procedure
 
-1. Route to a type; read its reference file; read `icons.svg` for any
-   glyphs needed.
+1. Route to a type; read its reference file; resolve the icons needed
+   (`scripts/icons.py resolve`).
 2. Spec before SVG: five lines — frames/lanes, nodes, edges + labels,
    annotations. Cut what doesn't serve the diagram's one message.
 3. Lay out coordinates from the recipe constants; start from the
@@ -109,6 +120,9 @@ platforms (Supabase/Firebase) compose from `database` + `bucket` +
      --headless --disable-gpu --window-size=800,600 \
      --screenshot=/tmp/diagram.png file:///path/to/diagram.html
    ```
+
+   (Elsewhere use `google-chrome` / `chromium`, or `CHROME_PATH`. EA and
+   BPMN views render themselves: `View.save()` writes the PNG.)
 
    Read the PNG. Check: no text clipped behind boxes, no arrowhead
    piercing a box, no label crossing a line, frames contain children

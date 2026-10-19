@@ -1,0 +1,734 @@
+{
+ "key": "archimate",
+ "name": "ArchiMate 3.2",
+ "notation": "archimate",
+ "source": "The Open Group ArchiMate 3.2 Specification: element types (ch. 4-13), relationship notation (ch. 5), relationship table (Appendix B, as encoded by the Archi project), basic viewpoints (Appendix C).",
+ "layer_order": [
+  "Strategy",
+  "Business",
+  "Application",
+  "Technology",
+  "Physical",
+  "Motivation",
+  "Implementation",
+  "Migration",
+  "Other"
+ ],
+ "layers": {
+  "Strategy": [
+   "#9a6b14",
+   "#f5deaa"
+  ],
+  "Business": [
+   "#8a7a12",
+   "#ffffb5"
+  ],
+  "Application": [
+   "#2b7c8c",
+   "#b5ffff"
+  ],
+  "Technology": [
+   "#3f7a2e",
+   "#c9e7b7"
+  ],
+  "Physical": [
+   "#3f7a2e",
+   "#c9e7b7"
+  ],
+  "Motivation": [
+   "#5b4fa8",
+   "#ccccff"
+  ],
+  "Implementation": [
+   "#a8505a",
+   "#ffe0e0"
+  ],
+  "Migration": [
+   "#3f8a4f",
+   "#e0ffe0"
+  ],
+  "Other": [
+   "#64748b",
+   "#ffffff"
+  ]
+ },
+ "types": {
+  "Resource": {
+   "xml": "Resource",
+   "prefix": "RES",
+   "layer": "Strategy",
+   "aspect": "structure",
+   "shape": "rect",
+   "icon": "resource"
+  },
+  "Capability": {
+   "xml": "Capability",
+   "prefix": "CAP",
+   "layer": "Strategy",
+   "aspect": "behaviour",
+   "shape": "round",
+   "icon": "capability"
+  },
+  "Value Stream": {
+   "xml": "ValueStream",
+   "prefix": "VST",
+   "layer": "Strategy",
+   "aspect": "behaviour",
+   "shape": "round",
+   "icon": "valuestream"
+  },
+  "Course of Action": {
+   "xml": "CourseOfAction",
+   "prefix": "COA",
+   "layer": "Strategy",
+   "aspect": "behaviour",
+   "shape": "round",
+   "icon": "courseofaction"
+  },
+  "Business Actor": {
+   "xml": "BusinessActor",
+   "prefix": "BACT",
+   "layer": "Business",
+   "aspect": "active",
+   "shape": "rect",
+   "icon": "actor"
+  },
+  "Business Role": {
+   "xml": "BusinessRole",
+   "prefix": "BROL",
+   "layer": "Business",
+   "aspect": "active",
+   "shape": "rect",
+   "icon": "role"
+  },
+  "Business Collaboration": {
+   "xml": "BusinessCollaboration",
+   "prefix": "BCOL",
+   "layer": "Business",
+   "aspect": "active",
+   "shape": "rect",
+   "icon": "collaboration"
+  },
+  "Business Interface": {
+   "xml": "BusinessInterface",
+   "prefix": "BIF",
+   "layer": "Business",
+   "aspect": "active",
+   "shape": "rect",
+   "icon": "interface"
+  },
+  "Business Process": {
+   "xml": "BusinessProcess",
+   "prefix": "BPRC",
+   "layer": "Business",
+   "aspect": "behaviour",
+   "shape": "round",
+   "icon": "process"
+  },
+  "Business Function": {
+   "xml": "BusinessFunction",
+   "prefix": "BFN",
+   "layer": "Business",
+   "aspect": "behaviour",
+   "shape": "round",
+   "icon": "function"
+  },
+  "Business Interaction": {
+   "xml": "BusinessInteraction",
+   "prefix": "BINT",
+   "layer": "Business",
+   "aspect": "behaviour",
+   "shape": "round",
+   "icon": "interaction"
+  },
+  "Business Event": {
+   "xml": "BusinessEvent",
+   "prefix": "BEVT",
+   "layer": "Business",
+   "aspect": "behaviour",
+   "shape": "round",
+   "icon": "event"
+  },
+  "Business Service": {
+   "xml": "BusinessService",
+   "prefix": "BSVC",
+   "layer": "Business",
+   "aspect": "behaviour",
+   "shape": "round",
+   "icon": "service"
+  },
+  "Business Object": {
+   "xml": "BusinessObject",
+   "prefix": "BOBJ",
+   "layer": "Business",
+   "aspect": "passive",
+   "shape": "object",
+   "icon": null
+  },
+  "Contract": {
+   "xml": "Contract",
+   "prefix": "CTR",
+   "layer": "Business",
+   "aspect": "passive",
+   "shape": "contract",
+   "icon": null
+  },
+  "Representation": {
+   "xml": "Representation",
+   "prefix": "REP",
+   "layer": "Business",
+   "aspect": "passive",
+   "shape": "rect",
+   "icon": "representation"
+  },
+  "Product": {
+   "xml": "Product",
+   "prefix": "PRD",
+   "layer": "Business",
+   "aspect": "composite",
+   "shape": "object",
+   "icon": "product"
+  },
+  "Application Component": {
+   "xml": "ApplicationComponent",
+   "prefix": "ACMP",
+   "layer": "Application",
+   "aspect": "active",
+   "shape": "rect",
+   "icon": "component"
+  },
+  "Application Collaboration": {
+   "xml": "ApplicationCollaboration",
+   "prefix": "ACOL",
+   "layer": "Application",
+   "aspect": "active",
+   "shape": "rect",
+   "icon": "collaboration"
+  },
+  "Application Interface": {
+   "xml": "ApplicationInterface",
+   "prefix": "AIF",
+   "layer": "Application",
+   "aspect": "active",
+   "shape": "rect",
+   "icon": "interface"
+  },
+  "Application Function": {
+   "xml": "ApplicationFunction",
+   "prefix": "AFN",
+   "layer": "Application",
+   "aspect": "behaviour",
+   "shape": "round",
+   "icon": "function"
+  },
+  "Application Interaction": {
+   "xml": "ApplicationInteraction",
+   "prefix": "AINT",
+   "layer": "Application",
+   "aspect": "behaviour",
+   "shape": "round",
+   "icon": "interaction"
+  },
+  "Application Process": {
+   "xml": "ApplicationProcess",
+   "prefix": "APRC",
+   "layer": "Application",
+   "aspect": "behaviour",
+   "shape": "round",
+   "icon": "process"
+  },
+  "Application Event": {
+   "xml": "ApplicationEvent",
+   "prefix": "AEVT",
+   "layer": "Application",
+   "aspect": "behaviour",
+   "shape": "round",
+   "icon": "event"
+  },
+  "Application Service": {
+   "xml": "ApplicationService",
+   "prefix": "ASVC",
+   "layer": "Application",
+   "aspect": "behaviour",
+   "shape": "round",
+   "icon": "service"
+  },
+  "Data Object": {
+   "xml": "DataObject",
+   "prefix": "DOBJ",
+   "layer": "Application",
+   "aspect": "passive",
+   "shape": "object",
+   "icon": null
+  },
+  "Node": {
+   "xml": "Node",
+   "prefix": "NODE",
+   "layer": "Technology",
+   "aspect": "active",
+   "shape": "rect",
+   "icon": "node"
+  },
+  "Device": {
+   "xml": "Device",
+   "prefix": "DEV",
+   "layer": "Technology",
+   "aspect": "active",
+   "shape": "rect",
+   "icon": "device"
+  },
+  "System Software": {
+   "xml": "SystemSoftware",
+   "prefix": "SSW",
+   "layer": "Technology",
+   "aspect": "active",
+   "shape": "rect",
+   "icon": "systemsoftware"
+  },
+  "Technology Collaboration": {
+   "xml": "TechnologyCollaboration",
+   "prefix": "TCOL",
+   "layer": "Technology",
+   "aspect": "active",
+   "shape": "rect",
+   "icon": "collaboration"
+  },
+  "Technology Interface": {
+   "xml": "TechnologyInterface",
+   "prefix": "TIF",
+   "layer": "Technology",
+   "aspect": "active",
+   "shape": "rect",
+   "icon": "interface"
+  },
+  "Path": {
+   "xml": "Path",
+   "prefix": "PTH",
+   "layer": "Technology",
+   "aspect": "active",
+   "shape": "rect",
+   "icon": "path"
+  },
+  "Communication Network": {
+   "xml": "CommunicationNetwork",
+   "prefix": "NET",
+   "layer": "Technology",
+   "aspect": "active",
+   "shape": "rect",
+   "icon": "network"
+  },
+  "Technology Function": {
+   "xml": "TechnologyFunction",
+   "prefix": "TFN",
+   "layer": "Technology",
+   "aspect": "behaviour",
+   "shape": "round",
+   "icon": "function"
+  },
+  "Technology Process": {
+   "xml": "TechnologyProcess",
+   "prefix": "TPRC",
+   "layer": "Technology",
+   "aspect": "behaviour",
+   "shape": "round",
+   "icon": "process"
+  },
+  "Technology Interaction": {
+   "xml": "TechnologyInteraction",
+   "prefix": "TINT",
+   "layer": "Technology",
+   "aspect": "behaviour",
+   "shape": "round",
+   "icon": "interaction"
+  },
+  "Technology Event": {
+   "xml": "TechnologyEvent",
+   "prefix": "TEVT",
+   "layer": "Technology",
+   "aspect": "behaviour",
+   "shape": "round",
+   "icon": "event"
+  },
+  "Technology Service": {
+   "xml": "TechnologyService",
+   "prefix": "TSVC",
+   "layer": "Technology",
+   "aspect": "behaviour",
+   "shape": "round",
+   "icon": "service"
+  },
+  "Artifact": {
+   "xml": "Artifact",
+   "prefix": "ART",
+   "layer": "Technology",
+   "aspect": "passive",
+   "shape": "rect",
+   "icon": "artifact"
+  },
+  "Equipment": {
+   "xml": "Equipment",
+   "prefix": "EQP",
+   "layer": "Physical",
+   "aspect": "active",
+   "shape": "rect",
+   "icon": "equipment"
+  },
+  "Facility": {
+   "xml": "Facility",
+   "prefix": "FAC",
+   "layer": "Physical",
+   "aspect": "active",
+   "shape": "rect",
+   "icon": "facility"
+  },
+  "Distribution Network": {
+   "xml": "DistributionNetwork",
+   "prefix": "DNET",
+   "layer": "Physical",
+   "aspect": "active",
+   "shape": "rect",
+   "icon": "distribution"
+  },
+  "Material": {
+   "xml": "Material",
+   "prefix": "MAT",
+   "layer": "Physical",
+   "aspect": "passive",
+   "shape": "rect",
+   "icon": "material"
+  },
+  "Stakeholder": {
+   "xml": "Stakeholder",
+   "prefix": "STK",
+   "layer": "Motivation",
+   "aspect": "motivation",
+   "shape": "cut",
+   "icon": "role"
+  },
+  "Driver": {
+   "xml": "Driver",
+   "prefix": "DRV",
+   "layer": "Motivation",
+   "aspect": "motivation",
+   "shape": "cut",
+   "icon": "driver"
+  },
+  "Assessment": {
+   "xml": "Assessment",
+   "prefix": "ASM",
+   "layer": "Motivation",
+   "aspect": "motivation",
+   "shape": "cut",
+   "icon": "assessment"
+  },
+  "Goal": {
+   "xml": "Goal",
+   "prefix": "GOL",
+   "layer": "Motivation",
+   "aspect": "motivation",
+   "shape": "cut",
+   "icon": "goal"
+  },
+  "Outcome": {
+   "xml": "Outcome",
+   "prefix": "OUT",
+   "layer": "Motivation",
+   "aspect": "motivation",
+   "shape": "cut",
+   "icon": "outcome"
+  },
+  "Principle": {
+   "xml": "Principle",
+   "prefix": "PRN",
+   "layer": "Motivation",
+   "aspect": "motivation",
+   "shape": "cut",
+   "icon": "principle"
+  },
+  "Requirement": {
+   "xml": "Requirement",
+   "prefix": "REQ",
+   "layer": "Motivation",
+   "aspect": "motivation",
+   "shape": "cut",
+   "icon": "requirement"
+  },
+  "Constraint": {
+   "xml": "Constraint",
+   "prefix": "CON",
+   "layer": "Motivation",
+   "aspect": "motivation",
+   "shape": "cut",
+   "icon": "constraint"
+  },
+  "Meaning": {
+   "xml": "Meaning",
+   "prefix": "MNG",
+   "layer": "Motivation",
+   "aspect": "motivation",
+   "shape": "cut",
+   "icon": "meaning"
+  },
+  "Value": {
+   "xml": "Value",
+   "prefix": "VAL",
+   "layer": "Motivation",
+   "aspect": "motivation",
+   "shape": "cut",
+   "icon": "value"
+  },
+  "Work Package": {
+   "xml": "WorkPackage",
+   "prefix": "WP",
+   "layer": "Implementation",
+   "aspect": "behaviour",
+   "shape": "round",
+   "icon": "workpackage"
+  },
+  "Deliverable": {
+   "xml": "Deliverable",
+   "prefix": "DLV",
+   "layer": "Implementation",
+   "aspect": "passive",
+   "shape": "rect",
+   "icon": "deliverable"
+  },
+  "Implementation Event": {
+   "xml": "ImplementationEvent",
+   "prefix": "IEV",
+   "layer": "Implementation",
+   "aspect": "behaviour",
+   "shape": "round",
+   "icon": "event"
+  },
+  "Plateau": {
+   "xml": "Plateau",
+   "prefix": "PLT",
+   "layer": "Migration",
+   "aspect": "composite",
+   "shape": "rect",
+   "icon": "plateau"
+  },
+  "Gap": {
+   "xml": "Gap",
+   "prefix": "GAP",
+   "layer": "Migration",
+   "aspect": "passive",
+   "shape": "rect",
+   "icon": "gap"
+  },
+  "Location": {
+   "xml": "Location",
+   "prefix": "LOC",
+   "layer": "Other",
+   "aspect": "composite",
+   "shape": "rect",
+   "icon": "location"
+  },
+  "Grouping": {
+   "xml": "Grouping",
+   "prefix": "GRP",
+   "layer": "Other",
+   "aspect": "composite",
+   "shape": "grouping",
+   "icon": null
+  },
+  "And Junction": {
+   "xml": "AndJunction",
+   "prefix": "JAND",
+   "layer": "Other",
+   "aspect": "junction",
+   "shape": "junction",
+   "icon": null
+  },
+  "Or Junction": {
+   "xml": "OrJunction",
+   "prefix": "JOR",
+   "layer": "Other",
+   "aspect": "junction",
+   "shape": "junction",
+   "icon": null
+  }
+ },
+ "relationships": {
+  "composition": {
+   "xml": "Composition",
+   "code": "c",
+   "line": "solid",
+   "start": "diamond-filled",
+   "end": null,
+   "reads": "composed of"
+  },
+  "aggregation": {
+   "xml": "Aggregation",
+   "code": "g",
+   "line": "solid",
+   "start": "diamond-hollow",
+   "end": null,
+   "reads": "aggregates"
+  },
+  "assignment": {
+   "xml": "Assignment",
+   "code": "i",
+   "line": "solid",
+   "start": "dot",
+   "end": "arrow-filled",
+   "reads": "assigned to"
+  },
+  "realization": {
+   "xml": "Realization",
+   "code": "r",
+   "line": "dashed",
+   "start": null,
+   "end": "triangle-hollow",
+   "reads": "realizes"
+  },
+  "serving": {
+   "xml": "Serving",
+   "code": "v",
+   "line": "solid",
+   "start": null,
+   "end": "arrow-open",
+   "reads": "serves"
+  },
+  "access": {
+   "xml": "Access",
+   "code": "a",
+   "line": "dotted",
+   "start": null,
+   "end": "arrow-open-small",
+   "reads": "accesses"
+  },
+  "influence": {
+   "xml": "Influence",
+   "code": "n",
+   "line": "dashed",
+   "start": null,
+   "end": "arrow-open",
+   "reads": "influences"
+  },
+  "triggering": {
+   "xml": "Triggering",
+   "code": "t",
+   "line": "solid",
+   "start": null,
+   "end": "arrow-filled",
+   "reads": "triggers"
+  },
+  "flow": {
+   "xml": "Flow",
+   "code": "f",
+   "line": "dashed-long",
+   "start": null,
+   "end": "arrow-filled",
+   "reads": "flows to"
+  },
+  "specialization": {
+   "xml": "Specialization",
+   "code": "s",
+   "line": "solid",
+   "start": null,
+   "end": "triangle-hollow",
+   "reads": "specializes"
+  },
+  "association": {
+   "xml": "Association",
+   "code": "o",
+   "line": "solid",
+   "start": null,
+   "end": null,
+   "reads": "associated with"
+  }
+ },
+ "rules": {
+  "Application Collaboration": {"Application Collaboration":"cfgostv","Application Component":"fgortv","Application Event":"fiortv","Application Function":"fiortv","Application Interaction":"fiortv","Application Interface":"cfgortv","Application Process":"fiortv","Application Service":"fiortv","Artifact":"ao","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"fortv","Business Function":"fortv","Business Interaction":"fortv","Business Interface":"fortv","Business Object":"ao","Business Process":"fortv","Business Role":"fotv","Business Service":"fortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fotv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfginorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"or","Stakeholder":"no","System Software":"fotv","Technology Collaboration":"fotv","Technology Event":"fotv","Technology Function":"fotv","Technology Interaction":"fotv","Technology Interface":"fotv","Technology Process":"fotv","Technology Service":"fotv","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Application Component": {"Application Collaboration":"fotv","Application Component":"cfgorstv","Application Event":"fiortv","Application Function":"fiortv","Application Interaction":"fiortv","Application Interface":"cfgortv","Application Process":"fiortv","Application Service":"fiortv","Artifact":"ao","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"fortv","Business Function":"fortv","Business Interaction":"fortv","Business Interface":"fortv","Business Object":"ao","Business Process":"fortv","Business Role":"fotv","Business Service":"fortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fotv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfginorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"or","Stakeholder":"no","System Software":"fotv","Technology Collaboration":"fotv","Technology Event":"fotv","Technology Function":"fotv","Technology Interaction":"fotv","Technology Interface":"fotv","Technology Process":"fotv","Technology Service":"fotv","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Application Event": {"Application Collaboration":"fotv","Application Component":"fotv","Application Event":"cfgostv","Application Function":"fotv","Application Interaction":"fotv","Application Interface":"fotv","Application Process":"fotv","Application Service":"fotv","Artifact":"ao","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"fortv","Business Function":"fotv","Business Interaction":"fotv","Business Interface":"fotv","Business Object":"ao","Business Process":"fotv","Business Role":"fotv","Business Service":"fotv","Capability":"o","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"o","Data Object":"ao","Deliverable":"o","Device":"fotv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfgnorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"o","Stakeholder":"no","System Software":"fotv","Technology Collaboration":"fotv","Technology Event":"fotv","Technology Function":"fotv","Technology Interaction":"fotv","Technology Interface":"fotv","Technology Process":"fotv","Technology Service":"fotv","Value":"no","Value Stream":"o","Work Package":"o"},
+  "Application Function": {"Application Collaboration":"fotv","Application Component":"fotv","Application Event":"fotv","Application Function":"cfgostv","Application Interaction":"cfgotv","Application Interface":"fotv","Application Process":"cfgotv","Application Service":"fortv","Artifact":"ao","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"fotv","Business Function":"fortv","Business Interaction":"fortv","Business Interface":"fotv","Business Object":"ao","Business Process":"fortv","Business Role":"fotv","Business Service":"fortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fotv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfgnorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"o","Stakeholder":"no","System Software":"fotv","Technology Collaboration":"fotv","Technology Event":"fotv","Technology Function":"fotv","Technology Interaction":"fotv","Technology Interface":"fotv","Technology Process":"fotv","Technology Service":"fotv","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Application Interaction": {"Application Collaboration":"fotv","Application Component":"fotv","Application Event":"fotv","Application Function":"cfgotv","Application Interaction":"cfgostv","Application Interface":"fotv","Application Process":"cfgotv","Application Service":"fortv","Artifact":"ao","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"fotv","Business Function":"fortv","Business Interaction":"fortv","Business Interface":"fotv","Business Object":"ao","Business Process":"fortv","Business Role":"fotv","Business Service":"fortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fotv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfgnorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"o","Stakeholder":"no","System Software":"fotv","Technology Collaboration":"fotv","Technology Event":"fotv","Technology Function":"fotv","Technology Interaction":"fotv","Technology Interface":"fotv","Technology Process":"fotv","Technology Service":"fotv","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Application Interface": {"Application Collaboration":"fotv","Application Component":"fotv","Application Event":"fotv","Application Function":"fotv","Application Interaction":"fotv","Application Interface":"cfgostv","Application Process":"fotv","Application Service":"fiotv","Artifact":"ao","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"fotv","Business Function":"fotv","Business Interaction":"fotv","Business Interface":"fortv","Business Object":"ao","Business Process":"fotv","Business Role":"fotv","Business Service":"fortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fotv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfginorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"or","Stakeholder":"no","System Software":"fotv","Technology Collaboration":"fotv","Technology Event":"fotv","Technology Function":"fotv","Technology Interaction":"fotv","Technology Interface":"fotv","Technology Process":"fotv","Technology Service":"fotv","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Application Process": {"Application Collaboration":"fotv","Application Component":"fotv","Application Event":"fotv","Application Function":"cfgotv","Application Interaction":"cfgotv","Application Interface":"fotv","Application Process":"cfgostv","Application Service":"fortv","Artifact":"ao","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"fotv","Business Function":"fortv","Business Interaction":"fortv","Business Interface":"fotv","Business Object":"ao","Business Process":"fortv","Business Role":"fotv","Business Service":"fortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fotv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfgnorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"o","Stakeholder":"no","System Software":"fotv","Technology Collaboration":"fotv","Technology Event":"fotv","Technology Function":"fotv","Technology Interaction":"fotv","Technology Interface":"fotv","Technology Process":"fotv","Technology Service":"fotv","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Application Service": {"Application Collaboration":"fotv","Application Component":"fotv","Application Event":"fotv","Application Function":"fotv","Application Interaction":"fotv","Application Interface":"fotv","Application Process":"fotv","Application Service":"cfgostv","Artifact":"ao","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"fotv","Business Function":"fotv","Business Interaction":"fotv","Business Interface":"fotv","Business Object":"ao","Business Process":"fotv","Business Role":"fotv","Business Service":"fortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fotv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfgnorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"o","Stakeholder":"no","System Software":"fotv","Technology Collaboration":"fotv","Technology Event":"fotv","Technology Function":"fotv","Technology Interaction":"fotv","Technology Interface":"fotv","Technology Process":"fotv","Technology Service":"fotv","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Artifact": {"Application Collaboration":"or","Application Component":"or","Application Event":"or","Application Function":"or","Application Interaction":"or","Application Interface":"or","Application Process":"or","Application Service":"or","Artifact":"cgors","Assessment":"no","Business Actor":"o","Business Collaboration":"o","Business Event":"or","Business Function":"or","Business Interaction":"or","Business Interface":"or","Business Object":"or","Business Process":"or","Business Role":"o","Business Service":"or","Capability":"or","Communication Network":"o","Constraint":"nor","Contract":"or","Course of Action":"or","Data Object":"or","Deliverable":"o","Device":"o","Distribution Network":"o","Driver":"no","Equipment":"o","Facility":"o","Gap":"o","Goal":"nor","Grouping":"cgnors","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"o","Material":"o","Meaning":"no","Node":"o","Outcome":"nor","Path":"o","Plateau":"o","Principle":"nor","Product":"o","Representation":"o","Requirement":"nor","Resource":"or","Stakeholder":"no","System Software":"or","Technology Collaboration":"o","Technology Event":"or","Technology Function":"or","Technology Interaction":"or","Technology Interface":"or","Technology Process":"or","Technology Service":"or","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Assessment": {"Application Collaboration":"o","Application Component":"o","Application Event":"o","Application Function":"o","Application Interaction":"o","Application Interface":"o","Application Process":"o","Application Service":"o","Artifact":"o","Assessment":"cgnos","Business Actor":"o","Business Collaboration":"o","Business Event":"o","Business Function":"o","Business Interaction":"o","Business Interface":"o","Business Object":"o","Business Process":"o","Business Role":"o","Business Service":"o","Capability":"o","Communication Network":"o","Constraint":"no","Contract":"o","Course of Action":"o","Data Object":"o","Deliverable":"o","Device":"o","Distribution Network":"o","Driver":"no","Equipment":"o","Facility":"o","Gap":"o","Goal":"no","Grouping":"cgnos","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"o","Material":"o","Meaning":"no","Node":"o","Outcome":"no","Path":"o","Plateau":"o","Principle":"no","Product":"o","Representation":"o","Requirement":"no","Resource":"o","Stakeholder":"no","System Software":"o","Technology Collaboration":"o","Technology Event":"o","Technology Function":"o","Technology Interaction":"o","Technology Interface":"o","Technology Process":"o","Technology Service":"o","Value":"no","Value Stream":"o","Work Package":"o"},
+  "Business Actor": {"Application Collaboration":"fotv","Application Component":"fotv","Application Event":"fotv","Application Function":"fotv","Application Interaction":"fotv","Application Interface":"fotv","Application Process":"fotv","Application Service":"fotv","Artifact":"ao","Assessment":"no","Business Actor":"cfgostv","Business Collaboration":"fotv","Business Event":"fiotv","Business Function":"fiotv","Business Interaction":"fiotv","Business Interface":"cfgiotv","Business Object":"ao","Business Process":"fiotv","Business Role":"fiotv","Business Service":"fiortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fotv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfginorstv","Implementation Event":"io","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"or","Stakeholder":"ino","System Software":"fotv","Technology Collaboration":"fotv","Technology Event":"fotv","Technology Function":"fotv","Technology Interaction":"fotv","Technology Interface":"fotv","Technology Process":"fotv","Technology Service":"fotv","Value":"no","Value Stream":"or","Work Package":"io"},
+  "Business Collaboration": {"Application Collaboration":"fotv","Application Component":"fotv","Application Event":"fotv","Application Function":"fotv","Application Interaction":"fotv","Application Interface":"fotv","Application Process":"fotv","Application Service":"fotv","Artifact":"ao","Assessment":"no","Business Actor":"fgotv","Business Collaboration":"cfgostv","Business Event":"fiotv","Business Function":"fiotv","Business Interaction":"fiotv","Business Interface":"cfgiotv","Business Object":"ao","Business Process":"fiotv","Business Role":"fgiotv","Business Service":"fiortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fotv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfginorstv","Implementation Event":"io","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"or","Stakeholder":"ino","System Software":"fotv","Technology Collaboration":"fotv","Technology Event":"fotv","Technology Function":"fotv","Technology Interaction":"fotv","Technology Interface":"fotv","Technology Process":"fotv","Technology Service":"fotv","Value":"no","Value Stream":"or","Work Package":"io"},
+  "Business Event": {"Application Collaboration":"fotv","Application Component":"fotv","Application Event":"fotv","Application Function":"fotv","Application Interaction":"fotv","Application Interface":"fotv","Application Process":"fotv","Application Service":"fotv","Artifact":"ao","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"cfgostv","Business Function":"fotv","Business Interaction":"fotv","Business Interface":"fotv","Business Object":"ao","Business Process":"fotv","Business Role":"fotv","Business Service":"fotv","Capability":"o","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"o","Data Object":"ao","Deliverable":"o","Device":"fotv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfgnorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"o","Stakeholder":"no","System Software":"fotv","Technology Collaboration":"fotv","Technology Event":"fotv","Technology Function":"fotv","Technology Interaction":"fotv","Technology Interface":"fotv","Technology Process":"fotv","Technology Service":"fotv","Value":"no","Value Stream":"o","Work Package":"o"},
+  "Business Function": {"Application Collaboration":"fotv","Application Component":"fotv","Application Event":"fotv","Application Function":"fotv","Application Interaction":"fotv","Application Interface":"fotv","Application Process":"fotv","Application Service":"fotv","Artifact":"ao","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"fotv","Business Function":"cfgostv","Business Interaction":"cfgotv","Business Interface":"fotv","Business Object":"ao","Business Process":"cfgotv","Business Role":"fotv","Business Service":"fortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fotv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfgnorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"o","Stakeholder":"no","System Software":"fotv","Technology Collaboration":"fotv","Technology Event":"fotv","Technology Function":"fotv","Technology Interaction":"fotv","Technology Interface":"fotv","Technology Process":"fotv","Technology Service":"fotv","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Business Interaction": {"Application Collaboration":"fotv","Application Component":"fotv","Application Event":"fotv","Application Function":"fotv","Application Interaction":"fotv","Application Interface":"fotv","Application Process":"fotv","Application Service":"fotv","Artifact":"ao","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"fotv","Business Function":"cfgotv","Business Interaction":"cfgostv","Business Interface":"fotv","Business Object":"ao","Business Process":"cfgotv","Business Role":"fotv","Business Service":"fortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fotv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfgnorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"o","Stakeholder":"no","System Software":"fotv","Technology Collaboration":"fotv","Technology Event":"fotv","Technology Function":"fotv","Technology Interaction":"fotv","Technology Interface":"fotv","Technology Process":"fotv","Technology Service":"fotv","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Business Interface": {"Application Collaboration":"fotv","Application Component":"fotv","Application Event":"fotv","Application Function":"fotv","Application Interaction":"fotv","Application Interface":"fotv","Application Process":"fotv","Application Service":"fotv","Artifact":"ao","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"fotv","Business Function":"fotv","Business Interaction":"fotv","Business Interface":"cfgostv","Business Object":"ao","Business Process":"fotv","Business Role":"fotv","Business Service":"fiotv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fotv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfginorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"or","Stakeholder":"no","System Software":"fotv","Technology Collaboration":"fotv","Technology Event":"fotv","Technology Function":"fotv","Technology Interaction":"fotv","Technology Interface":"fotv","Technology Process":"fotv","Technology Service":"fotv","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Business Object": {"Application Collaboration":"o","Application Component":"o","Application Event":"o","Application Function":"o","Application Interaction":"o","Application Interface":"o","Application Process":"o","Application Service":"o","Artifact":"o","Assessment":"no","Business Actor":"o","Business Collaboration":"o","Business Event":"o","Business Function":"o","Business Interaction":"o","Business Interface":"o","Business Object":"cgos","Business Process":"o","Business Role":"o","Business Service":"o","Capability":"or","Communication Network":"o","Constraint":"nor","Contract":"cgos","Course of Action":"or","Data Object":"o","Deliverable":"o","Device":"o","Distribution Network":"o","Driver":"no","Equipment":"o","Facility":"o","Gap":"o","Goal":"nor","Grouping":"cgnors","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"o","Material":"o","Meaning":"no","Node":"o","Outcome":"nor","Path":"o","Plateau":"o","Principle":"nor","Product":"o","Representation":"o","Requirement":"nor","Resource":"or","Stakeholder":"no","System Software":"o","Technology Collaboration":"o","Technology Event":"o","Technology Function":"o","Technology Interaction":"o","Technology Interface":"o","Technology Process":"o","Technology Service":"o","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Business Process": {"Application Collaboration":"fotv","Application Component":"fotv","Application Event":"fotv","Application Function":"fotv","Application Interaction":"fotv","Application Interface":"fotv","Application Process":"fotv","Application Service":"fotv","Artifact":"ao","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"fotv","Business Function":"cfgotv","Business Interaction":"cfgotv","Business Interface":"fotv","Business Object":"ao","Business Process":"cfgostv","Business Role":"fotv","Business Service":"fortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fotv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfgnorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"o","Stakeholder":"no","System Software":"fotv","Technology Collaboration":"fotv","Technology Event":"fotv","Technology Function":"fotv","Technology Interaction":"fotv","Technology Interface":"fotv","Technology Process":"fotv","Technology Service":"fotv","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Business Role": {"Application Collaboration":"fotv","Application Component":"fotv","Application Event":"fotv","Application Function":"fotv","Application Interaction":"fotv","Application Interface":"fotv","Application Process":"fotv","Application Service":"fotv","Artifact":"ao","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"fiotv","Business Function":"fiotv","Business Interaction":"fiotv","Business Interface":"cfgotv","Business Object":"ao","Business Process":"fiotv","Business Role":"cfgostv","Business Service":"fiortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fotv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfginorstv","Implementation Event":"io","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"or","Stakeholder":"ino","System Software":"fotv","Technology Collaboration":"fotv","Technology Event":"fotv","Technology Function":"fotv","Technology Interaction":"fotv","Technology Interface":"fotv","Technology Process":"fotv","Technology Service":"fotv","Value":"no","Value Stream":"or","Work Package":"io"},
+  "Business Service": {"Application Collaboration":"fotv","Application Component":"fotv","Application Event":"fotv","Application Function":"fotv","Application Interaction":"fotv","Application Interface":"fotv","Application Process":"fotv","Application Service":"fotv","Artifact":"ao","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"fotv","Business Function":"fotv","Business Interaction":"fotv","Business Interface":"fotv","Business Object":"ao","Business Process":"fotv","Business Role":"fotv","Business Service":"cfgostv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fotv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfgnorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"o","Stakeholder":"no","System Software":"fotv","Technology Collaboration":"fotv","Technology Event":"fotv","Technology Function":"fotv","Technology Interaction":"fotv","Technology Interface":"fotv","Technology Process":"fotv","Technology Service":"fotv","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Capability": {"Application Collaboration":"o","Application Component":"o","Application Event":"o","Application Function":"o","Application Interaction":"o","Application Interface":"o","Application Process":"o","Application Service":"o","Artifact":"o","Assessment":"no","Business Actor":"o","Business Collaboration":"o","Business Event":"o","Business Function":"o","Business Interaction":"o","Business Interface":"o","Business Object":"o","Business Process":"o","Business Role":"o","Business Service":"o","Capability":"cfgostv","Communication Network":"o","Constraint":"nor","Contract":"o","Course of Action":"fortv","Data Object":"o","Deliverable":"o","Device":"o","Distribution Network":"o","Driver":"no","Equipment":"o","Facility":"o","Gap":"o","Goal":"nor","Grouping":"cfgnorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"o","Material":"o","Meaning":"no","Node":"o","Outcome":"nor","Path":"o","Plateau":"o","Principle":"nor","Product":"o","Representation":"o","Requirement":"nor","Resource":"fotv","Stakeholder":"no","System Software":"o","Technology Collaboration":"o","Technology Event":"o","Technology Function":"o","Technology Interaction":"o","Technology Interface":"o","Technology Process":"o","Technology Service":"o","Value":"no","Value Stream":"fotv","Work Package":"o"},
+  "Communication Network": {"Application Collaboration":"fortv","Application Component":"fortv","Application Event":"fortv","Application Function":"fortv","Application Interaction":"fortv","Application Interface":"fortv","Application Process":"fortv","Application Service":"fortv","Artifact":"aio","Assessment":"no","Business Actor":"fortv","Business Collaboration":"fortv","Business Event":"fortv","Business Function":"fortv","Business Interaction":"fortv","Business Interface":"fortv","Business Object":"ao","Business Process":"fortv","Business Role":"fortv","Business Service":"fortv","Capability":"or","Communication Network":"cfgostv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fgortv","Distribution Network":"fotv","Driver":"no","Equipment":"fortv","Facility":"fortv","Gap":"o","Goal":"nor","Grouping":"acfginorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fortv","Outcome":"nor","Path":"fortv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"or","Stakeholder":"nor","System Software":"fgiortv","Technology Collaboration":"fortv","Technology Event":"fiortv","Technology Function":"fiortv","Technology Interaction":"fiortv","Technology Interface":"fgiortv","Technology Process":"fiortv","Technology Service":"fiortv","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Constraint": {"Application Collaboration":"o","Application Component":"o","Application Event":"o","Application Function":"o","Application Interaction":"o","Application Interface":"o","Application Process":"o","Application Service":"o","Artifact":"o","Assessment":"no","Business Actor":"o","Business Collaboration":"o","Business Event":"o","Business Function":"o","Business Interaction":"o","Business Interface":"o","Business Object":"o","Business Process":"o","Business Role":"o","Business Service":"o","Capability":"o","Communication Network":"o","Constraint":"cgnos","Contract":"o","Course of Action":"o","Data Object":"o","Deliverable":"o","Device":"o","Distribution Network":"o","Driver":"no","Equipment":"o","Facility":"o","Gap":"o","Goal":"nor","Grouping":"cgnors","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"o","Material":"o","Meaning":"no","Node":"o","Outcome":"nor","Path":"o","Plateau":"o","Principle":"nor","Product":"o","Representation":"o","Requirement":"cgnos","Resource":"o","Stakeholder":"no","System Software":"o","Technology Collaboration":"o","Technology Event":"o","Technology Function":"o","Technology Interaction":"o","Technology Interface":"o","Technology Process":"o","Technology Service":"o","Value":"no","Value Stream":"o","Work Package":"o"},
+  "Contract": {"Application Collaboration":"o","Application Component":"o","Application Event":"o","Application Function":"o","Application Interaction":"o","Application Interface":"o","Application Process":"o","Application Service":"o","Artifact":"o","Assessment":"no","Business Actor":"o","Business Collaboration":"o","Business Event":"o","Business Function":"o","Business Interaction":"o","Business Interface":"o","Business Object":"cgos","Business Process":"o","Business Role":"o","Business Service":"o","Capability":"or","Communication Network":"o","Constraint":"nor","Contract":"cgos","Course of Action":"or","Data Object":"o","Deliverable":"o","Device":"o","Distribution Network":"o","Driver":"no","Equipment":"o","Facility":"o","Gap":"o","Goal":"nor","Grouping":"cgnors","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"o","Material":"o","Meaning":"no","Node":"o","Outcome":"nor","Path":"o","Plateau":"o","Principle":"nor","Product":"o","Representation":"o","Requirement":"nor","Resource":"or","Stakeholder":"no","System Software":"o","Technology Collaboration":"o","Technology Event":"o","Technology Function":"o","Technology Interaction":"o","Technology Interface":"o","Technology Process":"o","Technology Service":"o","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Course of Action": {"Application Collaboration":"o","Application Component":"o","Application Event":"o","Application Function":"o","Application Interaction":"o","Application Interface":"o","Application Process":"o","Application Service":"o","Artifact":"o","Assessment":"no","Business Actor":"o","Business Collaboration":"o","Business Event":"o","Business Function":"o","Business Interaction":"o","Business Interface":"o","Business Object":"o","Business Process":"o","Business Role":"o","Business Service":"o","Capability":"fotv","Communication Network":"o","Constraint":"nor","Contract":"o","Course of Action":"cfgostv","Data Object":"o","Deliverable":"o","Device":"o","Distribution Network":"o","Driver":"no","Equipment":"o","Facility":"o","Gap":"o","Goal":"nor","Grouping":"cfgnorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"o","Material":"o","Meaning":"no","Node":"o","Outcome":"nor","Path":"o","Plateau":"o","Principle":"nor","Product":"o","Representation":"o","Requirement":"nor","Resource":"fotv","Stakeholder":"no","System Software":"o","Technology Collaboration":"o","Technology Event":"o","Technology Function":"o","Technology Interaction":"o","Technology Interface":"o","Technology Process":"o","Technology Service":"o","Value":"no","Value Stream":"fotv","Work Package":"o"},
+  "Data Object": {"Application Collaboration":"o","Application Component":"o","Application Event":"o","Application Function":"o","Application Interaction":"o","Application Interface":"o","Application Process":"o","Application Service":"o","Artifact":"o","Assessment":"no","Business Actor":"o","Business Collaboration":"o","Business Event":"o","Business Function":"o","Business Interaction":"o","Business Interface":"o","Business Object":"or","Business Process":"o","Business Role":"o","Business Service":"o","Capability":"or","Communication Network":"o","Constraint":"nor","Contract":"or","Course of Action":"or","Data Object":"cgos","Deliverable":"o","Device":"o","Distribution Network":"o","Driver":"no","Equipment":"o","Facility":"o","Gap":"o","Goal":"nor","Grouping":"cgnors","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"o","Material":"o","Meaning":"no","Node":"o","Outcome":"nor","Path":"o","Plateau":"o","Principle":"nor","Product":"o","Representation":"o","Requirement":"nor","Resource":"or","Stakeholder":"no","System Software":"o","Technology Collaboration":"o","Technology Event":"o","Technology Function":"o","Technology Interaction":"o","Technology Interface":"o","Technology Process":"o","Technology Service":"o","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Deliverable": {"Application Collaboration":"or","Application Component":"or","Application Event":"or","Application Function":"or","Application Interaction":"or","Application Interface":"or","Application Process":"or","Application Service":"or","Artifact":"or","Assessment":"no","Business Actor":"or","Business Collaboration":"or","Business Event":"or","Business Function":"or","Business Interaction":"or","Business Interface":"or","Business Object":"or","Business Process":"or","Business Role":"or","Business Service":"or","Capability":"or","Communication Network":"or","Constraint":"nor","Contract":"or","Course of Action":"or","Data Object":"or","Deliverable":"cgos","Device":"or","Distribution Network":"or","Driver":"no","Equipment":"or","Facility":"or","Gap":"o","Goal":"nor","Grouping":"cgnors","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"or","Material":"or","Meaning":"no","Node":"or","Outcome":"nor","Path":"or","Plateau":"or","Principle":"nor","Product":"or","Representation":"or","Requirement":"nor","Resource":"or","Stakeholder":"nor","System Software":"or","Technology Collaboration":"or","Technology Event":"or","Technology Function":"or","Technology Interaction":"or","Technology Interface":"or","Technology Process":"or","Technology Service":"or","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Device": {"Application Collaboration":"fortv","Application Component":"fortv","Application Event":"fortv","Application Function":"fortv","Application Interaction":"fortv","Application Interface":"fortv","Application Process":"fortv","Application Service":"fortv","Artifact":"aio","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"fortv","Business Function":"fortv","Business Interaction":"fortv","Business Interface":"fortv","Business Object":"ao","Business Process":"fortv","Business Role":"fotv","Business Service":"fortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"cfgostv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfginorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"or","Stakeholder":"no","System Software":"cfgiortv","Technology Collaboration":"fotv","Technology Event":"fiortv","Technology Function":"fiortv","Technology Interaction":"fiortv","Technology Interface":"cfgiortv","Technology Process":"fiortv","Technology Service":"fiortv","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Distribution Network": {"Application Collaboration":"fortv","Application Component":"fortv","Application Event":"fortv","Application Function":"fortv","Application Interaction":"fortv","Application Interface":"fortv","Application Process":"fortv","Application Service":"fortv","Artifact":"aio","Assessment":"no","Business Actor":"fiortv","Business Collaboration":"fiortv","Business Event":"fiortv","Business Function":"fiortv","Business Interaction":"fiortv","Business Interface":"fiortv","Business Object":"ao","Business Process":"fiortv","Business Role":"fiortv","Business Service":"fiortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fgiortv","Distribution Network":"cfgostv","Driver":"no","Equipment":"fgiortv","Facility":"fgiortv","Gap":"o","Goal":"nor","Grouping":"acfginorstv","Implementation Event":"io","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"aio","Meaning":"no","Node":"fgiortv","Outcome":"nor","Path":"fortv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"or","Stakeholder":"inor","System Software":"fgiortv","Technology Collaboration":"fortv","Technology Event":"fiortv","Technology Function":"fiortv","Technology Interaction":"fiortv","Technology Interface":"fgiortv","Technology Process":"fiortv","Technology Service":"fiortv","Value":"no","Value Stream":"or","Work Package":"io"},
+  "Driver": {"Application Collaboration":"o","Application Component":"o","Application Event":"o","Application Function":"o","Application Interaction":"o","Application Interface":"o","Application Process":"o","Application Service":"o","Artifact":"o","Assessment":"no","Business Actor":"o","Business Collaboration":"o","Business Event":"o","Business Function":"o","Business Interaction":"o","Business Interface":"o","Business Object":"o","Business Process":"o","Business Role":"o","Business Service":"o","Capability":"o","Communication Network":"o","Constraint":"no","Contract":"o","Course of Action":"o","Data Object":"o","Deliverable":"o","Device":"o","Distribution Network":"o","Driver":"cgnos","Equipment":"o","Facility":"o","Gap":"o","Goal":"no","Grouping":"cgnos","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"o","Material":"o","Meaning":"no","Node":"o","Outcome":"no","Path":"o","Plateau":"o","Principle":"no","Product":"o","Representation":"o","Requirement":"no","Resource":"o","Stakeholder":"no","System Software":"o","Technology Collaboration":"o","Technology Event":"o","Technology Function":"o","Technology Interaction":"o","Technology Interface":"o","Technology Process":"o","Technology Service":"o","Value":"no","Value Stream":"o","Work Package":"o"},
+  "Equipment": {"Application Collaboration":"fortv","Application Component":"fortv","Application Event":"fortv","Application Function":"fortv","Application Interaction":"fortv","Application Interface":"fortv","Application Process":"fortv","Application Service":"fortv","Artifact":"aio","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"fortv","Business Function":"fortv","Business Interaction":"fortv","Business Interface":"fortv","Business Object":"ao","Business Process":"fortv","Business Role":"fotv","Business Service":"fortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"cfgortv","Distribution Network":"fotv","Driver":"no","Equipment":"cfgorstv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfginorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"aio","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"or","Stakeholder":"no","System Software":"cfgiortv","Technology Collaboration":"fotv","Technology Event":"fiortv","Technology Function":"fiortv","Technology Interaction":"fiortv","Technology Interface":"cfgiortv","Technology Process":"fiortv","Technology Service":"fiortv","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Facility": {"Application Collaboration":"fortv","Application Component":"fortv","Application Event":"fortv","Application Function":"fortv","Application Interaction":"fortv","Application Interface":"fortv","Application Process":"fortv","Application Service":"fortv","Artifact":"aio","Assessment":"no","Business Actor":"fiotv","Business Collaboration":"fiotv","Business Event":"fiortv","Business Function":"fiortv","Business Interaction":"fiortv","Business Interface":"fiortv","Business Object":"ao","Business Process":"fiortv","Business Role":"fiotv","Business Service":"fiortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"cfgiortv","Distribution Network":"fotv","Driver":"no","Equipment":"cfgiortv","Facility":"cfgiostv","Gap":"o","Goal":"nor","Grouping":"acfginorstv","Implementation Event":"io","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"aio","Meaning":"no","Node":"cfgiotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"or","Stakeholder":"ino","System Software":"cfgiortv","Technology Collaboration":"fotv","Technology Event":"fiortv","Technology Function":"fiortv","Technology Interaction":"fiortv","Technology Interface":"cfgiortv","Technology Process":"fiortv","Technology Service":"fiortv","Value":"no","Value Stream":"or","Work Package":"io"},
+  "Gap": {"Application Collaboration":"o","Application Component":"o","Application Event":"o","Application Function":"o","Application Interaction":"o","Application Interface":"o","Application Process":"o","Application Service":"o","Artifact":"o","Assessment":"o","Business Actor":"o","Business Collaboration":"o","Business Event":"o","Business Function":"o","Business Interaction":"o","Business Interface":"o","Business Object":"o","Business Process":"o","Business Role":"o","Business Service":"o","Capability":"o","Communication Network":"o","Constraint":"o","Contract":"o","Course of Action":"o","Data Object":"o","Deliverable":"o","Device":"o","Distribution Network":"o","Driver":"o","Equipment":"o","Facility":"o","Gap":"cgos","Goal":"o","Grouping":"cgos","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"o","Material":"o","Meaning":"o","Node":"o","Outcome":"o","Path":"o","Plateau":"o","Principle":"o","Product":"o","Representation":"o","Requirement":"o","Resource":"o","Stakeholder":"o","System Software":"o","Technology Collaboration":"o","Technology Event":"o","Technology Function":"o","Technology Interaction":"o","Technology Interface":"o","Technology Process":"o","Technology Service":"o","Value":"o","Value Stream":"o","Work Package":"o"},
+  "Goal": {"Application Collaboration":"o","Application Component":"o","Application Event":"o","Application Function":"o","Application Interaction":"o","Application Interface":"o","Application Process":"o","Application Service":"o","Artifact":"o","Assessment":"no","Business Actor":"o","Business Collaboration":"o","Business Event":"o","Business Function":"o","Business Interaction":"o","Business Interface":"o","Business Object":"o","Business Process":"o","Business Role":"o","Business Service":"o","Capability":"o","Communication Network":"o","Constraint":"no","Contract":"o","Course of Action":"o","Data Object":"o","Deliverable":"o","Device":"o","Distribution Network":"o","Driver":"no","Equipment":"o","Facility":"o","Gap":"o","Goal":"cgnos","Grouping":"cgnos","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"o","Material":"o","Meaning":"no","Node":"o","Outcome":"no","Path":"o","Plateau":"o","Principle":"no","Product":"o","Representation":"o","Requirement":"no","Resource":"o","Stakeholder":"no","System Software":"o","Technology Collaboration":"o","Technology Event":"o","Technology Function":"o","Technology Interaction":"o","Technology Interface":"o","Technology Process":"o","Technology Service":"o","Value":"no","Value Stream":"o","Work Package":"o"},
+  "Grouping": {"Application Collaboration":"cfgorstv","Application Component":"cfgorstv","Application Event":"cfgiorstv","Application Function":"cfgiorstv","Application Interaction":"cfgiorstv","Application Interface":"cfgorstv","Application Process":"cfgiorstv","Application Service":"cfgiorstv","Artifact":"acgiors","Assessment":"cgnos","Business Actor":"cfgiorstv","Business Collaboration":"cfgiorstv","Business Event":"cfgiorstv","Business Function":"cfgiorstv","Business Interaction":"cfgiorstv","Business Interface":"cfgiorstv","Business Object":"acgors","Business Process":"cfgiorstv","Business Role":"cfgiorstv","Business Service":"cfgiorstv","Capability":"cfgiorstv","Communication Network":"cfgorstv","Constraint":"cgnors","Contract":"acgors","Course of Action":"cfgorstv","Data Object":"acgors","Deliverable":"acgors","Device":"cfgiorstv","Distribution Network":"cfgorstv","Driver":"cgnos","Equipment":"cfgiorstv","Facility":"cfgiorstv","Gap":"cgos","Goal":"cgnors","Grouping":"acfginorstv","Implementation Event":"cfgiost","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"cfgorstv","Material":"acgiors","Meaning":"cgnos","Node":"cfgiorstv","Outcome":"cgnors","Path":"cfgorstv","Plateau":"cfgorst","Principle":"cgnors","Product":"cfgorstv","Representation":"acgors","Requirement":"cgnors","Resource":"cfgorstv","Stakeholder":"cginors","System Software":"cfgiorstv","Technology Collaboration":"cfgorstv","Technology Event":"cfgiorstv","Technology Function":"cfgiorstv","Technology Interaction":"cfgiorstv","Technology Interface":"cfgiorstv","Technology Process":"cfgiorstv","Technology Service":"cfgiorstv","Value":"cgnos","Value Stream":"cfgiorstv","Work Package":"cfgiost"},
+  "Implementation Event": {"Application Collaboration":"o","Application Component":"o","Application Event":"o","Application Function":"o","Application Interaction":"o","Application Interface":"o","Application Process":"o","Application Service":"o","Artifact":"o","Assessment":"no","Business Actor":"o","Business Collaboration":"o","Business Event":"o","Business Function":"o","Business Interaction":"o","Business Interface":"o","Business Object":"o","Business Process":"o","Business Role":"o","Business Service":"o","Capability":"o","Communication Network":"o","Constraint":"no","Contract":"o","Course of Action":"o","Data Object":"o","Deliverable":"ao","Device":"o","Distribution Network":"o","Driver":"no","Equipment":"o","Facility":"o","Gap":"o","Goal":"no","Grouping":"acfgnost","Implementation Event":"cfgost","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"o","Material":"o","Meaning":"no","Node":"o","Outcome":"no","Path":"o","Plateau":"fot","Principle":"no","Product":"o","Representation":"o","Requirement":"no","Resource":"o","Stakeholder":"no","System Software":"o","Technology Collaboration":"o","Technology Event":"o","Technology Function":"o","Technology Interaction":"o","Technology Interface":"o","Technology Process":"o","Technology Service":"o","Value":"no","Value Stream":"o","Work Package":"fot"},
+  "And Junction": {"Application Collaboration":"fortv","Application Component":"fortv","Application Event":"fiortv","Application Function":"fiortv","Application Interaction":"fiortv","Application Interface":"fortv","Application Process":"fiortv","Application Service":"fiortv","Artifact":"aior","Assessment":"no","Business Actor":"fiortv","Business Collaboration":"fiortv","Business Event":"fiortv","Business Function":"fiortv","Business Interaction":"fiortv","Business Interface":"fiortv","Business Object":"aor","Business Process":"fiortv","Business Role":"fiortv","Business Service":"fiortv","Capability":"fiortv","Communication Network":"fortv","Constraint":"nor","Contract":"aor","Course of Action":"fortv","Data Object":"aor","Deliverable":"aor","Device":"fiortv","Distribution Network":"fortv","Driver":"no","Equipment":"fiortv","Facility":"fiortv","Gap":"o","Goal":"nor","Grouping":"afinortv","Implementation Event":"fiot","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fortv","Material":"aior","Meaning":"no","Node":"fiortv","Outcome":"nor","Path":"fortv","Plateau":"fort","Principle":"nor","Product":"fortv","Representation":"aor","Requirement":"nor","Resource":"fortv","Stakeholder":"inor","System Software":"fiortv","Technology Collaboration":"fortv","Technology Event":"fiortv","Technology Function":"fiortv","Technology Interaction":"fiortv","Technology Interface":"fiortv","Technology Process":"fiortv","Technology Service":"fiortv","Value":"no","Value Stream":"fiortv","Work Package":"fiot"},
+  "Or Junction": {"Application Collaboration":"fortv","Application Component":"fortv","Application Event":"fiortv","Application Function":"fiortv","Application Interaction":"fiortv","Application Interface":"fortv","Application Process":"fiortv","Application Service":"fiortv","Artifact":"aior","Assessment":"no","Business Actor":"fiortv","Business Collaboration":"fiortv","Business Event":"fiortv","Business Function":"fiortv","Business Interaction":"fiortv","Business Interface":"fiortv","Business Object":"aor","Business Process":"fiortv","Business Role":"fiortv","Business Service":"fiortv","Capability":"fiortv","Communication Network":"fortv","Constraint":"nor","Contract":"aor","Course of Action":"fortv","Data Object":"aor","Deliverable":"aor","Device":"fiortv","Distribution Network":"fortv","Driver":"no","Equipment":"fiortv","Facility":"fiortv","Gap":"o","Goal":"nor","Grouping":"afinortv","Implementation Event":"fiot","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fortv","Material":"aior","Meaning":"no","Node":"fiortv","Outcome":"nor","Path":"fortv","Plateau":"fort","Principle":"nor","Product":"fortv","Representation":"aor","Requirement":"nor","Resource":"fortv","Stakeholder":"inor","System Software":"fiortv","Technology Collaboration":"fortv","Technology Event":"fiortv","Technology Function":"fiortv","Technology Interaction":"fiortv","Technology Interface":"fiortv","Technology Process":"fiortv","Technology Service":"fiortv","Value":"no","Value Stream":"fiortv","Work Package":"fiot"},
+  "Location": {"Application Collaboration":"cfgortv","Application Component":"cfgortv","Application Event":"cfgiortv","Application Function":"cfgiortv","Application Interaction":"cfgiortv","Application Interface":"cfgortv","Application Process":"cfgiortv","Application Service":"cfgiortv","Artifact":"acgio","Assessment":"cgno","Business Actor":"cfgiortv","Business Collaboration":"cfgiortv","Business Event":"cfgiortv","Business Function":"cfgiortv","Business Interaction":"cfgiortv","Business Interface":"cfgiortv","Business Object":"acgo","Business Process":"cfgiortv","Business Role":"cfgiortv","Business Service":"cfgiortv","Capability":"cgor","Communication Network":"cfgotv","Constraint":"cgnor","Contract":"acgo","Course of Action":"cgor","Data Object":"acgo","Deliverable":"cgo","Device":"cfgiortv","Distribution Network":"cfgotv","Driver":"cgno","Equipment":"cfgiortv","Facility":"cfgiortv","Gap":"cgo","Goal":"cgnor","Grouping":"acfginorstv","Implementation Event":"cgio","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"cfgostv","Material":"acgio","Meaning":"cgno","Node":"cfgiortv","Outcome":"cgnor","Path":"cfgortv","Plateau":"cgo","Principle":"cgnor","Product":"cfgotv","Representation":"acgo","Requirement":"cgnor","Resource":"cgor","Stakeholder":"cginor","System Software":"cfgiortv","Technology Collaboration":"cfgortv","Technology Event":"cfgiortv","Technology Function":"cfgiortv","Technology Interaction":"cfgiortv","Technology Interface":"cfgiortv","Technology Process":"cfgiortv","Technology Service":"cfgiortv","Value":"cgno","Value Stream":"cgor","Work Package":"cgio"},
+  "Material": {"Application Collaboration":"or","Application Component":"or","Application Event":"or","Application Function":"or","Application Interaction":"or","Application Interface":"or","Application Process":"or","Application Service":"or","Artifact":"or","Assessment":"no","Business Actor":"o","Business Collaboration":"o","Business Event":"or","Business Function":"or","Business Interaction":"or","Business Interface":"or","Business Object":"or","Business Process":"or","Business Role":"o","Business Service":"or","Capability":"or","Communication Network":"o","Constraint":"nor","Contract":"or","Course of Action":"or","Data Object":"or","Deliverable":"o","Device":"or","Distribution Network":"o","Driver":"no","Equipment":"or","Facility":"o","Gap":"o","Goal":"nor","Grouping":"cgnors","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"o","Material":"cgors","Meaning":"no","Node":"o","Outcome":"nor","Path":"o","Plateau":"o","Principle":"nor","Product":"o","Representation":"o","Requirement":"nor","Resource":"or","Stakeholder":"no","System Software":"or","Technology Collaboration":"o","Technology Event":"or","Technology Function":"or","Technology Interaction":"or","Technology Interface":"or","Technology Process":"or","Technology Service":"or","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Meaning": {"Application Collaboration":"o","Application Component":"o","Application Event":"o","Application Function":"o","Application Interaction":"o","Application Interface":"o","Application Process":"o","Application Service":"o","Artifact":"o","Assessment":"no","Business Actor":"o","Business Collaboration":"o","Business Event":"o","Business Function":"o","Business Interaction":"o","Business Interface":"o","Business Object":"o","Business Process":"o","Business Role":"o","Business Service":"o","Capability":"o","Communication Network":"o","Constraint":"no","Contract":"o","Course of Action":"o","Data Object":"o","Deliverable":"o","Device":"o","Distribution Network":"o","Driver":"no","Equipment":"o","Facility":"o","Gap":"o","Goal":"no","Grouping":"cgnos","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"o","Material":"o","Meaning":"cgnos","Node":"o","Outcome":"no","Path":"o","Plateau":"o","Principle":"no","Product":"o","Representation":"o","Requirement":"no","Resource":"o","Stakeholder":"no","System Software":"o","Technology Collaboration":"o","Technology Event":"o","Technology Function":"o","Technology Interaction":"o","Technology Interface":"o","Technology Process":"o","Technology Service":"o","Value":"no","Value Stream":"o","Work Package":"o"},
+  "Node": {"Application Collaboration":"fortv","Application Component":"fortv","Application Event":"fortv","Application Function":"fortv","Application Interaction":"fortv","Application Interface":"fortv","Application Process":"fortv","Application Service":"fortv","Artifact":"aio","Assessment":"no","Business Actor":"fiotv","Business Collaboration":"fiotv","Business Event":"fiortv","Business Function":"fiortv","Business Interaction":"fiortv","Business Interface":"fiortv","Business Object":"ao","Business Process":"fiortv","Business Role":"fiotv","Business Service":"fiortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"cfgiortv","Distribution Network":"fotv","Driver":"no","Equipment":"cfgiortv","Facility":"cfgiotv","Gap":"o","Goal":"nor","Grouping":"acfginorstv","Implementation Event":"io","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"aio","Meaning":"no","Node":"cfgiostv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"or","Stakeholder":"ino","System Software":"cfgiortv","Technology Collaboration":"fotv","Technology Event":"fiortv","Technology Function":"fiortv","Technology Interaction":"fiortv","Technology Interface":"cfgiortv","Technology Process":"fiortv","Technology Service":"fiortv","Value":"no","Value Stream":"or","Work Package":"io"},
+  "Outcome": {"Application Collaboration":"o","Application Component":"o","Application Event":"o","Application Function":"o","Application Interaction":"o","Application Interface":"o","Application Process":"o","Application Service":"o","Artifact":"o","Assessment":"no","Business Actor":"o","Business Collaboration":"o","Business Event":"o","Business Function":"o","Business Interaction":"o","Business Interface":"o","Business Object":"o","Business Process":"o","Business Role":"o","Business Service":"o","Capability":"o","Communication Network":"o","Constraint":"no","Contract":"o","Course of Action":"o","Data Object":"o","Deliverable":"o","Device":"o","Distribution Network":"o","Driver":"no","Equipment":"o","Facility":"o","Gap":"o","Goal":"nor","Grouping":"cgnors","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"o","Material":"o","Meaning":"no","Node":"o","Outcome":"cgnos","Path":"o","Plateau":"o","Principle":"no","Product":"o","Representation":"o","Requirement":"no","Resource":"o","Stakeholder":"no","System Software":"o","Technology Collaboration":"o","Technology Event":"o","Technology Function":"o","Technology Interaction":"o","Technology Interface":"o","Technology Process":"o","Technology Service":"o","Value":"no","Value Stream":"o","Work Package":"o"},
+  "Path": {"Application Collaboration":"fortv","Application Component":"fortv","Application Event":"fortv","Application Function":"fortv","Application Interaction":"fortv","Application Interface":"fortv","Application Process":"fortv","Application Service":"fortv","Artifact":"aio","Assessment":"no","Business Actor":"fiotv","Business Collaboration":"fiotv","Business Event":"fiortv","Business Function":"fiortv","Business Interaction":"fiortv","Business Interface":"fiortv","Business Object":"ao","Business Process":"fiortv","Business Role":"fiotv","Business Service":"fiortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fgiortv","Distribution Network":"fotv","Driver":"no","Equipment":"fgiortv","Facility":"fgiotv","Gap":"o","Goal":"nor","Grouping":"acfginorstv","Implementation Event":"io","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"aio","Meaning":"no","Node":"fgiotv","Outcome":"nor","Path":"cfgostv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"or","Stakeholder":"ino","System Software":"fgiortv","Technology Collaboration":"fgotv","Technology Event":"fiortv","Technology Function":"fiortv","Technology Interaction":"fiortv","Technology Interface":"fgiortv","Technology Process":"fiortv","Technology Service":"fiortv","Value":"no","Value Stream":"or","Work Package":"io"},
+  "Plateau": {"Application Collaboration":"cgor","Application Component":"cgor","Application Event":"cgor","Application Function":"cgor","Application Interaction":"cgor","Application Interface":"cgor","Application Process":"cgor","Application Service":"cgor","Artifact":"cgor","Assessment":"no","Business Actor":"cgor","Business Collaboration":"cgor","Business Event":"cgor","Business Function":"cgor","Business Interaction":"cgor","Business Interface":"cgor","Business Object":"cgor","Business Process":"cgor","Business Role":"cgor","Business Service":"cgor","Capability":"cgor","Communication Network":"cgor","Constraint":"cgnor","Contract":"cgor","Course of Action":"cgor","Data Object":"cgor","Deliverable":"ao","Device":"cgor","Distribution Network":"cgor","Driver":"no","Equipment":"cgor","Facility":"cgor","Gap":"o","Goal":"cgnor","Grouping":"acfginorst","Implementation Event":"fot","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"cgor","Material":"cgor","Meaning":"no","Node":"cgor","Outcome":"cgnor","Path":"cgor","Plateau":"cfgost","Principle":"nor","Product":"cgor","Representation":"cgor","Requirement":"cgnor","Resource":"cgor","Stakeholder":"inor","System Software":"cgor","Technology Collaboration":"cgor","Technology Event":"cgor","Technology Function":"cgor","Technology Interaction":"cgor","Technology Interface":"cgor","Technology Process":"cgor","Technology Service":"cgor","Value":"no","Value Stream":"cgor","Work Package":"fot"},
+  "Principle": {"Application Collaboration":"o","Application Component":"o","Application Event":"o","Application Function":"o","Application Interaction":"o","Application Interface":"o","Application Process":"o","Application Service":"o","Artifact":"o","Assessment":"no","Business Actor":"o","Business Collaboration":"o","Business Event":"o","Business Function":"o","Business Interaction":"o","Business Interface":"o","Business Object":"o","Business Process":"o","Business Role":"o","Business Service":"o","Capability":"o","Communication Network":"o","Constraint":"no","Contract":"o","Course of Action":"o","Data Object":"o","Deliverable":"o","Device":"o","Distribution Network":"o","Driver":"no","Equipment":"o","Facility":"o","Gap":"o","Goal":"nor","Grouping":"cgnors","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"o","Material":"o","Meaning":"no","Node":"o","Outcome":"nor","Path":"o","Plateau":"o","Principle":"cgnos","Product":"o","Representation":"o","Requirement":"no","Resource":"o","Stakeholder":"no","System Software":"o","Technology Collaboration":"o","Technology Event":"o","Technology Function":"o","Technology Interaction":"o","Technology Interface":"o","Technology Process":"o","Technology Service":"o","Value":"no","Value Stream":"o","Work Package":"o"},
+  "Product": {"Application Collaboration":"fortv","Application Component":"fortv","Application Event":"fortv","Application Function":"fortv","Application Interaction":"fortv","Application Interface":"fortv","Application Process":"fortv","Application Service":"cfgortv","Artifact":"acgo","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"fortv","Business Function":"fortv","Business Interaction":"fortv","Business Interface":"fortv","Business Object":"acgo","Business Process":"fortv","Business Role":"fotv","Business Service":"cfgortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"acgo","Course of Action":"or","Data Object":"acgo","Deliverable":"o","Device":"fortv","Distribution Network":"fotv","Driver":"no","Equipment":"fortv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfgnorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"acgo","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"cfgostv","Representation":"acgo","Requirement":"nor","Resource":"or","Stakeholder":"no","System Software":"fortv","Technology Collaboration":"fotv","Technology Event":"fortv","Technology Function":"fortv","Technology Interaction":"fortv","Technology Interface":"fortv","Technology Process":"fortv","Technology Service":"cfgortv","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Representation": {"Application Collaboration":"o","Application Component":"o","Application Event":"o","Application Function":"o","Application Interaction":"o","Application Interface":"o","Application Process":"o","Application Service":"o","Artifact":"o","Assessment":"no","Business Actor":"o","Business Collaboration":"o","Business Event":"o","Business Function":"o","Business Interaction":"o","Business Interface":"o","Business Object":"or","Business Process":"o","Business Role":"o","Business Service":"o","Capability":"or","Communication Network":"o","Constraint":"nor","Contract":"or","Course of Action":"or","Data Object":"o","Deliverable":"o","Device":"o","Distribution Network":"o","Driver":"no","Equipment":"o","Facility":"o","Gap":"o","Goal":"nor","Grouping":"cgnors","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"o","Material":"o","Meaning":"no","Node":"o","Outcome":"nor","Path":"o","Plateau":"o","Principle":"nor","Product":"o","Representation":"cgos","Requirement":"nor","Resource":"or","Stakeholder":"no","System Software":"o","Technology Collaboration":"o","Technology Event":"o","Technology Function":"o","Technology Interaction":"o","Technology Interface":"o","Technology Process":"o","Technology Service":"o","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Requirement": {"Application Collaboration":"o","Application Component":"o","Application Event":"o","Application Function":"o","Application Interaction":"o","Application Interface":"o","Application Process":"o","Application Service":"o","Artifact":"o","Assessment":"no","Business Actor":"o","Business Collaboration":"o","Business Event":"o","Business Function":"o","Business Interaction":"o","Business Interface":"o","Business Object":"o","Business Process":"o","Business Role":"o","Business Service":"o","Capability":"o","Communication Network":"o","Constraint":"cgnos","Contract":"o","Course of Action":"o","Data Object":"o","Deliverable":"o","Device":"o","Distribution Network":"o","Driver":"no","Equipment":"o","Facility":"o","Gap":"o","Goal":"nor","Grouping":"cgnors","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"o","Material":"o","Meaning":"no","Node":"o","Outcome":"nor","Path":"o","Plateau":"o","Principle":"nor","Product":"o","Representation":"o","Requirement":"cgnos","Resource":"o","Stakeholder":"no","System Software":"o","Technology Collaboration":"o","Technology Event":"o","Technology Function":"o","Technology Interaction":"o","Technology Interface":"o","Technology Process":"o","Technology Service":"o","Value":"no","Value Stream":"o","Work Package":"o"},
+  "Resource": {"Application Collaboration":"o","Application Component":"o","Application Event":"o","Application Function":"o","Application Interaction":"o","Application Interface":"o","Application Process":"o","Application Service":"o","Artifact":"o","Assessment":"no","Business Actor":"o","Business Collaboration":"o","Business Event":"o","Business Function":"o","Business Interaction":"o","Business Interface":"o","Business Object":"o","Business Process":"o","Business Role":"o","Business Service":"o","Capability":"fiotv","Communication Network":"o","Constraint":"nor","Contract":"o","Course of Action":"fortv","Data Object":"o","Deliverable":"o","Device":"o","Distribution Network":"o","Driver":"no","Equipment":"o","Facility":"o","Gap":"o","Goal":"nor","Grouping":"cfginorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"o","Material":"o","Meaning":"no","Node":"o","Outcome":"nor","Path":"o","Plateau":"o","Principle":"nor","Product":"o","Representation":"o","Requirement":"nor","Resource":"cfgostv","Stakeholder":"no","System Software":"o","Technology Collaboration":"o","Technology Event":"o","Technology Function":"o","Technology Interaction":"o","Technology Interface":"o","Technology Process":"o","Technology Service":"o","Value":"no","Value Stream":"fiotv","Work Package":"o"},
+  "Stakeholder": {"Application Collaboration":"o","Application Component":"o","Application Event":"o","Application Function":"o","Application Interaction":"o","Application Interface":"o","Application Process":"o","Application Service":"o","Artifact":"o","Assessment":"no","Business Actor":"o","Business Collaboration":"o","Business Event":"o","Business Function":"o","Business Interaction":"o","Business Interface":"o","Business Object":"o","Business Process":"o","Business Role":"o","Business Service":"o","Capability":"o","Communication Network":"o","Constraint":"no","Contract":"o","Course of Action":"o","Data Object":"o","Deliverable":"o","Device":"o","Distribution Network":"o","Driver":"no","Equipment":"o","Facility":"o","Gap":"o","Goal":"no","Grouping":"cgnos","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"o","Material":"o","Meaning":"no","Node":"o","Outcome":"no","Path":"o","Plateau":"o","Principle":"no","Product":"o","Representation":"o","Requirement":"no","Resource":"o","Stakeholder":"cgnos","System Software":"o","Technology Collaboration":"o","Technology Event":"o","Technology Function":"o","Technology Interaction":"o","Technology Interface":"o","Technology Process":"o","Technology Service":"o","Value":"no","Value Stream":"o","Work Package":"o"},
+  "System Software": {"Application Collaboration":"fortv","Application Component":"fortv","Application Event":"fortv","Application Function":"fortv","Application Interaction":"fortv","Application Interface":"fortv","Application Process":"fortv","Application Service":"fortv","Artifact":"aio","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"fortv","Business Function":"fortv","Business Interaction":"fortv","Business Interface":"fortv","Business Object":"ao","Business Process":"fortv","Business Role":"fotv","Business Service":"fortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fotv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfginorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"or","Stakeholder":"no","System Software":"cfgiorstv","Technology Collaboration":"fotv","Technology Event":"fiortv","Technology Function":"fiortv","Technology Interaction":"fiortv","Technology Interface":"cfgiortv","Technology Process":"fiortv","Technology Service":"fiortv","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Technology Collaboration": {"Application Collaboration":"fortv","Application Component":"fortv","Application Event":"fortv","Application Function":"fortv","Application Interaction":"fortv","Application Interface":"fortv","Application Process":"fortv","Application Service":"fortv","Artifact":"aio","Assessment":"no","Business Actor":"fiotv","Business Collaboration":"fiotv","Business Event":"fiortv","Business Function":"fiortv","Business Interaction":"fiortv","Business Interface":"fiortv","Business Object":"ao","Business Process":"fiortv","Business Role":"fiotv","Business Service":"fiortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fgiortv","Distribution Network":"fotv","Driver":"no","Equipment":"fgiortv","Facility":"fgiotv","Gap":"o","Goal":"nor","Grouping":"acfginorstv","Implementation Event":"io","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"aio","Meaning":"no","Node":"fgiotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"or","Stakeholder":"ino","System Software":"fgiortv","Technology Collaboration":"cfgostv","Technology Event":"fiortv","Technology Function":"fiortv","Technology Interaction":"fiortv","Technology Interface":"cfgiortv","Technology Process":"fiortv","Technology Service":"fiortv","Value":"no","Value Stream":"or","Work Package":"io"},
+  "Technology Event": {"Application Collaboration":"fotv","Application Component":"fotv","Application Event":"fortv","Application Function":"fotv","Application Interaction":"fotv","Application Interface":"fotv","Application Process":"fotv","Application Service":"fotv","Artifact":"ao","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"fortv","Business Function":"fotv","Business Interaction":"fotv","Business Interface":"fotv","Business Object":"ao","Business Process":"fotv","Business Role":"fotv","Business Service":"fotv","Capability":"o","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"o","Data Object":"ao","Deliverable":"o","Device":"fotv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfgnorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"o","Stakeholder":"no","System Software":"fotv","Technology Collaboration":"fotv","Technology Event":"cfgostv","Technology Function":"fotv","Technology Interaction":"fotv","Technology Interface":"fotv","Technology Process":"fotv","Technology Service":"fotv","Value":"no","Value Stream":"o","Work Package":"o"},
+  "Technology Function": {"Application Collaboration":"fotv","Application Component":"fotv","Application Event":"fotv","Application Function":"fortv","Application Interaction":"fortv","Application Interface":"fotv","Application Process":"fortv","Application Service":"fortv","Artifact":"ao","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"fotv","Business Function":"fortv","Business Interaction":"fortv","Business Interface":"fotv","Business Object":"ao","Business Process":"fortv","Business Role":"fotv","Business Service":"fortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fotv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfgnorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"o","Stakeholder":"no","System Software":"fotv","Technology Collaboration":"fotv","Technology Event":"fotv","Technology Function":"cfgostv","Technology Interaction":"cfgotv","Technology Interface":"fotv","Technology Process":"cfgotv","Technology Service":"fortv","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Technology Interaction": {"Application Collaboration":"fotv","Application Component":"fotv","Application Event":"fotv","Application Function":"fortv","Application Interaction":"fortv","Application Interface":"fotv","Application Process":"fortv","Application Service":"fortv","Artifact":"ao","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"fotv","Business Function":"fortv","Business Interaction":"fortv","Business Interface":"fotv","Business Object":"ao","Business Process":"fortv","Business Role":"fotv","Business Service":"fortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fotv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfgnorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"o","Stakeholder":"no","System Software":"fotv","Technology Collaboration":"fotv","Technology Event":"fotv","Technology Function":"cfgotv","Technology Interaction":"cfgostv","Technology Interface":"fotv","Technology Process":"cfgotv","Technology Service":"fortv","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Technology Interface": {"Application Collaboration":"fotv","Application Component":"fotv","Application Event":"fotv","Application Function":"fotv","Application Interaction":"fotv","Application Interface":"fortv","Application Process":"fotv","Application Service":"fortv","Artifact":"ao","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"fotv","Business Function":"fotv","Business Interaction":"fotv","Business Interface":"fortv","Business Object":"ao","Business Process":"fotv","Business Role":"fotv","Business Service":"fortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fotv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfginorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"or","Stakeholder":"no","System Software":"fotv","Technology Collaboration":"fotv","Technology Event":"fotv","Technology Function":"fotv","Technology Interaction":"fotv","Technology Interface":"cfgostv","Technology Process":"fotv","Technology Service":"fiotv","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Technology Process": {"Application Collaboration":"fotv","Application Component":"fotv","Application Event":"fotv","Application Function":"fortv","Application Interaction":"fortv","Application Interface":"fotv","Application Process":"fortv","Application Service":"fortv","Artifact":"ao","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"fotv","Business Function":"fortv","Business Interaction":"fortv","Business Interface":"fotv","Business Object":"ao","Business Process":"fortv","Business Role":"fotv","Business Service":"fortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fotv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfgnorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"o","Stakeholder":"no","System Software":"fotv","Technology Collaboration":"fotv","Technology Event":"fotv","Technology Function":"cfgotv","Technology Interaction":"cfgotv","Technology Interface":"fotv","Technology Process":"cfgostv","Technology Service":"fortv","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Technology Service": {"Application Collaboration":"fotv","Application Component":"fotv","Application Event":"fotv","Application Function":"fotv","Application Interaction":"fotv","Application Interface":"fotv","Application Process":"fotv","Application Service":"fortv","Artifact":"ao","Assessment":"no","Business Actor":"fotv","Business Collaboration":"fotv","Business Event":"fotv","Business Function":"fotv","Business Interaction":"fotv","Business Interface":"fotv","Business Object":"ao","Business Process":"fotv","Business Role":"fotv","Business Service":"fortv","Capability":"or","Communication Network":"fotv","Constraint":"nor","Contract":"ao","Course of Action":"or","Data Object":"ao","Deliverable":"o","Device":"fotv","Distribution Network":"fotv","Driver":"no","Equipment":"fotv","Facility":"fotv","Gap":"o","Goal":"nor","Grouping":"acfgnorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"fotv","Material":"ao","Meaning":"no","Node":"fotv","Outcome":"nor","Path":"fotv","Plateau":"o","Principle":"nor","Product":"fotv","Representation":"ao","Requirement":"nor","Resource":"o","Stakeholder":"no","System Software":"fotv","Technology Collaboration":"fotv","Technology Event":"fotv","Technology Function":"fotv","Technology Interaction":"fotv","Technology Interface":"fotv","Technology Process":"fotv","Technology Service":"cfgostv","Value":"no","Value Stream":"or","Work Package":"o"},
+  "Value": {"Application Collaboration":"o","Application Component":"o","Application Event":"o","Application Function":"o","Application Interaction":"o","Application Interface":"o","Application Process":"o","Application Service":"o","Artifact":"o","Assessment":"no","Business Actor":"o","Business Collaboration":"o","Business Event":"o","Business Function":"o","Business Interaction":"o","Business Interface":"o","Business Object":"o","Business Process":"o","Business Role":"o","Business Service":"o","Capability":"o","Communication Network":"o","Constraint":"no","Contract":"o","Course of Action":"o","Data Object":"o","Deliverable":"o","Device":"o","Distribution Network":"o","Driver":"no","Equipment":"o","Facility":"o","Gap":"o","Goal":"no","Grouping":"cgnos","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"o","Material":"o","Meaning":"no","Node":"o","Outcome":"no","Path":"o","Plateau":"o","Principle":"no","Product":"o","Representation":"o","Requirement":"no","Resource":"o","Stakeholder":"no","System Software":"o","Technology Collaboration":"o","Technology Event":"o","Technology Function":"o","Technology Interaction":"o","Technology Interface":"o","Technology Process":"o","Technology Service":"o","Value":"cgnos","Value Stream":"o","Work Package":"o"},
+  "Value Stream": {"Application Collaboration":"o","Application Component":"o","Application Event":"o","Application Function":"o","Application Interaction":"o","Application Interface":"o","Application Process":"o","Application Service":"o","Artifact":"o","Assessment":"no","Business Actor":"o","Business Collaboration":"o","Business Event":"o","Business Function":"o","Business Interaction":"o","Business Interface":"o","Business Object":"o","Business Process":"o","Business Role":"o","Business Service":"o","Capability":"fotv","Communication Network":"o","Constraint":"nor","Contract":"o","Course of Action":"fortv","Data Object":"o","Deliverable":"o","Device":"o","Distribution Network":"o","Driver":"no","Equipment":"o","Facility":"o","Gap":"o","Goal":"nor","Grouping":"cfgnorstv","Implementation Event":"o","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"o","Material":"o","Meaning":"no","Node":"o","Outcome":"nor","Path":"o","Plateau":"o","Principle":"nor","Product":"o","Representation":"o","Requirement":"nor","Resource":"fotv","Stakeholder":"no","System Software":"o","Technology Collaboration":"o","Technology Event":"o","Technology Function":"o","Technology Interaction":"o","Technology Interface":"o","Technology Process":"o","Technology Service":"o","Value":"no","Value Stream":"cfgostv","Work Package":"o"},
+  "Work Package": {"Application Collaboration":"or","Application Component":"or","Application Event":"or","Application Function":"or","Application Interaction":"or","Application Interface":"or","Application Process":"or","Application Service":"or","Artifact":"or","Assessment":"no","Business Actor":"or","Business Collaboration":"or","Business Event":"or","Business Function":"or","Business Interaction":"or","Business Interface":"or","Business Object":"or","Business Process":"or","Business Role":"or","Business Service":"or","Capability":"or","Communication Network":"or","Constraint":"nor","Contract":"or","Course of Action":"or","Data Object":"or","Deliverable":"aor","Device":"or","Distribution Network":"or","Driver":"no","Equipment":"or","Facility":"or","Gap":"o","Goal":"nor","Grouping":"acfgnorst","Implementation Event":"fot","And Junction":"acfginorstv","Or Junction":"acfginorstv","Location":"or","Material":"or","Meaning":"no","Node":"or","Outcome":"nor","Path":"or","Plateau":"fort","Principle":"nor","Product":"or","Representation":"or","Requirement":"nor","Resource":"or","Stakeholder":"nor","System Software":"or","Technology Collaboration":"or","Technology Event":"or","Technology Function":"or","Technology Interaction":"or","Technology Interface":"or","Technology Process":"or","Technology Service":"or","Value":"no","Value Stream":"or","Work Package":"cfgost"}
+ },
+ "viewpoints": {
+  "Organization": {"category": "Composing", "purpose": "Structure of the enterprise: actors, roles, collaborations, their interfaces and locations.", "types": ["Business Actor", "Business Role", "Business Collaboration", "Business Interface", "Location", "Grouping", "And Junction", "Or Junction"]},
+  "Application Structure": {"category": "Composing", "purpose": "Structure of one or more applications: components, interfaces and the data they use.", "types": ["Application Component", "Application Collaboration", "Application Interface", "Data Object", "Grouping", "And Junction", "Or Junction"]},
+  "Information Structure": {"category": "Composing", "purpose": "Information used in the enterprise and how it is represented.", "types": ["Business Object", "Representation", "Data Object", "Artifact", "Meaning", "Grouping", "And Junction", "Or Junction"]},
+  "Technology": {"category": "Composing", "purpose": "Software and hardware that make up the technology layer.", "types": ["Location", "Node", "Device", "System Software", "Technology Collaboration", "Technology Interface", "Path", "Communication Network", "Technology Process", "Technology Function", "Technology Interaction", "Technology Event", "Technology Service", "Artifact", "Grouping", "And Junction", "Or Junction"]},
+  "Layered": {"category": "Composing", "purpose": "Several layers in one diagram.", "types": ["Business Actor", "Business Role", "Business Collaboration", "Business Interface", "Business Process", "Business Function", "Business Interaction", "Business Event", "Business Service", "Business Object", "Contract", "Representation", "Product", "Application Component", "Application Collaboration", "Application Interface", "Application Function", "Application Interaction", "Application Process", "Application Event", "Application Service", "Data Object", "Node", "Device", "System Software", "Technology Collaboration", "Technology Interface", "Path", "Communication Network", "Technology Function", "Technology Process", "Technology Interaction", "Technology Event", "Technology Service", "Artifact", "Equipment", "Facility", "Distribution Network", "Material", "Location", "Grouping", "And Junction", "Or Junction"]},
+  "Physical": {"category": "Composing", "purpose": "Physical environment: equipment, facilities, distribution networks and materials.", "types": ["Location", "Node", "Device", "Equipment", "Facility", "Distribution Network", "Material", "Path", "Communication Network", "Grouping", "And Junction", "Or Junction"]},
+  "Product": {"category": "Support", "purpose": "Value a product offers: its services, contracts and the parties involved.", "types": ["Business Actor", "Business Role", "Business Collaboration", "Business Interface", "Business Process", "Business Function", "Business Interaction", "Business Event", "Business Service", "Business Object", "Contract", "Product", "Value", "Application Component", "Application Interface", "Application Process", "Application Function", "Application Interaction", "Application Event", "Application Service", "Data Object", "Technology Interface", "Technology Process", "Technology Function", "Technology Interaction", "Technology Event", "Technology Service", "Node", "Device", "System Software", "Grouping", "And Junction", "Or Junction"]},
+  "Application Usage": {"category": "Support", "purpose": "How applications support business processes and actors.", "types": ["Business Actor", "Business Role", "Business Collaboration", "Business Process", "Business Function", "Business Interaction", "Business Event", "Business Object", "Application Component", "Application Collaboration", "Application Interface", "Application Process", "Application Function", "Application Interaction", "Application Event", "Application Service", "Data Object", "Grouping", "And Junction", "Or Junction"]},
+  "Technology Usage": {"category": "Support", "purpose": "How applications are supported by technology.", "types": ["Business Process", "Business Function", "Business Interaction", "Business Event", "Application Component", "Application Collaboration", "Application Process", "Application Function", "Application Interaction", "Application Event", "Data Object", "Node", "Device", "System Software", "Technology Collaboration", "Technology Interface", "Path", "Communication Network", "Technology Process", "Technology Function", "Technology Interaction", "Technology Event", "Technology Service", "Artifact", "Grouping", "And Junction", "Or Junction"]},
+  "Business Process Cooperation": {"category": "Cooperation", "purpose": "Relationships between business processes and with their environment.", "types": ["Business Actor", "Business Role", "Business Collaboration", "Business Interface", "Business Process", "Business Function", "Business Interaction", "Business Event", "Business Service", "Business Object", "Representation", "Location", "Application Component", "Application Collaboration", "Application Interface", "Application Process", "Application Function", "Application Interaction", "Application Event", "Application Service", "Data Object", "Grouping", "And Junction", "Or Junction"]},
+  "Application Cooperation": {"category": "Cooperation", "purpose": "Relationships between applications: information flows and services.", "types": ["Location", "Application Component", "Application Collaboration", "Application Interface", "Application Process", "Application Function", "Application Interaction", "Application Event", "Application Service", "Data Object", "Grouping", "And Junction", "Or Junction"]},
+  "Service Realization": {"category": "Realization", "purpose": "How services are realized by behaviour and the elements assigned to it.", "types": ["Business Actor", "Business Role", "Business Collaboration", "Business Process", "Business Function", "Business Interaction", "Business Event", "Business Service", "Business Object", "Product", "Application Component", "Application Collaboration", "Application Process", "Application Function", "Application Interaction", "Application Event", "Application Service", "Data Object", "Node", "Device", "System Software", "Technology Collaboration", "Technology Process", "Technology Function", "Technology Interaction", "Technology Event", "Technology Service", "Grouping", "And Junction", "Or Junction"]},
+  "Implementation and Deployment": {"category": "Realization", "purpose": "How applications are deployed on technology.", "types": ["Application Component", "Application Collaboration", "Application Interface", "Data Object", "Node", "Device", "System Software", "Technology Collaboration", "Technology Interface", "Path", "Communication Network", "Artifact", "Grouping", "And Junction", "Or Junction"]},
+  "Stakeholder": {"category": "Motivation", "purpose": "Stakeholders, their drivers, assessments and the goals that address them.", "types": ["Stakeholder", "Driver", "Assessment", "Goal", "Outcome", "Grouping", "And Junction", "Or Junction"]},
+  "Goal Realization": {"category": "Motivation", "purpose": "How goals are refined into outcomes, principles and requirements.", "types": ["Goal", "Outcome", "Principle", "Requirement", "Constraint", "Grouping", "And Junction", "Or Junction"]},
+  "Requirements Realization": {"category": "Motivation", "purpose": "How requirements are realized by core elements.", "types": ["Goal", "Outcome", "Principle", "Requirement", "Constraint", "Business Actor", "Business Role", "Business Collaboration", "Business Interface", "Business Process", "Business Function", "Business Interaction", "Business Event", "Business Service", "Business Object", "Contract", "Representation", "Product", "Application Component", "Application Collaboration", "Application Interface", "Application Function", "Application Interaction", "Application Process", "Application Event", "Application Service", "Data Object", "Node", "Device", "System Software", "Technology Collaboration", "Technology Interface", "Path", "Communication Network", "Technology Function", "Technology Process", "Technology Interaction", "Technology Event", "Technology Service", "Artifact", "Equipment", "Facility", "Distribution Network", "Material", "Grouping", "And Junction", "Or Junction"]},
+  "Motivation": {"category": "Motivation", "purpose": "The complete motivation aspect.", "types": ["Stakeholder", "Driver", "Assessment", "Goal", "Outcome", "Principle", "Requirement", "Constraint", "Meaning", "Value", "Grouping", "And Junction", "Or Junction"]},
+  "Strategy": {"category": "Strategy", "purpose": "Strategic overview: courses of action, capabilities, value streams and resources.", "types": ["Course of Action", "Capability", "Value Stream", "Resource", "Outcome", "Grouping", "And Junction", "Or Junction"]},
+  "Capability Map": {"category": "Strategy", "purpose": "Structured overview of the enterprise's capabilities.", "types": ["Capability", "Resource", "Outcome", "Grouping", "And Junction", "Or Junction"]},
+  "Value Stream": {"category": "Strategy", "purpose": "Value streams, the capabilities that enable them and the value they deliver.", "types": ["Stakeholder", "Value Stream", "Capability", "Outcome", "Value", "Grouping", "And Junction", "Or Junction"]},
+  "Outcome Realization": {"category": "Strategy", "purpose": "How outcomes are produced by capabilities and the core elements behind them.", "types": ["Capability", "Resource", "Value Stream", "Course of Action", "Outcome", "Value", "Meaning", "Business Actor", "Business Role", "Business Collaboration", "Business Interface", "Business Process", "Business Function", "Business Interaction", "Business Event", "Business Service", "Business Object", "Contract", "Representation", "Product", "Application Component", "Application Collaboration", "Application Interface", "Application Function", "Application Interaction", "Application Process", "Application Event", "Application Service", "Data Object", "Node", "Device", "System Software", "Technology Collaboration", "Technology Interface", "Path", "Communication Network", "Technology Function", "Technology Process", "Technology Interaction", "Technology Event", "Technology Service", "Artifact", "Equipment", "Facility", "Distribution Network", "Material", "Grouping", "And Junction", "Or Junction"]},
+  "Resource Map": {"category": "Strategy", "purpose": "Resources and the capabilities and work that use them.", "types": ["Resource", "Capability", "Work Package", "Business Actor", "Business Role", "Business Collaboration", "Location", "Application Component", "Application Collaboration", "Node", "Device", "System Software", "Technology Collaboration", "Equipment", "Facility", "Distribution Network", "Material", "Path", "Communication Network", "Grouping", "And Junction", "Or Junction"]},
+  "Project": {"category": "Implementation", "purpose": "Work packages, events, deliverables and the people and goals involved.", "types": ["Work Package", "Implementation Event", "Deliverable", "Business Actor", "Business Role", "Location", "Goal", "Outcome", "Requirement", "Constraint", "Grouping", "And Junction", "Or Junction"]},
+  "Migration": {"category": "Implementation", "purpose": "Transition from baseline to target through plateaus and gaps.", "types": ["Plateau", "Gap", "Grouping", "And Junction", "Or Junction"]},
+  "Implementation and Migration": {"category": "Implementation", "purpose": "Programmes and projects related to plateaus, gaps and the architecture they change.", "types": ["Work Package", "Deliverable", "Implementation Event", "Plateau", "Gap", "Location", "Goal", "Outcome", "Requirement", "Constraint", "Business Actor", "Business Role", "Business Collaboration", "Business Interface", "Business Process", "Business Function", "Business Interaction", "Business Event", "Business Service", "Business Object", "Contract", "Representation", "Product", "Application Component", "Application Collaboration", "Application Interface", "Application Function", "Application Interaction", "Application Process", "Application Event", "Application Service", "Data Object", "Node", "Device", "System Software", "Technology Collaboration", "Technology Interface", "Path", "Communication Network", "Technology Function", "Technology Process", "Technology Interaction", "Technology Event", "Technology Service", "Artifact", "Equipment", "Facility", "Distribution Network", "Material", "Grouping", "And Junction", "Or Junction"]}
+ }
+}
