@@ -26,6 +26,47 @@ Then ask for a diagram in plain words: "draw the deployment for this service", "
 - Python 3.9 or later for the EA library and the icon tools (standard library only).
 - Optional: `xmllint`, which the tests use to validate the XML exports against the official schemas.
 
+## Working with a model
+
+Claude runs these for you while it draws, but they're also usable on their own from `skills/arch-diagram/scripts`:
+
+```bash
+python3 ea.py render views.ead                        # lay out and draw the views in a view file
+python3 ea.py validate model.json                     # every problem, at once
+python3 ea.py types archimate                         # element types and id prefixes
+python3 ea.py rules archimate "Application Component" "Business Process"
+python3 ea.py viewpoints togaf                        # artifacts and the types they use
+python3 ea.py export model.json --format archimate    # or bpmn, csv
+python3 icons.py status                               # which icon packs are fetched
+python3 icons.py fetch all --accept-terms             # after reading the vendors' terms
+```
+
+A model is one JSON file of objects and relationships with a `metamodel` field (`coreea`, `archimate`, `togaf`, `essential` or `bpmn`). A file without the field is read as CoreEA. `skills/arch-diagram/references/ea.md` describes the workflow and the drawing API.
+
+## Views as text
+
+Views are written in a small view language, much as Mermaid diagrams are, and the layout is worked out rather than placed by hand. A view lists what it shows; boxes inside braces are nested, and every relationship in the model between objects on the view is drawn:
+
+```
+model "model.json"
+
+view ACD "Service Portal: application context" {
+  ACT-01
+  ACT-02
+  APP-01 {
+    APP-02
+    APP-03
+  }
+  INT-01 on APP-03
+  APP-NOTIFY
+  TEC-01
+}
+```
+
+`ea.py render views.ead` draws it: layers become bands (business above application above technology), relationships such as *realises* and *hosted on* set the rows, lines are routed around the boxes, and labels go where they touch nothing. Adding an object or a relationship is one line, and every view that shows it rearranges. The file can also declare the model itself (`APP-01: Application "Service Portal"`, `APP-01 -[hosted on]-> TEC-01`), so a small piece of work needs no `model.json` at all. When a view needs a nudge, hints such as `same A B` and `A above B` move it without coordinates. `render` warns when a layout comes out untidy (a wrapped row, crossing lines, a label with nowhere free to go), and if the hints can't fix it, that one view can be placed by hand in Python and named in the file (`view ACD script="acd.py"`), so the rest stay as text. `skills/arch-diagram/references/dsl.md` is the reference.
+
+`scripts/examples/` has, for each framework, a model, its views as a `views.ead` (drawn into `out/`), and the same views placed by hand with the Python API (drawn into `out/script/`).
+
 ## Frameworks
 
 | Framework | Status | Notation | Exports |
@@ -57,14 +98,14 @@ Diagrams use the official AWS, Azure and Google Cloud architecture icons for pla
 skills/arch-diagram/
   SKILL.md                 routing, design system, icons, procedure
   icons.svg                64 generic stroke glyphs
-  references/              one recipe per diagram type; c4.md; ea.md, coreea.md,
+  references/              one recipe per diagram type; c4.md; ea.md, dsl.md, coreea.md,
                            archimate.md, togaf.md, essential.md, bpmn.md; icons.md; exports.md
-  scripts/ea.py            validate, rules, viewpoints, export, orbus
+  scripts/ea.py            render, validate, rules, viewpoints, export, orbus
   scripts/icons.py         fetch, search, resolve and inline platform icons
-  scripts/ealib/           views, metamodels, BPMN, exports, Orbus import
+  scripts/ealib/           views, view language and layout, metamodels, BPMN, exports, Orbus import
   scripts/coreea_lib.py    the 1.x CoreEA API, now running on ealib
   scripts/metamodels/      CoreEA, ArchiMate, TOGAF and Essential definitions
-  scripts/examples/        one model per framework, its view scripts and output
+  scripts/examples/        one model per framework, its views (view file and script) and output
 tests/                     python3 -m unittest discover -s tests
 ```
 
@@ -78,6 +119,18 @@ tests/                     python3 -m unittest discover -s tests
 ![An ArchiMate Layered view drawn from the example model](docs/archimate-layered.png)
 
 ![A BPMN collaboration drawn from the example model](docs/bpmn-collaboration.png)
+
+## Upgrading from 1.x
+
+CoreEA works as it did. Model files and scripts written against `coreea_lib.py` run unchanged. A re-rendered view looks slightly different: each type now has its own shade of its layer's colour, and the legend groups the types under their layer. `make_theme(type_shades=False)` brings back plain layer colours; the grouped legend stays. Two paths moved: the example is now `scripts/examples/coreea/`, and the icon aliases moved from `references/icon-aliases.md` to `scripts/icon_aliases.json`, with the guidance in `references/icons.md`. Python 3.9 or later is now required.
+
+## Tests
+
+```bash
+python3 -m unittest discover -s tests
+```
+
+The suite checks the metamodel rules, validation, CoreEA compatibility with 1.x, the view language and its layout (no overlapping boxes, children inside their containers, every line orthogonal, ending on its boxes and crossing no other box, every relationship drawn or shown by nesting), both XML exports against the official schemas (downloaded once into `tests/.cache` when `xmllint` is installed), icon indexing and resolution, and the OrbusInfinity import against a local server built to the published API. With icon packs fetched, it also checks that every alias still points at an icon that exists, which catches vendor renames.
 
 ## Licence
 

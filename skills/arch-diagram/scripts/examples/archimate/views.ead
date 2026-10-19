@@ -1,0 +1,26 @@
+# ArchiMate layered view of the Service Portal, from model.json.
+#   python3 ../../ea.py render views.ead --export archimate
+
+model "model.json"
+
+view LAYERED "Service Portal: layered view" {
+  viewpoint "Layered"
+  BACT-01
+  BPRC-01
+  ASVC-01
+  ACMP-01 {
+    ACMP-02
+    ACMP-03
+  }
+  ACMP-CRM {
+    AIF-01
+  }
+  ACMP-NOTIFY
+  DOBJ-01
+  LOC-01 {
+    NODE-01 icon=ECS {
+      SSW-01 icon=PostgreSQL
+    }
+  }
+  key "Box in a box: composition (application, node) or aggregation (location)"
+}

@@ -1,0 +1,14 @@
+id,type,class,layer,name,description,status,owner,ref,parent,category,doc,classification
+BACT-01,Business Actor,BusinessActor,Business,Customer,,,,,,,,
+BPRC-01,Business Process,BusinessProcess,Business,Lodge a case,,,,FR-04,,,,
+ASVC-01,Application Service,ApplicationService,Application,Case management,,Built,,,,,,
+ACMP-01,Application Component,ApplicationComponent,Application,Service Portal,,Built,Customer Service,,,,,
+ACMP-02,Application Component,ApplicationComponent,Application,Portal web app,,Built,,,,,,
+ACMP-03,Application Component,ApplicationComponent,Application,Case service,,Built,,,,,,
+ACMP-CRM,Application Component,ApplicationComponent,Application,CRM,Defined in the CRM solution architecture.,Built,,,,,,
+AIF-01,Application Interface,ApplicationInterface,Application,Customer lookup API,,Built,,,,,,
+ACMP-NOTIFY,Application Component,ApplicationComponent,Application,Notification service,,Proposed,,,,,,
+DOBJ-01,Data Object,DataObject,Application,Case,,,,,,,,Confidential
+NODE-01,Node,Node,Technology,Container platform,,Built,,,,,,
+SSW-01,System Software,SystemSoftware,Technology,PostgreSQL,,Built,,,,,,
+LOC-01,Location,Location,Other,Cloud region (primary),,,,,,,,

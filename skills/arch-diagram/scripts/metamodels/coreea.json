@@ -140,6 +140,7 @@
  },
  "relationships": {
   "realises": {
+   "layout": "up",
    "pairs": [
     [
      [
@@ -160,6 +161,7 @@
    ]
   },
   "supports": {
+   "layout": "up",
    "pairs": [
     [
      [
@@ -180,6 +182,7 @@
    ]
   },
   "motivates": {
+   "layout": "down",
    "pairs": [
     [
      [
@@ -192,6 +195,7 @@
    ]
   },
   "achieved by": {
+   "layout": "down",
    "pairs": [
     [
      [
@@ -204,6 +208,7 @@
    ]
   },
   "owns": {
+   "layout": "down",
    "pairs": [
     [
      [
@@ -317,6 +322,7 @@
    ]
   },
   "classified as": {
+   "layout": "up",
    "pairs": [
     [
      [
@@ -329,6 +335,7 @@
    ]
   },
   "hosted on": {
+   "layout": "down",
    "pairs": [
     [
      [
@@ -353,6 +360,7 @@
    ]
   },
   "categorised as": {
+   "layout": "up",
    "pairs": [
     [
      [
@@ -373,6 +381,7 @@
    ]
   },
   "satisfies": {
+   "layout": "up",
    "pairs": [
     [
      [
@@ -386,6 +395,7 @@
    ]
   },
   "constrains": {
+   "layout": "down",
    "pairs": [
     [
      [

@@ -1,109 +1,109 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 626" font-family="-apple-system, 'Helvetica Neue', Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 688" font-family="-apple-system, 'Helvetica Neue', Arial, sans-serif">
 <title>Case lodgement: collaboration</title>
-<rect x="0" y="0" width="960" height="626" fill="#ffffff"/>
-<defs><marker id="arr-lodgement" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" fill="#475569"/></marker><marker id="default-lodgement" viewBox="0 0 12 12" refX="0" refY="6" markerWidth="10" markerHeight="10" orient="auto"><path d="M5 2L9 10" stroke="#475569" stroke-width="1.4"/></marker><marker id="data-end-lodgement" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#475569" stroke-width="1.2"/></marker><marker id="msg-start-lodgement" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><circle cx="5" cy="5" r="3.5" fill="#ffffff" stroke="#475569" stroke-width="1.2"/></marker><marker id="msg-end-lodgement" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="9" markerHeight="9" orient="auto"><path d="M1 1L11 6L1 11z" fill="#ffffff" stroke="#475569" stroke-width="1.1"/></marker></defs>
+<rect x="0" y="0" width="960" height="688" fill="#ffffff"/>
+<defs><marker id="arr-lodgement" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" fill="#475569"/></marker><marker id="default-lodgement" viewBox="0 0 12 12" refX="0" refY="6" markerWidth="10" markerHeight="10" orient="auto"><path d="M5 2L9 10" stroke="#475569" stroke-width="1.4"/></marker><marker id="msg-start-lodgement" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><circle cx="5" cy="5" r="3.5" fill="#ffffff" stroke="#475569" stroke-width="1.2"/></marker><marker id="msg-end-lodgement" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="9" markerHeight="9" orient="auto"><path d="M1 1L11 6L1 11z" fill="#ffffff" stroke="#475569" stroke-width="1.1"/></marker><marker id="data-end-lodgement" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#475569" stroke-width="1.2"/></marker></defs>
 <rect x="16.0" y="16.0" width="928.0" height="60.0" fill="#ffffff" stroke="#475569" stroke-width="1.3"/>
 <rect x="16.0" y="16.0" width="30" height="60.0" fill="#f8fafc" stroke="#475569" stroke-width="1.3"/>
 <text x="34.5" y="46.0" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700" transform="rotate(-90 34.5 46.0)">Customer</text>
-<rect x="16.0" y="116.0" width="928.0" height="430.0" fill="#ffffff" stroke="#475569" stroke-width="1.3"/>
-<rect x="16.0" y="116.0" width="30" height="430.0" fill="#f8fafc" stroke="#475569" stroke-width="1.3"/>
-<text x="34.5" y="331.0" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700" transform="rotate(-90 34.5 331.0)">Service centre</text>
-<rect x="46.0" y="116.0" width="898.0" height="230.0" fill="none" stroke="#475569" stroke-width="0.9"/>
-<rect x="46.0" y="116.0" width="24" height="230.0" fill="#f8fafc" stroke="#475569" stroke-width="0.9"/>
-<text x="61.1" y="231.0" font-size="9" fill="#0f172a" text-anchor="middle" font-weight="600" transform="rotate(-90 61.1 231.0)">Service agent</text>
-<rect x="46.0" y="346.0" width="898.0" height="200.0" fill="none" stroke="#475569" stroke-width="0.9"/>
-<rect x="46.0" y="346.0" width="24" height="200.0" fill="#f8fafc" stroke="#475569" stroke-width="0.9"/>
-<text x="61.1" y="446.0" font-size="9" fill="#0f172a" text-anchor="middle" font-weight="600" transform="rotate(-90 61.1 446.0)">Case system</text>
-<circle cx="100.0" cy="420.0" r="16" fill="#ffffff" stroke="#15803d" stroke-width="1.4"/>
-<g transform="translate(100.0 420.0) scale(1.000)" fill="none" stroke="#15803d" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"><rect x="-7" y="-5" width="14" height="10"/><path d="M-7 -5l7 5.5 7-5.5" stroke="#15803d"/></g>
-<text x="100.0" y="447.0" font-size="8.5" fill="#0f172a" text-anchor="middle" font-weight="600" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">Case lodged</text>
-<rect x="140.0" y="388.0" width="112.0" height="64.0" rx="9" fill="#ffffff" stroke="#334155" stroke-width="1.3"/>
-<g transform="translate(146.0 393.0)" fill="none" stroke="#334155" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="2.2"/><path d="M7 1v2M7 11v2M1 7h2M11 7h2M2.8 2.8l1.4 1.4M9.8 9.8l1.4 1.4M2.8 11.2l1.4-1.4M9.8 4.2l1.4-1.4"/><circle cx="7" cy="7" r="4.4"/></g>
-<text x="196.0" y="425.0" font-size="9.5" fill="#0f172a" text-anchor="middle" font-weight="600">Register case</text>
-<path d="M300.0 399.0L321.0 420.0L300.0 441.0L279.0 420.0Z" fill="#ffffff" stroke="#475569" stroke-width="1.3"/>
-<path d="M294.0 414.0l12 12M306.0 414.0l-12 12" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
-<text x="314.5" y="405.5" font-size="8.5" fill="#0f172a" font-weight="600" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">Lodgement complete?</text>
-<polyline points="116.0,420.0 138.0,420.0" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-lodgement)"/>
-<polyline points="252.0,420.0 277.0,420.0" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-lodgement)"/>
-<rect x="360.0" y="148.0" width="112.0" height="64.0" rx="9" fill="#ffffff" stroke="#334155" stroke-width="1.3"/>
-<g transform="translate(366.0 153.0)" fill="none" stroke="#334155" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="0.5" y="2.5" width="13" height="9" fill="#334155"/><path d="M0.5 2.5l6.5 5 6.5-5" stroke="#fff"/></g>
-<text x="416.0" y="179.0" font-size="9.5" fill="#0f172a" text-anchor="middle" font-weight="600">Request missing</text>
-<text x="416.0" y="191.0" font-size="9.5" fill="#0f172a" text-anchor="middle" font-weight="600">information</text>
-<circle cx="520.0" cy="180.0" r="16" fill="#ffffff" stroke="#b4443c" stroke-width="3.2"/>
+<rect x="16.0" y="116.0" width="928.0" height="492.0" fill="#ffffff" stroke="#475569" stroke-width="1.3"/>
+<rect x="16.0" y="116.0" width="30" height="492.0" fill="#f8fafc" stroke="#475569" stroke-width="1.3"/>
+<text x="34.5" y="362.0" font-size="10" fill="#0f172a" text-anchor="middle" font-weight="700" transform="rotate(-90 34.5 362.0)">Service centre</text>
+<rect x="46.0" y="116.0" width="898.0" height="280.0" fill="none" stroke="#475569" stroke-width="0.9"/>
+<rect x="46.0" y="116.0" width="24" height="280.0" fill="#f8fafc" stroke="#475569" stroke-width="0.9"/>
+<text x="61.1" y="256.0" font-size="9" fill="#0f172a" text-anchor="middle" font-weight="600" transform="rotate(-90 61.1 256.0)">Service agent</text>
+<rect x="46.0" y="396.0" width="898.0" height="212.0" fill="none" stroke="#475569" stroke-width="0.9"/>
+<rect x="46.0" y="396.0" width="24" height="212.0" fill="#f8fafc" stroke="#475569" stroke-width="0.9"/>
+<text x="61.1" y="502.0" font-size="9" fill="#0f172a" text-anchor="middle" font-weight="600" transform="rotate(-90 61.1 502.0)">Case system</text>
+<circle cx="108.0" cy="452.0" r="16" fill="#ffffff" stroke="#15803d" stroke-width="1.4"/>
+<g transform="translate(108.0 452.0) scale(1.000)" fill="none" stroke="#15803d" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"><rect x="-7" y="-5" width="14" height="10"/><path d="M-7 -5l7 5.5 7-5.5" stroke="#15803d"/></g>
+<text x="108.0" y="479.0" font-size="8.5" fill="#0f172a" text-anchor="middle" font-weight="600" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">Case lodged</text>
+<rect x="180.0" y="420.0" width="112.0" height="64.0" rx="9" fill="#ffffff" stroke="#334155" stroke-width="1.3"/>
+<g transform="translate(186.0 425.0)" fill="none" stroke="#334155" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="2.2"/><path d="M7 1v2M7 11v2M1 7h2M11 7h2M2.8 2.8l1.4 1.4M9.8 9.8l1.4 1.4M2.8 11.2l1.4-1.4M9.8 4.2l1.4-1.4"/><circle cx="7" cy="7" r="4.4"/></g>
+<text x="236.0" y="457.0" font-size="9.5" fill="#0f172a" text-anchor="middle" font-weight="600">Register case</text>
+<path d="M423.0 431.0L444.0 452.0L423.0 473.0L402.0 452.0Z" fill="#ffffff" stroke="#475569" stroke-width="1.3"/>
+<path d="M417.0 446.0l12 12M429.0 446.0l-12 12" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
+<text x="437.5" y="437.5" font-size="8.5" fill="#0f172a" font-weight="600" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">Lodgement complete?</text>
+<rect x="554.0" y="140.0" width="112.0" height="64.0" rx="9" fill="#ffffff" stroke="#334155" stroke-width="1.3"/>
+<g transform="translate(560.0 145.0)" fill="none" stroke="#334155" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="0.5" y="2.5" width="13" height="9" fill="#334155"/><path d="M0.5 2.5l6.5 5 6.5-5" stroke="#fff"/></g>
+<text x="610.0" y="171.0" font-size="9.5" fill="#0f172a" text-anchor="middle" font-weight="600">Request missing</text>
+<text x="610.0" y="183.0" font-size="9.5" fill="#0f172a" text-anchor="middle" font-weight="600">information</text>
+<rect x="554.0" y="280.0" width="112.0" height="64.0" rx="9" fill="#ffffff" stroke="#334155" stroke-width="1.3"/>
+<g transform="translate(560.0 285.0)" fill="none" stroke="#334155" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="4" r="3"/><path d="M1.5 13c0-3.5 2.5-5.5 5.5-5.5s5.5 2 5.5 5.5z"/></g>
+<text x="610.0" y="317.0" font-size="9.5" fill="#0f172a" text-anchor="middle" font-weight="600">Assess case</text>
+<circle cx="778.0" cy="172.0" r="16" fill="#ffffff" stroke="#b4443c" stroke-width="3.2"/>
 
-<text x="520.0" y="207.0" font-size="8.5" fill="#0f172a" text-anchor="middle" font-weight="600" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">Awaiting information</text>
-<polyline points="300.0,399.0 300.0,180.0 358.0,180.0" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-lodgement)" marker-start="url(#default-lodgement)"/>
-<text x="306.0" y="240.0" font-size="8.5" fill="#64748b" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">no</text>
-<polyline points="472.0,180.0 502.0,180.0" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-lodgement)"/>
-<rect x="610.0" y="148.0" width="112.0" height="64.0" rx="9" fill="#ffffff" stroke="#334155" stroke-width="1.3"/>
-<g transform="translate(616.0 153.0)" fill="none" stroke="#334155" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="4" r="3"/><path d="M1.5 13c0-3.5 2.5-5.5 5.5-5.5s5.5 2 5.5 5.5z"/></g>
-<text x="666.0" y="185.0" font-size="9.5" fill="#0f172a" text-anchor="middle" font-weight="600">Assess case</text>
-<polyline points="321.0,420.0 580.0,420.0 580.0,180.0 608.0,180.0" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-lodgement)"/>
-<text x="440.0" y="414.0" font-size="8.5" fill="#64748b" text-anchor="middle" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">yes</text>
-<circle cx="640.0" cy="212.0" r="16" fill="#ffffff" stroke="#b46a12" stroke-width="1.2" stroke-dasharray="3.5 2.5"/>
-<circle cx="640.0" cy="212.0" r="13" fill="none" stroke="#b46a12" stroke-width="1.1" stroke-dasharray="3.5 2.5"/>
-<g transform="translate(640.0 212.0) scale(1.000)" fill="none" stroke="#b46a12" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"><circle r="8.5" fill="none"/><path d="M0 -5.5V0l3.5 2.5" fill="none"/></g>
-<text x="662.0" y="226.0" font-size="8.5" fill="#0f172a" font-weight="600">5 days</text>
-<rect x="610.0" y="260.0" width="112.0" height="64.0" rx="9" fill="#ffffff" stroke="#334155" stroke-width="1.3"/>
-<g transform="translate(616.0 265.0)" fill="none" stroke="#334155" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="4" r="3"/><path d="M1.5 13c0-3.5 2.5-5.5 5.5-5.5s5.5 2 5.5 5.5z"/></g>
-<text x="666.0" y="291.0" font-size="9.5" fill="#0f172a" text-anchor="middle" font-weight="600">Escalate to team</text>
-<text x="666.0" y="303.0" font-size="9.5" fill="#0f172a" text-anchor="middle" font-weight="600">lead</text>
-<polyline points="640.0,228.0 640.0,258.0" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-lodgement)"/>
-<circle cx="790.0" cy="292.0" r="16" fill="#ffffff" stroke="#b4443c" stroke-width="3.2"/>
+<text x="778.0" y="199.0" font-size="8.5" fill="#0f172a" text-anchor="middle" font-weight="600" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">Awaiting information</text>
+<rect x="722.0" y="280.0" width="112.0" height="64.0" rx="9" fill="#ffffff" stroke="#334155" stroke-width="1.3"/>
+<g transform="translate(728.0 285.0)" fill="none" stroke="#334155" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="4" r="3"/><path d="M1.5 13c0-3.5 2.5-5.5 5.5-5.5s5.5 2 5.5 5.5z"/></g>
+<text x="778.0" y="311.0" font-size="9.5" fill="#0f172a" text-anchor="middle" font-weight="600">Escalate to team</text>
+<text x="778.0" y="323.0" font-size="9.5" fill="#0f172a" text-anchor="middle" font-weight="600">lead</text>
+<rect x="722.0" y="420.0" width="112.0" height="64.0" rx="9" fill="#ffffff" stroke="#334155" stroke-width="1.3" stroke-dasharray="4 3"/>
+<g transform="translate(728.0 425.0)" fill="none" stroke="#334155" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="0.5" y="2.5" width="13" height="9" fill="#334155"/><path d="M0.5 2.5l6.5 5 6.5-5" stroke="#fff"/></g>
+<text x="778.0" y="457.0" font-size="9.5" fill="#0f172a" text-anchor="middle" font-weight="600">Notify outcome</text>
+<circle cx="906.0" cy="312.0" r="16" fill="#ffffff" stroke="#b4443c" stroke-width="3.2"/>
 
-<text x="790.0" y="319.0" font-size="8.5" fill="#0f172a" text-anchor="middle" font-weight="600" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">Escalated</text>
-<polyline points="722.0,292.0 772.0,292.0" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-lodgement)"/>
-<rect x="784.0" y="388.0" width="112.0" height="64.0" rx="9" fill="#ffffff" stroke="#334155" stroke-width="1.3" stroke-dasharray="4 3"/>
-<g transform="translate(790.0 393.0)" fill="none" stroke="#334155" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="0.5" y="2.5" width="13" height="9" fill="#334155"/><path d="M0.5 2.5l6.5 5 6.5-5" stroke="#fff"/></g>
-<text x="840.0" y="425.0" font-size="9.5" fill="#0f172a" text-anchor="middle" font-weight="600">Notify outcome</text>
-<polyline points="722.0,180.0 840.0,180.0 840.0,386.0" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-lodgement)"/>
-<circle cx="840.0" cy="500.0" r="16" fill="#ffffff" stroke="#b4443c" stroke-width="3.2"/>
+<text x="906.0" y="339.0" font-size="8.5" fill="#0f172a" text-anchor="middle" font-weight="600" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">Escalated</text>
+<circle cx="906.0" cy="452.0" r="16" fill="#ffffff" stroke="#b4443c" stroke-width="3.2"/>
 
-<text x="840.0" y="527.0" font-size="8.5" fill="#0f172a" text-anchor="middle" font-weight="600" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">Case closed</text>
-<polyline points="840.0,452.0 840.0,482.0" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-lodgement)"/>
-<path d="M181.0 468.0h21l9 9v29h-30z M202.0 468.0v9h9" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
-<text x="196.0" y="517.0" font-size="8.5" fill="#0f172a" text-anchor="middle" font-weight="600" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">Case record</text>
-<polyline points="196.0,452.0 196.0,466.0" fill="none" stroke="#475569" stroke-width="1.2" stroke-dasharray="1.5 2.5" marker-end="url(#data-end-lodgement)"/>
-<path d="M370.0 470.0H360.0V502.0H370.0" fill="none" stroke="#64748b" stroke-width="1.2"/>
-<text x="366.0" y="484.0" font-size="8.5" fill="#475569">Complete = identity verified and evidence</text>
-<text x="366.0" y="495.0" font-size="8.5" fill="#475569">attached</text>
-<polyline points="360.0,486.0 300.0,442.0" fill="none" stroke="#475569" stroke-width="1.2" stroke-dasharray="1.5 2.5"/>
-<polyline points="100.0,78.0 100.0,402.0" fill="none" stroke="#475569" stroke-width="1.2" stroke-dasharray="5 3" marker-start="url(#msg-start-lodgement)" marker-end="url(#msg-end-lodgement)"/>
-<text x="104.0" y="96.0" font-size="8.5" fill="#64748b" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">lodgement</text>
-<polyline points="416.0,148.0 416.0,78.0" fill="none" stroke="#475569" stroke-width="1.2" stroke-dasharray="5 3" marker-start="url(#msg-start-lodgement)" marker-end="url(#msg-end-lodgement)"/>
-<text x="420.0" y="96.0" font-size="8.5" fill="#64748b" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">information request</text>
-<polyline points="880.0,388.0 880.0,78.0" fill="none" stroke="#475569" stroke-width="1.2" stroke-dasharray="5 3" marker-start="url(#msg-start-lodgement)" marker-end="url(#msg-end-lodgement)"/>
-<text x="884.0" y="96.0" font-size="8.5" fill="#64748b" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">outcome</text>
-<line x1="16" y1="566.0" x2="944" y2="566.0" stroke="#e2e8f0"/>
-<circle cx="27" cy="583.5" r="7.5" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
-<g transform="translate(27.0 583.5) scale(0.469)" fill="none" stroke="#15803d" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"><rect x="-7" y="-5" width="14" height="10"/><path d="M-7 -5l7 5.5 7-5.5" stroke="#15803d"/></g>
-<text x="44.0" y="587.0" font-size="8.5" fill="#475569">Message start event</text>
-<rect x="137.56" y="576.5" width="22" height="14" rx="3.5" fill="#ffffff" stroke="#334155" stroke-width="1"/>
-<g transform="translate(141.56 578.5) scale(0.65) translate(-141.56 -578.5)"><g transform="translate(141.6 578.5)" fill="none" stroke="#334155" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="2.2"/><path d="M7 1v2M7 11v2M1 7h2M11 7h2M2.8 2.8l1.4 1.4M9.8 9.8l1.4 1.4M2.8 11.2l1.4-1.4M9.8 4.2l1.4-1.4"/><circle cx="7" cy="7" r="4.4"/></g></g>
-<text x="165.6" y="587.0" font-size="8.5" fill="#475569">Service task</text>
-<path d="M239.18 575.5l8 8-8 8-8-8z" fill="#ffffff" stroke="#475569"/>
-<path d="M236.68 581.0l5 5M241.68 581.0l-5 5" stroke="#475569" stroke-width="1.6"/>
-<text x="256.2" y="587.0" font-size="8.5" fill="#475569">Exclusive gateway</text>
-<rect x="343.62" y="576.5" width="22" height="14" rx="3.5" fill="#ffffff" stroke="#334155" stroke-width="1"/>
-<g transform="translate(347.62 578.5) scale(0.65) translate(-347.62 -578.5)"><g transform="translate(347.6 578.5)" fill="none" stroke="#334155" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="0.5" y="2.5" width="13" height="9" fill="#334155"/><path d="M0.5 2.5l6.5 5 6.5-5" stroke="#fff"/></g></g>
-<text x="371.6" y="587.0" font-size="8.5" fill="#475569">Send task</text>
-<circle cx="435.55" cy="583.5" r="7.5" fill="#ffffff" stroke="#b4443c" stroke-width="2.6"/>
-<text x="452.6" y="587.0" font-size="8.5" fill="#475569">End event</text>
-<rect x="505.48" y="576.5" width="22" height="14" rx="3.5" fill="#ffffff" stroke="#334155" stroke-width="1"/>
-<g transform="translate(509.48 578.5) scale(0.65) translate(-509.48 -578.5)"><g transform="translate(509.5 578.5)" fill="none" stroke="#334155" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="4" r="3"/><path d="M1.5 13c0-3.5 2.5-5.5 5.5-5.5s5.5 2 5.5 5.5z"/></g></g>
-<text x="533.5" y="587.0" font-size="8.5" fill="#475569">User task</text>
-<circle cx="595.71" cy="583.5" r="7.5" fill="#ffffff" stroke="#b46a12" stroke-width="1"/>
-<circle cx="595.71" cy="583.5" r="5.5" fill="none" stroke="#b46a12" stroke-width="0.9"/>
-<g transform="translate(595.7 583.5) scale(0.469)" fill="none" stroke="#b46a12" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"><circle r="8.5" fill="none"/><path d="M0 -5.5V0l3.5 2.5" fill="none"/></g>
-<text x="612.7" y="587.0" font-size="8.5" fill="#475569">Timer boundary event</text>
-<path d="M716.2 576.5h8l4 4v10h-12z" fill="#ffffff" stroke="#475569"/>
-<text x="739.2" y="587.0" font-size="8.5" fill="#475569">Data object</text>
-<line x1="797.9100000000001" y1="583.5" x2="819.9100000000001" y2="583.5" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-lodgement)"/>
-<text x="825.9" y="587.0" font-size="8.5" fill="#475569">Sequence flow</text>
-<line x1="16" y1="605.5" x2="38" y2="605.5" stroke="#475569" stroke-width="1.2" stroke-dasharray="1.5 2.5" marker-end="url(#data-end-lodgement)"/>
-<text x="44.0" y="609.0" font-size="8.5" fill="#475569">Data association</text>
-<line x1="124.6" y1="605.5" x2="144.6" y2="605.5" stroke="#475569" stroke-width="1.2" stroke-dasharray="4 2.5" marker-start="url(#msg-start-lodgement)" marker-end="url(#msg-end-lodgement)"/>
-<text x="150.6" y="609.0" font-size="8.5" fill="#475569">Message flow</text>
-<rect x="219.0" y="599.5" width="22" height="12" rx="3" fill="#ffffff" stroke="#475569" stroke-dasharray="3 2"/>
-<text x="247.0" y="609.0" font-size="8.5" fill="#475569">Proposed / not built</text>
+<text x="906.0" y="479.0" font-size="8.5" fill="#0f172a" text-anchor="middle" font-weight="600" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">Case closed</text>
+<path d="M221.0 539.0h21l9 9v29h-30z M242.0 539.0v9h9" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+<text x="236.0" y="588.0" font-size="8.5" fill="#0f172a" text-anchor="middle" font-weight="600" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">Case record</text>
+<path d="M358.0 542.0H348.0V574.0H358.0" fill="none" stroke="#64748b" stroke-width="1.2"/>
+<text x="354.0" y="556.0" font-size="8.5" fill="#475569">Complete = identity verified and</text>
+<text x="354.0" y="567.0" font-size="8.5" fill="#475569">evidence attached</text>
+<circle cx="587.6" cy="344.0" r="16" fill="#ffffff" stroke="#b46a12" stroke-width="1.2" stroke-dasharray="3.5 2.5"/>
+<circle cx="587.6" cy="344.0" r="13" fill="none" stroke="#b46a12" stroke-width="1.1" stroke-dasharray="3.5 2.5"/>
+<g transform="translate(587.6 344.0) scale(1.000)" fill="none" stroke="#b46a12" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"><circle r="8.5" fill="none"/><path d="M0 -5.5V0l3.5 2.5" fill="none"/></g>
+<text x="582.6" y="371.0" font-size="8.5" fill="#0f172a" text-anchor="end" font-weight="600" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">5 days</text>
+<polyline points="124.0,452.0 178.0,452.0" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-lodgement)"/>
+<polyline points="292.0,452.0 400.0,452.0" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-lodgement)"/>
+<polyline points="444.0,452.0 546.0,452.0 546.0,312.0 552.0,312.0" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-lodgement)"/>
+<text x="551.0" y="385.0" font-size="8.5" fill="#64748b" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">yes</text>
+<polyline points="423.0,431.0 423.0,172.0 552.0,172.0" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-lodgement)" marker-start="url(#default-lodgement)"/>
+<text x="428.0" y="304.5" font-size="8.5" fill="#64748b" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">no</text>
+<polyline points="666.0,172.0 760.0,172.0" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-lodgement)"/>
+<polyline points="632.4,344.0 632.4,452.0 720.0,452.0" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-lodgement)"/>
+<polyline points="587.6,360.0 587.6,368.0 755.6,368.0 755.6,346.0" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-lodgement)"/>
+<polyline points="834.0,312.0 888.0,312.0" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-lodgement)"/>
+<polyline points="834.0,452.0 888.0,452.0" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-lodgement)"/>
+<polyline points="108.0,76.0 108.0,434.0" fill="none" stroke="#475569" stroke-width="1.2" stroke-dasharray="5 3" marker-start="url(#msg-start-lodgement)" marker-end="url(#msg-end-lodgement)"/>
+<text x="113.0" y="258.0" font-size="8.5" fill="#64748b" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">lodgement</text>
+<polyline points="610.0,140.0 610.0,78.0" fill="none" stroke="#475569" stroke-width="1.2" stroke-dasharray="5 3" marker-start="url(#msg-start-lodgement)" marker-end="url(#msg-end-lodgement)"/>
+<text x="615.0" y="112.0" font-size="8.5" fill="#64748b" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">information request</text>
+<polyline points="755.6,420.0 755.6,412.0 712.0,412.0 712.0,78.0" fill="none" stroke="#475569" stroke-width="1.2" stroke-dasharray="5 3" marker-start="url(#msg-start-lodgement)" marker-end="url(#msg-end-lodgement)"/>
+<text x="717.0" y="248.0" font-size="8.5" fill="#64748b" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">outcome</text>
+<polyline points="236.0,484.0 236.0,537.0" fill="none" stroke="#475569" stroke-width="1.2" stroke-dasharray="1.5 2.5" marker-end="url(#data-end-lodgement)"/>
+<polyline points="423.0,542.0 423.0,473.0" fill="none" stroke="#475569" stroke-width="1.2" stroke-dasharray="1.5 2.5"/>
+<line x1="16" y1="628.0" x2="944" y2="628.0" stroke="#e2e8f0"/>
+<circle cx="27" cy="645.5" r="7.5" fill="#ffffff" stroke="#15803d" stroke-width="1.2"/>
+<g transform="translate(27.0 645.5) scale(0.469)" fill="none" stroke="#15803d" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"><rect x="-7" y="-5" width="14" height="10"/><path d="M-7 -5l7 5.5 7-5.5" stroke="#15803d"/></g>
+<text x="44.0" y="649.0" font-size="8.5" fill="#475569">Message start event</text>
+<rect x="137.56" y="638.5" width="22" height="14" rx="3.5" fill="#ffffff" stroke="#334155" stroke-width="1"/>
+<g transform="translate(141.56 640.5) scale(0.65) translate(-141.56 -640.5)"><g transform="translate(141.6 640.5)" fill="none" stroke="#334155" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="2.2"/><path d="M7 1v2M7 11v2M1 7h2M11 7h2M2.8 2.8l1.4 1.4M9.8 9.8l1.4 1.4M2.8 11.2l1.4-1.4M9.8 4.2l1.4-1.4"/><circle cx="7" cy="7" r="4.4"/></g></g>
+<text x="165.6" y="649.0" font-size="8.5" fill="#475569">Service task</text>
+<path d="M239.18 637.5l8 8-8 8-8-8z" fill="#ffffff" stroke="#475569"/>
+<path d="M236.68 643.0l5 5M241.68 643.0l-5 5" stroke="#475569" stroke-width="1.6"/>
+<text x="256.2" y="649.0" font-size="8.5" fill="#475569">Exclusive gateway</text>
+<rect x="343.62" y="638.5" width="22" height="14" rx="3.5" fill="#ffffff" stroke="#334155" stroke-width="1"/>
+<g transform="translate(347.62 640.5) scale(0.65) translate(-347.62 -640.5)"><g transform="translate(347.6 640.5)" fill="none" stroke="#334155" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="0.5" y="2.5" width="13" height="9" fill="#334155"/><path d="M0.5 2.5l6.5 5 6.5-5" stroke="#fff"/></g></g>
+<text x="371.6" y="649.0" font-size="8.5" fill="#475569">Send task</text>
+<rect x="424.55" y="638.5" width="22" height="14" rx="3.5" fill="#ffffff" stroke="#334155" stroke-width="1"/>
+<g transform="translate(428.55 640.5) scale(0.65) translate(-428.55 -640.5)"><g transform="translate(428.6 640.5)" fill="none" stroke="#334155" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="4" r="3"/><path d="M1.5 13c0-3.5 2.5-5.5 5.5-5.5s5.5 2 5.5 5.5z"/></g></g>
+<text x="452.6" y="649.0" font-size="8.5" fill="#475569">User task</text>
+<circle cx="514.78" cy="645.5" r="7.5" fill="#ffffff" stroke="#b4443c" stroke-width="2.6"/>
+<text x="531.8" y="649.0" font-size="8.5" fill="#475569">End event</text>
+<path d="M589.71 638.5h8l4 4v10h-12z" fill="#ffffff" stroke="#475569"/>
+<text x="612.7" y="649.0" font-size="8.5" fill="#475569">Data object</text>
+<circle cx="682.4200000000001" cy="645.5" r="7.5" fill="#ffffff" stroke="#b46a12" stroke-width="1"/>
+<circle cx="682.4200000000001" cy="645.5" r="5.5" fill="none" stroke="#b46a12" stroke-width="0.9"/>
+<g transform="translate(682.4 645.5) scale(0.469)" fill="none" stroke="#b46a12" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"><circle r="8.5" fill="none"/><path d="M0 -5.5V0l3.5 2.5" fill="none"/></g>
+<text x="699.4" y="649.0" font-size="8.5" fill="#475569">Timer boundary event</text>
+<line x1="797.9100000000001" y1="645.5" x2="819.9100000000001" y2="645.5" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-lodgement)"/>
+<text x="825.9" y="649.0" font-size="8.5" fill="#475569">Sequence flow</text>
+<line x1="18" y1="667.5" x2="38" y2="667.5" stroke="#475569" stroke-width="1.2" stroke-dasharray="4 2.5" marker-start="url(#msg-start-lodgement)" marker-end="url(#msg-end-lodgement)"/>
+<text x="44.0" y="671.0" font-size="8.5" fill="#475569">Message flow</text>
+<line x1="112.4" y1="667.5" x2="134.4" y2="667.5" stroke="#475569" stroke-width="1.2" stroke-dasharray="1.5 2.5" marker-end="url(#data-end-lodgement)"/>
+<text x="140.4" y="671.0" font-size="8.5" fill="#475569">Data association</text>
+<rect x="219.0" y="661.5" width="22" height="12" rx="3" fill="#ffffff" stroke="#475569" stroke-dasharray="3 2"/>
+<text x="247.0" y="671.0" font-size="8.5" fill="#475569">Proposed / not built</text>
 </svg>

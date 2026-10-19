@@ -1,0 +1,21 @@
+# Application Context Diagram for the Service Portal, from model.json.
+#   python3 ../../ea.py render views.ead      # writes out/ACD.svg|html|png|objects.json
+
+model "model.json"
+
+view ACD "Service Portal: application context" {
+  ACT-01
+  ACT-02
+  APP-01 {
+    APP-02
+    APP-03
+  }
+  INT-01 on APP-03
+  APP-CRM {
+    INT-02
+  }
+  APP-NOTIFY
+  TEC-01
+  LOC-01
+  key "Box inside a box: part of it (parent)" "Pill on an application: interface it exposes"
+}

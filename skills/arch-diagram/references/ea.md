@@ -42,10 +42,19 @@ exports to the person's EA tool, and a reviewer can trace every box to a record.
    `ea.py types <framework>` lists types and prefixes;
    `ea.py rules archimate "Application Component" "Business Process"` lists the
    relationships allowed between two types.
-3. One script per view (start from `scripts/examples/<framework>/`). Every
-   `edge()` passes `check=[(from, type, to)]`, so a line that is not in the model
-   cannot be drawn.
-4. Render, read the PNG, fix, repeat (SKILL.md step 5).
+3. Write the views in a view file, `views.ead` (`dsl.md`), and draw them with
+   `python3 scripts/ea.py render views.ead`. The layout is worked out from the
+   model, so a new object or relationship is one line and the views rearrange
+   around it. Only a view the automatic layout can't get right needs a script
+   with the View API below (start from `scripts/examples/<framework>/*.py`);
+   there every `edge()` passes `check=[(from, type, to)]`, so a line that is not
+   in the model cannot be drawn. The script defines `draw(model, vid)` and the
+   view file names it (`view ACD script="acd.py"`, `dsl.md`), so the other
+   views stay in the language.
+4. Render, read the PNG, fix, repeat (SKILL.md step 5). With a view file the
+   fix is usually a hint (`same`, `A above B`, `hide`) rather than coordinates.
+   `render` warns when a layout isn't clean (wrapped rows, crossing lines,
+   labels with no free spot); read those views' PNGs first.
 5. Export for the person's tools (`exports.md`).
 
 Scope: model the subject solution in detail. A neighbouring system with its
@@ -73,7 +82,7 @@ v = View(model, "V1", title="V1 Application cooperation", viewpoint="Application
 | `edge(points, type, label=None, check=[…])` | an orthogonal connector in the framework's notation | |
 | `matrix(x, y, rows, cols, cells)` + `cells_from(type, rows, cols)` | a catalogue matrix with cells derived from relationships | y below |
 | `tag(x, y, "NOT BUILT")` | an annotation pill | width |
-| `legend(y)`, `key_line(y, notes)` | the types and line styles drawn, plus what nesting means here | y below |
+| `legend(y)`, `key_line(y, notes)` | each layer drawn with its types, the line styles drawn, plus what nesting means here | y below |
 | `save(height, outdir)` | `<vid>.svg/.html/.png/.objects.json` | paths |
 
 Passing `viewpoint=` makes the view warn (at save) about any type outside that
@@ -83,6 +92,12 @@ extra type belongs.
 
 ## Notation shared by every framework
 
+- Colour says the layer, shade says the type. Every type the model uses gets
+  its own shade of its layer's colour, the same in every view of the model.
+  The legend lists each layer drawn as a heading in the layer colour,
+  followed by its types drawn as they appear in the view (a pill when the view
+  only draws that type as a pill). Types shown only in a matrix carry no
+  colour and stay out of the legend.
 - Objects with status Proposed / Designed / Not started are dashed, driven by
   the model and never set by hand. The legend adds the dashed swatch when one is
   drawn.
@@ -101,6 +116,10 @@ extra type belongs.
 ## Theme
 
 `View(model, vid, theme=make_theme(...))` overrides house tokens (`font`,
-`width`, `ink`, `body`, `muted`, `id`, `rule`, `paper`) and per-layer colours:
-`make_theme(layers={"Application": ("#1d4ed8", "#eff6ff")})`. Keep layer
-colours distinct; a legend whose swatches can't be told apart is worse than none.
+`width`, `ink`, `body`, `muted`, `id`, `rule`, `paper`), per-layer colours
+(`make_theme(layers={"Application": ("#1d4ed8", "#eff6ff")})`, from which the
+type shades are derived) and per-type colours
+(`make_theme(types={"Application Interface": ("#1e40af", "#dbeafe")})`, which
+win over the shades). `make_theme(type_shades=False)` draws every type in its
+plain layer colour, for houses that colour by layer only. Keep layer colours
+distinct; a legend whose swatches can't be told apart is worse than none.

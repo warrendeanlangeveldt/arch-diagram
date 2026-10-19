@@ -1,16 +1,21 @@
 #!/usr/bin/env python3
 """arch-diagram EA command line.
 
-  ea.py validate MODEL                      check a model against its metamodel
+  ea.py render FILE.ead [--out DIR] [--view ID …] [--export csv|archimate|bpmn …] [--no-png]
+                                            lay out and draw the views in a view-language
+                                            file (references/dsl.md), plus exports that
+                                            carry those views' layout
+  ea.py validate MODEL                      check a model (model.json or .ead) against its
+                                            metamodel; for .ead, lay out its views too
   ea.py rules METAMODEL SOURCE_TYPE TARGET_TYPE
                                             relationships allowed between two types
                                             (METAMODEL: archimate togaf essential coreea bpmn)
   ea.py types METAMODEL                     element types (with id prefixes)
   ea.py viewpoints METAMODEL [NAME]         viewpoints / artifacts and their types
   ea.py export MODEL --format csv|archimate|bpmn [--out DIR]
-                                            catalogue CSVs, ArchiMate exchange XML
-                                            (no diagrams; views export from their
-                                            scripts), BPMN 2.0 XML
+                                            catalogue CSVs, ArchiMate exchange XML, BPMN 2.0
+                                            XML; from a .ead the exchange files carry its
+                                            views, from model.json the model only
   ea.py orbus discover [--model MODEL] [--map-out FILE] [--ledger FILE]
   ea.py orbus plan MODEL --map FILE [--ledger FILE] [--out FILE]
   ea.py orbus push PAYLOAD --map FILE --ledger FILE
@@ -33,11 +38,66 @@ def _stem(model):
 def cmd_validate(a):
     try:
         res = validate(load_model(a.model))
+        if a.model.endswith(".ead"):
+            views = _layout(a.model)
+            res["views"] = len(views)
+            res["warnings"] = res.get("warnings", []) + [w for v in views for w in v.warnings]
     except ModelError as e:
         sys.exit(str(e))
     for w in res.pop("warnings", []):
         print("warning:", w)
     print(json.dumps(res))
+
+
+def _layout(path, only=None):
+    """Lay out a .ead file's views without writing anything."""
+    from ealib.dsl import DslError, load_document
+    from ealib.layout import draw
+    doc = load_document(path)
+    validate(doc.model)
+    views = []
+    for spec in doc.views:
+        if only and spec.vid not in only:
+            continue
+        v, _ = draw(doc.model, spec)
+        views.append(v)
+    missing = set(only or ()) - {v.vid for v in views}
+    if missing:
+        raise DslError(f"{path}: no view {', '.join(sorted(missing))}")
+    return views
+
+
+def _exports(model, views, formats, out):
+    for fmt in formats:
+        if fmt == "csv":
+            for p in write_catalogue(model, out):
+                print(p)
+        elif fmt == "archimate":
+            from ealib.exchange import write_archimate_xml
+            drawn = [v for v in views if getattr(v, "placed", None)]
+            print(write_archimate_xml(model, os.path.join(out, _stem(model) + ".xml"), views=drawn))
+        elif fmt == "bpmn":
+            from ealib.bpmn import write_bpmn_xml
+            drawn = [v for v in views if getattr(v, "shapes", None)]
+            print(write_bpmn_xml(model, os.path.join(out, _stem(model) + ".bpmn"),
+                                 view=drawn[0] if drawn else None))
+
+
+def cmd_render(a):
+    from ealib.dsl import load_document, render_document
+    out = a.out or os.path.join(os.path.dirname(os.path.abspath(a.file)), "out")
+    try:
+        doc = load_document(a.file)
+        paths, views = render_document(doc, out, only=a.view, render=not a.no_png)
+        for p in paths:
+            print(p)
+        if any(v.layout_warnings for v in views):
+            print("The automatic layout isn't clean in those views. Look at the PNG; steer it with "
+                  "same, above, bands or width, or place the view by hand (view ID script=\"file.py\", "
+                  "references/dsl.md).", file=sys.stderr)
+        _exports(doc.model, views, a.export or [], out)
+    except ModelError as e:
+        sys.exit(str(e))
 
 
 def cmd_rules(a):
@@ -67,21 +127,14 @@ def cmd_viewpoints(a):
 
 
 def cmd_export(a):
-    model = load_model(a.model)
     try:
+        model = load_model(a.model)
         validate(model)
+        views = _layout(a.model) if a.model.endswith(".ead") and a.format != "csv" else []
     except ModelError as e:
         sys.exit(str(e))
     out = a.out or os.path.join(os.path.dirname(os.path.abspath(a.model)), "out")
-    if a.format == "csv":
-        for p in write_catalogue(model, out):
-            print(p)
-    elif a.format == "archimate":
-        from ealib.exchange import write_archimate_xml
-        print(write_archimate_xml(model, os.path.join(out, _stem(model) + ".xml")))
-    elif a.format == "bpmn":
-        from ealib.bpmn import write_bpmn_xml
-        print(write_bpmn_xml(model, os.path.join(out, _stem(model) + ".bpmn")))
+    _exports(model, views, [a.format], out)
 
 
 def _client(mapping):
@@ -140,6 +193,11 @@ def cmd_orbus(a):
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sp = p.add_subparsers(dest="cmd", required=True)
+    s = sp.add_parser("render"); s.add_argument("file"); s.add_argument("--out")
+    s.add_argument("--view", action="append", help="draw only this view (repeatable)")
+    s.add_argument("--export", action="append", choices=["csv", "archimate", "bpmn"])
+    s.add_argument("--no-png", action="store_true", help="SVG and HTML only, no headless Chrome")
+    s.set_defaults(fn=cmd_render)
     s = sp.add_parser("validate"); s.add_argument("model"); s.set_defaults(fn=cmd_validate)
     s = sp.add_parser("rules"); s.add_argument("metamodel"); s.add_argument("source"); s.add_argument("target")
     s.set_defaults(fn=cmd_rules)

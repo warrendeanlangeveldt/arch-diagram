@@ -14,5 +14,7 @@
   "R-PAC-02-communicates_with-PAC-03",
   "R-PAC-02-communicates_with-PAC-04"
  ],
- "warnings": []
+ "warnings": [
+  "V1: layout: a row is too wide for the page, so External, PAC-04 moved to a row below"
+ ]
 }
