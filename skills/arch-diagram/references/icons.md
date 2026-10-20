@@ -45,21 +45,45 @@ python3 scripts/icons.py resolve "S3"                  # aws:amazon-simple-stora
 python3 scripts/icons.py resolve "Cosmos DB"           # azure:azure-cosmos-db
 python3 scripts/icons.py resolve "Kafka"               # generic:stream
 python3 scripts/icons.py resolve Postgres --platform azure   # azure:sql-database
+python3 scripts/icons.py resolve "Application Gateway" # azure:application-gateways (its own name)
 python3 scripts/icons.py search "kinesis video"        # browse a pack
 python3 scripts/icons.py sheet S3 Lambda "Entra ID" users --out /tmp/icons   # look before using
 ```
 
-Order: an explicit `pack:slug` reference; then `scripts/icon_aliases.json`,
-where platform terms ("S3", "Cosmos DB", "Cloud Pub/Sub") win over neutral ones
-("object storage", "Kafka", "pub/sub"); then a close name match in the
-fetched packs; then a generic glyph of that name. A platform term whose pack
-isn't fetched falls back to its concept's generic glyph, and `resolve` says so.
-Add a term to `icon_aliases.json` rather than hard-coding a slug in a diagram.
+Order:
+
+1. An explicit `pack:slug` reference.
+2. A generic glyph's own name (`server`, `firewall`, `users`) stays generic,
+   unless a platform is given.
+3. The exact name of an icon in a fetched pack. A vendor prefix and a plural
+   are allowed, so "Application Gateway" finds Application Gateways and
+   "Container Registry" finds Container Registries. Without a platform, the
+   name has to be in only one fetched pack.
+4. `scripts/icon_aliases.json`, where platform terms ("S3", "Cosmos DB",
+   "Cloud Pub/Sub") win over neutral ones ("object storage", "Kafka",
+   "pub/sub"). With a platform, a neutral term takes that platform's icon:
+   "Redis" with `--platform azure` is Cache Redis.
+5. A close name match in the fetched packs, never for a generic glyph's name.
+6. A generic glyph of that name.
+
+A product name reaches its own icon before a concept alias can claim it, so
+"AI Foundry" is the AI Foundry icon rather than the generative-AI concept's
+first choice. A platform term whose pack isn't fetched falls back to its
+concept's generic glyph, and `resolve` says so. Add a term to
+`icon_aliases.json` rather than hard-coding a slug in a diagram.
+
+A view in the view language can set its platform (`platform azure`, `dsl.md`),
+so plain names such as "Firewall" or "Redis" take that platform's icon across
+the view.
 
 ## Using icons
 
 In EA views: `node(..., icon="S3")`, `container(..., icon="EKS")`,
-`frame(..., icon="aws:group-virtual-private-cloud-vpc")`.
+`group(..., icon="Key Vault")`, `frame(..., icon="aws:group-virtual-private-cloud-vpc")`.
+A box narrower than 120px, or one whose name would wrap onto more lines beside
+the icon, carries a 12px icon before its type label instead of the 20px one
+beside its name. `View(..., platform="azure")` resolves the view's icon names
+against that platform first.
 
 In hand-laid SVG (the house recipes and C4):
 

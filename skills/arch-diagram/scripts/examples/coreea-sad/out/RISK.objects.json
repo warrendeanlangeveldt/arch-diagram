@@ -1,0 +1,41 @@
+{
+ "view": "RISK",
+ "title": "V5 Control Traceability",
+ "metamodel": "coreea",
+ "viewpoint": "Risk Catalogue",
+ "objects": [
+  "RSK-01",
+  "RSK-02",
+  "RSK-03",
+  "RSK-04",
+  "RSK-05",
+  "RSK-06",
+  "CTL-01",
+  "CTL-02",
+  "CTL-03",
+  "CTL-04",
+  "CTL-05",
+  "CTL-06",
+  "REQ-05",
+  "REQ-06",
+  "REQ-07",
+  "REQ-09",
+  "REQ-12",
+  "REQ-13"
+ ],
+ "relationships": [
+  "R-CTL-01-mitigates-RSK-01",
+  "R-CTL-02-mitigates-RSK-02",
+  "R-CTL-03-mitigates-RSK-03",
+  "R-CTL-04-mitigates-RSK-04",
+  "R-CTL-05-mitigates-RSK-05",
+  "R-CTL-06-mitigates-RSK-06",
+  "R-CTL-01-realises-REQ-09",
+  "R-CTL-02-realises-REQ-13",
+  "R-CTL-03-realises-REQ-07",
+  "R-CTL-04-realises-REQ-06",
+  "R-CTL-05-realises-REQ-12",
+  "R-CTL-06-realises-REQ-05"
+ ],
+ "warnings": []
+}

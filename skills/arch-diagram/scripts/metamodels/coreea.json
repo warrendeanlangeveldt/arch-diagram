@@ -517,6 +517,14 @@
     "Technology",
     "Control",
     "Principle"
+   ],
+   "direction": "lr",
+   "bands": [
+    "Project",
+    "Motivation",
+    "Application",
+    "Technology",
+    "Control"
    ]
   },
   "Business Strategy Diagram": {
@@ -529,7 +537,8 @@
     "Objective",
     "Capability",
     "Requirement"
-   ]
+   ],
+   "direction": "lr"
   },
   "Application Landscape Diagram": {
    "kind": "diagram",
@@ -618,6 +627,15 @@
     "Data Entity",
     "Technology",
     "Interface"
+   ],
+   "direction": "lr",
+   "bands": [
+    "Risk",
+    "Control",
+    "Motivation",
+    "Application",
+    "Data",
+    "Technology"
    ]
   },
   "Organization Diagram": {

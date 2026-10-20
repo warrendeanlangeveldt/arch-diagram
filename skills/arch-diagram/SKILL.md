@@ -51,7 +51,8 @@ request names one or clearly needs one; it then overrides the type table
 The EA frameworks are model-first: build one `model.json`, validate it with
 `scripts/ea.py validate`, then write the views as a view file (`views.ead`,
 `references/dsl.md`) and draw them with `scripts/ea.py render`, which lays
-them out. Place a view by hand with the `scripts/ealib` View API only as the
+them out. A model built for a SAD is dense, so each view lists its lines
+(`edges explicit`); `scripts/examples/coreea-sad/views.ead` shows the pattern. Place a view by hand with the `scripts/ealib` View API only as the
 exception: `render` warned about it (`layout:` warnings), the PNG confirms the
 problem, and the hints in `dsl.md` didn't fix it, or the view needs something
 the language can't say. Keep that view in the view file as

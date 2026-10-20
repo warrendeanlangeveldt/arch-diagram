@@ -30,11 +30,15 @@ view ACD "Service Portal: application context" {
 ```bash
 python3 scripts/ea.py render views.ead                        # out/ACD.svg|html|png|objects.json
 python3 scripts/ea.py render views.ead --export archimate     # plus the exchange file with this layout
+python3 scripts/ea.py render views.ead --scale 3              # PNGs at 3x (the file's 'scale', else 2)
 python3 scripts/ea.py validate views.ead                      # model and every view, no drawing
 ```
 
 Each framework's example has a `views.ead` beside its `model.json`
-(`scripts/examples/<framework>/`).
+(`scripts/examples/<framework>/`). `scripts/examples/coreea-sad/views.ead` is
+a dense one: six SAD views of a model of 131 objects declared in the file
+itself, using `edges explicit`, `same`, `before`, `join`, `direction`,
+`same by=`, a repeated box and containers with pills.
 
 ## The file
 
@@ -46,6 +50,7 @@ with spaces goes in double quotes.
 | `metamodel archimate` | `coreea` (the default), `archimate`, `togaf`, `essential` or `bpmn` |
 | `name "Service Portal"`, `description "…"` | the model's name and description |
 | `model "model.json"` | objects and relationships from a file (path relative to the `.ead`); at most one |
+| `scale 3` | PNG pixels per SVG unit for every view (default 2; `render --scale` overrides) |
 | `ACMP-01: Application Component "Service Portal" status=Built` | an object: id, a colon, the type, the name in quotes, then any fields |
 | `ACMP-03 -[flow]-> ACMP-NOTIFY "case events" note=async` | a relationship: from, `-[type]->`, to, an optional name in quotes, then any fields |
 | `view ID "Title" { … }` | a view |
@@ -68,6 +73,7 @@ the framework.
 |---|---|
 | `APP-01` | the object as a box |
 | `APP-01 { APP-02  APP-03 }` | a box holding others: nesting stands for the relationship between them, so that line isn't drawn (say which relationship in a `key`) |
+| `TEC-15#dev` | another box for an object already drawn: `#` and a tag name it (see below) |
 | `INT-01 on APP-03` | an interface or service as a pill on the top edge of a box already in the view; the relationship between them isn't drawn |
 | `pill ASVC-01` | a service or interface as a pill on its own (ArchiMate; in the box notation, pill types are always pills) |
 | `group "Requirements" REQ-01 REQ-02 REQ-03` | one box standing for several objects of one type; their lines join it |
@@ -80,19 +86,31 @@ Box attributes go after the id:
 
 | Attribute | On | Effect |
 |---|---|---|
-| `icon=EKS` | box, container, frame | a platform or generic icon (`icons.md`) |
+| `icon=EKS` | box, container, group, frame | a platform or generic icon (`icons.md`); a narrow box carries it small, before its type label |
 | `sub="Node 20, Fargate"` | box, container, group | a muted sub-line |
-| `w=200`, `h=60` | box (`w` on containers and groups) | fix the size instead of fitting the text |
+| `w=200`, `h=60` | box (`w` on containers and groups) | fix the size instead of fitting the text; the layout never narrows a box with `w` |
 | `type_label=off` / `type_label="System"` | box (box notation) | hide or replace the type label |
 | `dashed=true` / `dashed=false` | box | override the status-driven dashing |
 | `fill_opacity=0.9` | container | container fill |
 
+An object can be drawn more than once: give each extra box a tag, such as
+`TEC-15#dev` and `TEC-15#prod` inside two subscription containers. A
+relationship joins the boxes of its two objects like this: when either object
+has one box, every box of the other; when both have several, the boxes with
+the same tag. A line the view lists (`TEC-15#dev -[depends on]-> TEC-H`)
+joins the boxes it names, and an untagged id names every box of the object.
+When nesting already shows a relationship for one box, it isn't drawn from the
+others. The ArchiMate exchange file gets one node per box.
+
 ### Lines
 
 Every relationship in the model between two objects the view shows is drawn,
-except the ones nesting or a pill on its host already say. The box notation
-labels each line with the relationship's `name`, else its `note`, else its
-type; ArchiMate labels only named relationships.
+except the ones nesting or a pill on its host already say. A view that draws
+more than one and a half lines per box (and more than six lines) warns, since
+a model built for a SAD joins most of its objects to most others; list the
+lines the view is about with `edges explicit`. The box notation (CoreEA,
+TOGAF, Essential) labels each line with its verb; ArchiMate labels only named
+relationships.
 
 | Statement | Effect |
 |---|---|
@@ -100,7 +118,8 @@ type; ArchiMate labels only named relationships.
 | `ACMP-03 --> ACMP-NOTIFY` | the same, when only one relationship joins the two |
 | `hide AIF-01 -[serving]-> ACMP-03` | leave a relationship out of this view |
 | `edges explicit` | draw only the lines listed in the view |
-| `labels verb` / `labels none` | label every line with its type, or none |
+| `labels text` / `labels verb` / `labels none` | label each line with the relationship's `name`, else its `note`, else its type; or with its type; or not at all |
+| `join in` / `join out` / `join both` | lines of one verb into one box (`in`), or out of one box (`out`), share a trunk, one arrowhead or one start, and one label; say so in a `key` |
 
 ### Steering the layout
 
@@ -116,27 +135,50 @@ The layout comes from the model, and most views need no hints:
   Every other relationship runs across a row.
 - Boxes with nothing above or below them join the row of what they connect to.
 - Within a row, boxes keep the order the view lists them in, unless reordering
-  removes crossings. Each box is then pulled over the boxes it connects to, so
-  most lines run straight.
-- A row wider than the page puts its last boxes in a column beside a taller
-  box when they fit, otherwise on the next row.
+  removes crossings; a line into a box inside a container counts where that
+  box sits. Each box is then pulled over the boxes it connects to, so most
+  lines run straight.
+- Boxes sit 24px apart, or far enough apart for the label of a line running
+  between them.
+- A row wider than the page first narrows its boxes, wrapping names onto two
+  lines; then puts its last boxes in a column beside a taller box; then
+  narrows the containers in it, whose children lay out again in less room;
+  then carries boxes onto the next row. Moving a box is a warning when lines
+  join the row's boxes. A row of boxes with nothing between them just flows
+  on, which is how a container's parts pack.
+- Three or more containers with no lines between them (data categories,
+  application categories) flow into as many columns as fit, each to the
+  shortest column.
+- Boxes listed one under another inside a container take one width and sit
+  close together.
 - Lines are orthogonal, keep 8px clear of every box they don't belong to,
   cross container edges but never run along them, and avoid the text in
-  container headers. Two lines that meet the same box and cross are routed
-  again, in the other order and with each kept off the port it took on that
-  box, and the way that crosses least is kept. Labels go where they touch no
-  box, label or other line.
+  container headers. A line from a large box leaves in line with the box it
+  goes to. Two lines that cross are routed again in the other order and, at a
+  box both meet, with each kept off the port it took there; the way that
+  crosses least is kept. Labels go where they touch no box, label or other
+  line.
 
 When the result isn't what the view needs:
 
 | Statement | Effect |
 |---|---|
-| `same ACP-01 ACP-02` | these boxes share a row |
-| `ASVC-01 above ACMP-01` | the first goes in a higher row (same band only) |
+| `same ACP-01 ACP-02` | these boxes share a row. The row holds: its boxes narrow to three-line names and close up before anything breaks it, and if it still doesn't fit, the page widens with a warning. Two `same` rows too wide together take a row each |
+| `same by=buildsOn` | each box shares a row with the boxes its field names (here the object field `buildsOn`). Across two containers side by side, the paired boxes line up level, and the containers share the page |
+| `ASVC-01 before ACMP-01 ACMP-02` | the first goes in an earlier row (a column to the left with `direction lr`); same band only. It wins over the order a relationship implies. `above` says the same |
+| `direction lr` / `direction tb` | columns read left to right, or rows top to bottom. A viewpoint can set it (CoreEA's Business Strategy Diagram, Project Context and Risk Catalogue are `lr`) |
 | `bands Business Application Technology` | band order for this view; layers left out go last |
 | `bands off` | one band: rows come only from the relationships |
 | list order | left-to-right order where nothing else decides it |
 | `width 960` | page width (the default is 740, widened when a row can't be narrower) |
+| `platform azure` | icon names resolve to that platform's pack first (`icons.md`) |
+
+With `direction lr`, what the rules above say about rows holds for columns:
+bands and the up/down relationships make the columns, a column is as wide as
+its widest box and every box in it takes that width, boxes stack down it, and
+each box is pulled level with the boxes it connects to. Columns narrow (names
+on up to three lines) when they don't fit the page. Lines between columns
+leave and enter boxes on their sides.
 
 ## When the layout isn't clean
 
@@ -144,19 +186,21 @@ When the result isn't what the view needs:
 cleanly, and say what's wrong:
 
 ```
-warning: LAYERED: layout: a row is too wide for the page, so ACMP-NOTIFY, DOBJ-01 moved to a row below
+warning: V1: layout: a row is too wide for the page, so External, PAC-04 moved to a row below
 warning: LODGEMENT: layout: flows T-ASSESS -[sequenceFlow]-> T-NOTIFY and B-SLA -[sequenceFlow]-> T-ESC cross
 ```
 
-The warnings cover a row wrapped onto the next one, a view wider than the
-page, two lines crossing, a line the router found no clear path for (drawn as
-a plain elbow that may cross boxes), and a label with no free spot. They're
+The warnings cover a row wrapped onto the next one, a `same` row or a set of
+columns that can't fit the page, a view wider than the page, a view with more
+lines than it can show clearly, two lines crossing, a line the router found no
+clear path for (drawn as a plain elbow that may cross boxes), and a label with
+no free spot. They're
 also in the view's `objects.json`. A warning doesn't always mean the view is
 wrong: a crossing between a message flow and a sequence flow is often the
 best a BPMN collaboration can do. Read the PNG and decide.
 
-When the result isn't good enough, try the hints first (`same`, `above`,
-`bands`, `width`, `hide`). Place the view by hand only when the hints can't
+When the result isn't good enough, try the hints first (`edges explicit`,
+`same`, `before`, `direction`, `join`, `bands`, `width`, `hide`). Place the view by hand only when the hints can't
 fix it, or when the view needs something the language can't say, such as an
 exact position someone has asked for. A hand-placed view loses what the
 language gives you: a new object means editing that view's coordinates again.

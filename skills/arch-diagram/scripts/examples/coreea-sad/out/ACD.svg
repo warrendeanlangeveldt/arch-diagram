@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 698" font-family="-apple-system, 'Helvetica Neue', Arial, sans-serif">
+<title>V1 Application Context</title>
+<rect x="0" y="0" width="740" height="698" fill="#ffffff"/>
+<defs><marker id="arr-acd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" fill="#475569"/></marker></defs>
+<rect x="16.0" y="112.0" width="708.0" height="117.5" rx="5" fill="#eef6f8" fill-opacity="0.45" stroke="#3f7f8c" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="23.0" y="123.0" font-size="7.5" fill="#3f7f8c" font-weight="700" letter-spacing="0.6">APPLICATION</text>
+<text x="718.0" y="123.0" font-size="7" fill="#94a3b8" text-anchor="end">APP-01</text>
+<text x="23.0" y="136.5" font-size="10.5" fill="#0f172a" font-weight="600">Grants Portal</text>
+<rect x="44.9" y="299.0" width="260.0" height="90.0" rx="5" fill="#eef6f8" fill-opacity="0.45" stroke="#3f7f8c" stroke-width="1.2"/>
+<text x="51.9" y="310.0" font-size="7.5" fill="#3f7f8c" font-weight="700" letter-spacing="0.6">APPLICATION</text>
+<text x="298.9" y="310.0" font-size="7" fill="#94a3b8" text-anchor="end">APP-ID</text>
+<text x="51.9" y="323.5" font-size="10.5" fill="#0f172a" font-weight="600">Council identity service — defined in the Identity</text>
+<text x="51.9" y="336.5" font-size="10.5" fill="#0f172a" font-weight="600">SAD</text>
+<rect x="328.9" y="289.5" width="198.9" height="109.0" rx="5" fill="#eef6f8" fill-opacity="0.45" stroke="#3f7f8c" stroke-width="1.2"/>
+<text x="335.9" y="300.5" font-size="7.5" fill="#3f7f8c" font-weight="700" letter-spacing="0.6">APPLICATION</text>
+<text x="521.8" y="300.5" font-size="7" fill="#94a3b8" text-anchor="end">APP-FIN</text>
+<text x="335.9" y="314.0" font-size="10.5" fill="#0f172a" font-weight="600">Finance system</text>
+<rect x="551.8" y="305.5" width="172.2" height="77.0" rx="5" fill="#eef6f8" fill-opacity="0.45" stroke="#3f7f8c" stroke-width="1.2"/>
+<text x="558.8" y="316.5" font-size="7.5" fill="#3f7f8c" font-weight="700" letter-spacing="0.6">APPLICATION</text>
+<text x="718.0" y="316.5" font-size="7" fill="#94a3b8" text-anchor="end">APP-EDRMS</text>
+<text x="558.8" y="330.0" font-size="10.5" fill="#0f172a" font-weight="600">Records system (EDRMS)</text>
+<rect x="73.7" y="442.5" width="170.7" height="77.0" rx="5" fill="#eef6f8" fill-opacity="0.45" stroke="#3f7f8c" stroke-width="1.2"/>
+<text x="80.7" y="453.5" font-size="7.5" fill="#3f7f8c" font-weight="700" letter-spacing="0.6">APPLICATION</text>
+<text x="238.4" y="453.5" font-size="7" fill="#94a3b8" text-anchor="end">APP-CRM</text>
+<text x="80.7" y="467.0" font-size="10.5" fill="#0f172a" font-weight="600">Customer request system</text>
+<rect x="558.9" y="442.5" width="165.1" height="77.0" rx="5" fill="#eef6f8" fill-opacity="0.45" stroke="#3f7f8c" stroke-width="1.2"/>
+<text x="565.9" y="453.5" font-size="7.5" fill="#3f7f8c" font-weight="700" letter-spacing="0.6">APPLICATION</text>
+<text x="718.0" y="453.5" font-size="7" fill="#94a3b8" text-anchor="end">APP-MAIL</text>
+<text x="565.9" y="467.0" font-size="10.5" fill="#0f172a" font-weight="600">Email and SMS gateway</text>
+<rect x="362.2" y="442.5" width="172.7" height="77.0" rx="5" fill="#eef6f8" fill-opacity="0.45" stroke="#3f7f8c" stroke-width="1.2"/>
+<text x="369.2" y="453.5" font-size="7.5" fill="#3f7f8c" font-weight="700" letter-spacing="0.6">APPLICATION</text>
+<text x="528.9" y="453.5" font-size="7" fill="#94a3b8" text-anchor="end">APP-SCAN</text>
+<text x="369.2" y="467.0" font-size="10.5" fill="#0f172a" font-weight="600">Malware scanning service</text>
+<rect x="16.0" y="16.0" width="179.4" height="36.0" rx="4" fill="#fff4c0" stroke="#e9c320" stroke-width="1.2"/>
+<text x="22.0" y="26.0" font-size="7.5" fill="#e9c320" font-weight="700" letter-spacing="0.6">ACTOR</text>
+<text x="105.7" y="39.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Applicant (community group)</text>
+<text x="190.4" y="48.0" font-size="7" fill="#94a3b8" text-anchor="end">ACT-01</text>
+<rect x="219.4" y="16.0" width="150.0" height="36.0" rx="4" fill="#fff4c0" stroke="#e9c320" stroke-width="1.2"/>
+<text x="225.4" y="26.0" font-size="7.5" fill="#e9c320" font-weight="700" letter-spacing="0.6">ACTOR</text>
+<text x="294.4" y="39.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Grants officer</text>
+<text x="364.4" y="48.0" font-size="7" fill="#94a3b8" text-anchor="end">ACT-02</text>
+<rect x="393.4" y="16.0" width="171.6" height="36.0" rx="4" fill="#fff4c0" stroke="#e9c320" stroke-width="1.2"/>
+<text x="399.4" y="26.0" font-size="7.5" fill="#e9c320" font-weight="700" letter-spacing="0.6">ACTOR</text>
+<text x="479.1" y="39.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Assessment panel member</text>
+<text x="559.9" y="48.0" font-size="7" fill="#94a3b8" text-anchor="end">ACT-03</text>
+<rect x="32.0" y="167.0" width="68.5" height="48.5" rx="4" fill="#eef6f8" stroke="#3f7f8c" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="38.0" y="177.0" font-size="7.5" fill="#3f7f8c" font-weight="700" letter-spacing="0.3">APPLICATION</text>
+<text x="66.2" y="190.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Applicant</text>
+<text x="66.2" y="203.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">site</text>
+<text x="95.5" y="211.5" font-size="7" fill="#94a3b8" text-anchor="end">APP-02</text>
+<rect x="124.5" y="167.0" width="69.2" height="48.5" rx="4" fill="#eef6f8" stroke="#3f7f8c" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="130.5" y="177.0" font-size="7.5" fill="#3f7f8c" font-weight="700" letter-spacing="0.3">APPLICATION</text>
+<text x="159.1" y="190.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Staff</text>
+<text x="159.1" y="203.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">workspace</text>
+<text x="188.7" y="211.5" font-size="7" fill="#94a3b8" text-anchor="end">APP-03</text>
+<rect x="217.7" y="167.0" width="210.0" height="48.5" rx="4" fill="#eef6f8" stroke="#3f7f8c" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="223.7" y="177.0" font-size="7.5" fill="#3f7f8c" font-weight="700" letter-spacing="0.6">APPLICATION</text>
+<text x="322.7" y="196.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Grants API</text>
+<text x="422.7" y="211.5" font-size="7" fill="#94a3b8" text-anchor="end">APP-04</text>
+<rect x="451.7" y="167.0" width="68.5" height="48.5" rx="4" fill="#eef6f8" stroke="#3f7f8c" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="457.7" y="177.0" font-size="7.5" fill="#3f7f8c" font-weight="700" letter-spacing="0.3">APPLICATION</text>
+<text x="485.9" y="190.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Workflow</text>
+<text x="485.9" y="203.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">engine</text>
+<text x="515.1" y="211.5" font-size="7" fill="#94a3b8" text-anchor="end">APP-05</text>
+<rect x="544.1" y="167.0" width="68.5" height="48.5" rx="4" fill="#eef6f8" stroke="#3f7f8c" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="550.1" y="177.0" font-size="7.5" fill="#3f7f8c" font-weight="700" letter-spacing="0.3">APPLICATION</text>
+<text x="578.3" y="190.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Document</text>
+<text x="578.3" y="203.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">service</text>
+<text x="607.6" y="211.5" font-size="7" fill="#94a3b8" text-anchor="end">APP-06</text>
+<rect x="636.6" y="167.0" width="71.4" height="48.5" rx="4" fill="#eef6f8" stroke="#3f7f8c" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="642.6" y="177.0" font-size="7.5" fill="#3f7f8c" font-weight="700" letter-spacing="0.6">APPLICATION</text>
+<text x="672.3" y="190.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Notification</text>
+<text x="672.3" y="203.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">worker</text>
+<text x="703.0" y="211.5" font-size="7" fill="#94a3b8" text-anchor="end">APP-07</text>
+<rect x="121.1" y="353.0" width="107.6" height="22.0" rx="11" fill="#ffffff" stroke="#347173" stroke-width="1.2"/>
+<text x="130.1" y="367.5" font-size="8.25" fill="#0f172a" font-weight="600">Sign-in (OIDC)</text>
+<text x="219.7" y="367.5" font-size="7" fill="#94a3b8" text-anchor="end">INT-01</text>
+<rect x="344.9" y="330.5" width="166.9" height="22.0" rx="11" fill="#ffffff" stroke="#347173" stroke-width="1.2"/>
+<text x="353.9" y="345.0" font-size="8.0" fill="#0f172a" font-weight="600">Supplier and payment import</text>
+<text x="502.8" y="345.0" font-size="7" fill="#94a3b8" text-anchor="end">INT-03</text>
+<rect x="344.9" y="362.5" width="166.9" height="22.0" rx="11" fill="#ffffff" stroke="#347173" stroke-width="1.2"/>
+<text x="353.9" y="377.0" font-size="8.5" fill="#0f172a" font-weight="600">Payment status feed</text>
+<text x="502.8" y="377.0" font-size="7" fill="#94a3b8" text-anchor="end">INT-08</text>
+<rect x="582.3" y="346.5" width="111.2" height="22.0" rx="11" fill="#ffffff" stroke="#347173" stroke-width="1.2"/>
+<text x="591.3" y="361.0" font-size="8.25" fill="#0f172a" font-weight="600">Record capture</text>
+<text x="684.5" y="361.0" font-size="7" fill="#94a3b8" text-anchor="end">INT-04</text>
+<rect x="109.3" y="483.5" width="99.5" height="22.0" rx="11" fill="#ffffff" stroke="#347173" stroke-width="1.2"/>
+<text x="118.3" y="498.0" font-size="8.25" fill="#0f172a" font-weight="600">Case lookup</text>
+<text x="199.8" y="498.0" font-size="7" fill="#94a3b8" text-anchor="end">INT-05</text>
+<rect x="586.6" y="483.5" width="109.6" height="22.0" rx="11" fill="#ffffff" stroke="#347173" stroke-width="1.2"/>
+<text x="595.6" y="498.0" font-size="8.25" fill="#0f172a" font-weight="600">Send message</text>
+<text x="687.3" y="498.0" font-size="7" fill="#94a3b8" text-anchor="end">INT-06</text>
+<rect x="405.8" y="483.5" width="85.5" height="22.0" rx="11" fill="#ffffff" stroke="#347173" stroke-width="1.2"/>
+<text x="414.8" y="498.0" font-size="8.5" fill="#0f172a" font-weight="600">Scan file</text>
+<text x="482.3" y="498.0" font-size="7" fill="#94a3b8" text-anchor="end">INT-07</text>
+<rect x="266.2" y="563.5" width="206.7" height="46.0" rx="4" fill="#eff5ea" stroke="#4f7d3a" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="272.2" y="573.5" font-size="7.5" fill="#4f7d3a" font-weight="700" letter-spacing="0.6">TECHNOLOGY</text>
+<svg x="274.2" y="580.5" width="20" height="20" viewBox="0 0 18 18" overflow="visible"><title>Container Apps Environments</title><defs><linearGradient id="i1-acd-azure-a3a44093-b157-426e-a8fe-cec9f9c23978" x1="11.729" y1="4.88" x2="11.729" y2="13.099" gradientUnits="userSpaceOnUse"><stop offset="0.001" stop-color="#773adc" /><stop offset="0.528" stop-color="#6635bb" /><stop offset="1" stop-color="#552f99" /></linearGradient><linearGradient id="i1-acd-azure-ad838859-03f4-472f-81bc-ebc921d71335" x1="6.35" y1="13.914" x2="6.35" y2="4.198" gradientUnits="userSpaceOnUse"><stop offset="0.001" stop-color="#773adc" /><stop offset="0.307" stop-color="#793ddd" /><stop offset="0.532" stop-color="#8046e1" /><stop offset="0.731" stop-color="#8c56e7" /><stop offset="0.915" stop-color="#9c6def" /><stop offset="1" stop-color="#a67af4" /></linearGradient></defs><g id="i1-acd-azure-ae82470d-7a6c-4dfe-8533-59d8ff948629"><g><path d="M8.617,8.644H.639V1.784A1.16,1.16,0,0,1,1.788.624H8.617ZM1.63,7.653h6V1.594H1.788a.158.158,0,0,0-.158.158h0Z" fill="#949494" /><path d="M17.5,8.644H9.523V.624h6.828A1.16,1.16,0,0,1,17.5,1.784Zm-6.987-.991h6V1.784a.157.157,0,0,0-.123-.187.2.2,0,0,0-.035,0H10.513Z" fill="#949494" /><path d="M8.617,17.485H1.788A1.149,1.149,0,0,1,.639,16.347V9.476H8.617ZM1.63,10.467v5.88a.158.158,0,0,0,.158.158H7.626V10.467Z" fill="#949494" /><path d="M16.351,17.485H9.523V9.476H17.5v6.871A1.149,1.149,0,0,1,16.351,17.485Zm-5.838-.991h5.838a.157.157,0,0,0,.158-.158V10.467h-6Z" fill="#949494" /><path d="M14.6,6.294a.294.294,0,0,0-.2-.278L9.044,4.205A.128.128,0,0,0,9,4.2H9a.132.132,0,0,0-.133.133v9.445A.133.133,0,0,0,9,13.911H9a.138.138,0,0,0,.049-.01l5.365-2.145a.292.292,0,0,0,.184-.272Z" fill="url(#i1-acd-azure-a3a44093-b157-426e-a8fe-cec9f9c23978)" /><path d="M8.966,4.2l-5.293.966a.161.161,0,0,0-.13.158V12.63a.16.16,0,0,0,.126.157L8.962,13.91a.161.161,0,0,0,.191-.121.22.22,0,0,0,0-.036V4.358A.16.16,0,0,0,9,4.2.163.163,0,0,0,8.966,4.2Z" fill="url(#i1-acd-azure-ad838859-03f4-472f-81bc-ebc921d71335)" /><path d="M6.52,5.656v6.8l1.842.3V5.335Zm-2.262.367v5.955l1.6.326V5.754Z" fill="#b796f9" opacity="0.5" /></g></g></svg>
+<text x="384.6" y="591.8" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Container Apps environment</text>
+<text x="467.9" y="605.5" font-size="7" fill="#94a3b8" text-anchor="end">TEC-01</text>
+<rect x="540.5" y="563.5" width="150.0" height="46.0" rx="4" fill="#eef3e6" stroke="#47652f" stroke-width="1.2"/>
+<text x="546.5" y="573.5" font-size="7.5" fill="#47652f" font-weight="700" letter-spacing="0.6">LOCATION</text>
+<text x="615.5" y="591.8" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Azure Australia East</text>
+<text x="685.5" y="605.5" font-size="7" fill="#94a3b8" text-anchor="end">LOC-01</text>
+<rect x="296.9" y="156.0" width="120.8" height="22.0" rx="11" fill="#ffffff" stroke="#347173" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="305.9" y="170.5" font-size="8.25" fill="#0f172a" font-weight="600">Grants REST API</text>
+<text x="408.7" y="170.5" font-size="7" fill="#94a3b8" text-anchor="end">INT-02</text>
+<polyline points="105.7,52.0 105.7,159.0 66.2,159.0 66.2,165.0" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-acd)"/>
+<text x="110.7" y="108.5" font-size="8.5" fill="#64748b" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">uses</text>
+<polyline points="219.4,34.0 203.4,34.0 203.4,191.2 195.7,191.2" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-acd)"/>
+<text x="208.4" y="147.0" font-size="8.5" fill="#64748b" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">uses</text>
+<polyline points="405.4,52.0 405.4,60.0 203.4,60.0 203.4,191.2 195.7,191.2" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-acd)"/>
+<polyline points="174.9,229.5 174.9,297.0" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-acd)"/>
+<text x="179.9" y="266.2" font-size="8.5" fill="#64748b" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">depends on</text>
+<polyline points="486.0,215.5 486.0,287.5" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-acd)"/>
+<text x="491.0" y="254.5" font-size="8.5" fill="#64748b" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">depends on</text>
+<polyline points="582.2,215.5 582.2,303.5" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-acd)"/>
+<text x="587.2" y="262.5" font-size="8.5" fill="#64748b" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">depends on</text>
+<polyline points="708.0,191.2 732.0,191.2 732.0,454.5 726.0,454.5" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-acd)"/>
+<text x="727.0" y="273.2" font-size="8.5" fill="#64748b" text-anchor="end" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">depends on</text>
+<polyline points="582.2,215.5 582.2,297.5 542.9,297.5 542.9,454.5 536.9,454.5" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-acd)"/>
+<polyline points="159.1,215.5 159.1,237.5 36.9,237.5 36.9,454.5 71.7,454.5" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-acd)"/>
+<text x="47.3" y="449.5" font-size="8.5" fill="#64748b" text-anchor="middle" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">depends on</text>
+<polyline points="369.5,229.5 369.5,281.5 320.9,281.5 320.9,555.5 328.2,555.5 328.2,561.5" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-acd)"/>
+<text x="325.9" y="421.5" font-size="8.5" fill="#64748b" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">hosted on</text>
+<polyline points="472.9,586.5 538.5,586.5" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-acd)"/>
+<text x="505.7" y="581.5" font-size="8.5" fill="#64748b" text-anchor="middle" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">located in</text>
+<line x1="16" y1="629.5" x2="724" y2="629.5" stroke="#e2e8f0" stroke-width="1"/>
+<text x="16.0" y="650.0" font-size="7.5" fill="#b46a12" font-weight="700" letter-spacing="0.6">BUSINESS</text>
+<rect x="68.232" y="641.5" width="16" height="10" rx="2" fill="#fff4c0" stroke="#e9c320" stroke-width="1.2"/>
+<text x="89.2" y="650.0" font-size="8.5" fill="#475569">Actor</text>
+<text x="127.8" y="650.0" font-size="7.5" fill="#3f7f8c" font-weight="700" letter-spacing="0.6">APPLICATION</text>
+<rect x="195.031" y="641.5" width="16" height="10" rx="2" fill="#eef6f8" stroke="#3f7f8c" stroke-width="1.2"/>
+<text x="216.0" y="650.0" font-size="8.5" fill="#475569">Application</text>
+<rect x="268.701" y="640.5" width="22" height="12" rx="6" fill="#ffffff" stroke="#347173" stroke-width="1.2"/>
+<text x="295.7" y="650.0" font-size="8.5" fill="#475569">Interface</text>
+<text x="348.2" y="650.0" font-size="7.5" fill="#4f7d3a" font-weight="700" letter-spacing="0.6">TECHNOLOGY</text>
+<rect x="414.68100000000004" y="641.5" width="16" height="10" rx="2" fill="#eff5ea" stroke="#4f7d3a" stroke-width="1.2"/>
+<text x="435.7" y="650.0" font-size="8.5" fill="#475569">Technology</text>
+<rect x="490.221" y="641.5" width="16" height="10" rx="2" fill="#eef3e6" stroke="#47652f" stroke-width="1.2"/>
+<text x="511.2" y="650.0" font-size="8.5" fill="#475569">Location</text>
+<rect x="16" y="659.5" width="16" height="10" rx="2" fill="#ffffff" stroke="#475569" stroke-width="1.2" stroke-dasharray="3 2"/>
+<text x="37.0" y="668.0" font-size="8.5" fill="#475569">Proposed / designed / not started</text>
+<text x="16.0" y="684.0" font-size="8.5" fill="#475569">Box inside a box: part of it (parent)</text>
+<text x="169.8" y="684.0" font-size="8.5" fill="#475569">Pill on an application: interface it exposes</text>
+<text x="350.7" y="684.0" font-size="8.5" fill="#475569">Pills inside a box: interfaces it exposes</text>
+</svg>

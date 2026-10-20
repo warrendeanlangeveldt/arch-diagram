@@ -10,7 +10,7 @@ XML exports in the tests.
 | `icons.py` | Command line: `status`, `fetch`, `search`, `resolve`, `svg`, `sheet` |
 | `ealib/metamodel.py` | Loads a metamodel, validates a model against it, flattens it to catalogue rows and CSVs |
 | `ealib/dsl.py` | The view language (`references/dsl.md`): parses a `.ead` file into the model and its views |
-| `ealib/layout.py` | Automatic layout: layer bands, rows, orthogonal line routing and label placement for EA views; pools, lanes and columns for BPMN; warnings when a layout isn't clean; runs the script for a hand-placed view |
+| `ealib/layout.py` | Automatic layout: layer bands as rows or columns, boxes narrowed to fit, containers flowing into columns, orthogonal line routing (joined lines on request) and label placement for EA views; pools, lanes and columns for BPMN; warnings when a layout isn't clean; runs the script for a hand-placed view |
 | `ealib/views.py` | `View`: ArchiMate notation and the house EA box notation, legends, matrices, viewpoint checks |
 | `ealib/archimate_icons.py` | The ArchiMate type symbols |
 | `ealib/bpmn.py` | BPMN validation, `BpmnView`, BPMN 2.0 XML with BPMNDI |
@@ -20,7 +20,7 @@ XML exports in the tests.
 | `metamodels/` | `archimate.json` (62 types, the 3.2 relationship table, viewpoints), `togaf.json`, `essential.json`, `coreea.json`; each relationship's `layout` (up, down, across) and the layer band order drive the automatic layout |
 | `icon_aliases.json` | Component names and product terms → platform icon or generic glyph |
 | `model_schema.json` | JSON Schema for `model.json` |
-| `examples/` | One model per framework with its views as a view file (`views.ead`, output in `out/`) and as a hand-placed script (output in `out/script/`) |
+| `examples/` | One model per framework with its views as a view file (`views.ead`, output in `out/`) and as a hand-placed script (output in `out/script/`); `coreea-sad/` is six SAD views of a dense CoreEA model declared in the view file |
 
 ## Quick start
 

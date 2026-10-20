@@ -31,7 +31,7 @@ import os
 from .metamodel import ModelError, metamodel_of
 
 KEYWORDS_VIEW = {"viewpoint", "width", "edges", "labels", "legend", "key", "bands", "same",
-                 "frame", "group", "pill", "hide", "matrix", "pools"}
+                 "frame", "group", "pill", "hide", "matrix", "pools", "join", "direction", "platform"}
 
 
 class DslError(ModelError):
@@ -100,7 +100,7 @@ def tokenize(src):
             i += 3
         else:
             j = i
-            while j < len(src) and src[j] not in " \t\r\n{};\"#":
+            while j < len(src) and src[j] not in " \t\r\n{};\"":     # APP-01#dev is one word
                 j += 1
             word = src[i:j]
             i = j
@@ -191,7 +191,10 @@ class ViewSpec:
         self.viewpoint = None
         self.width = None
         self.edges_mode = "auto"
-        self.labels = "text"
+        self.labels = None           # None: verb in the box notation, the name in ArchiMate
+        self.join = "off"            # in / out / both: lines of one verb into / out of one box share a trunk
+        self.direction = None        # tb (rows, top to bottom) or lr (columns); None: the viewpoint's, else tb
+        self.platform = None         # aws / azure / gcp: icon names resolve to that pack first
         self.legend = True
         self.keys = []
         self.bands = None            # None: metamodel order; []: off; list: this order
@@ -199,6 +202,7 @@ class ViewSpec:
         self.edges = []              # explicit (from, verb|None, to, label|None, line)
         self.hidden = []             # (from, verb|None, to, line)
         self.same = []               # ([ids], line)
+        self.same_by = []            # (object field, line): each box shares a row with the boxes its field names
         self.above = []              # (upper, lower, line)
         self.matrices = []           # dicts
         self.pools = None            # BPMN: participants to draw, in order
@@ -212,11 +216,15 @@ class Item:
     service pills drawn on this item's top edge."""
 
     def __init__(self, kind, oid=None, line=0, attrs=None, label=None):
-        self.kind, self.oid, self.line = kind, oid, line
+        # `ref` names the box in the view: the object id, or id#tag for one
+        # of several boxes drawing the same object; `oid` is the object id
+        self.kind, self.ref, self.line = kind, oid, line
+        self.oid = _oid(oid) if oid else None
         self.attrs = attrs or {}
         self.label = label           # frame label, group title
         self.children = []
-        self.members = []            # group members
+        self.members = []            # group members (object ids)
+        self.refs = []               # group members as the view names them (id or id#tag)
         self.pills = []              # attached pill oids
         self.parent = None
         self.x = self.y = self.w = self.h = 0.0
@@ -231,8 +239,9 @@ class Item:
 
 
 class Document:
-    def __init__(self, path, model, views):
+    def __init__(self, path, model, views, scale=None):
         self.path, self.model, self.views = path, model, views
+        self.scale = scale            # PNG pixels per SVG unit; None: 2
 
 
 def load_document(path):
@@ -269,10 +278,17 @@ def parse_document(src, base_dir=".", path="<text>"):
                     raise DslError(f"line {s.line}: a view is  view ID \"Title\" {{ … }}, "
                                    "or  view ID script=\"file.py\"  for one placed by hand")
                 views.append(s)
-            elif w and w[0] in ("metamodel", "name", "description", "model"):
+            elif w and w[0] in ("metamodel", "name", "description", "model", "scale"):
                 if len(w) != 2:
                     raise DslError(f"line {s.line}: {w[0]} takes one value")
-                if w[0] == "model":
+                if w[0] == "scale":
+                    try:
+                        header["scale"] = float(w[1])
+                    except ValueError:
+                        raise DslError(f"line {s.line}: scale is a number (2 for 2x PNGs), not {w[1]}")
+                    if not 0.5 <= header["scale"] <= 8:
+                        raise DslError(f"line {s.line}: scale is between 0.5 and 8")
+                elif w[0] == "model":
                     if imported is not None:
                         raise DslError(f"line {s.line}: one 'model' import per file")
                     imported = (w[1], s.line)
@@ -338,7 +354,7 @@ def parse_document(src, base_dir=".", path="<text>"):
         errs.append(f"view {vid} is defined more than once")
     if errs:
         raise DslError(f"{path}:\n  " + "\n  ".join(errs))
-    return Document(path, model, parsed)
+    return Document(path, model, parsed, header.get("scale"))
 
 
 def _relationship(s):
@@ -399,7 +415,7 @@ def _view(s, model, mm, errs):
             _view_stmt(st, v, None, objs, mm, seen, bpmn)
         except DslError as e:
             errs.append(str(e))
-    boxes = {i.oid for it in v.items for i in it.walk() if i.oid and i.kind != "junction"}
+    boxes = {i.ref for it in v.items for i in it.walk() if i.ref and i.kind != "junction"}
     for pill, host, line, _ in v.attached:
         if host not in boxes:
             errs.append(f"line {line}: {host} has to be drawn in the view for {pill} to sit on it")
@@ -415,18 +431,28 @@ def _int(val, line, what):
         raise DslError(f"line {line}: {what} must be a number, not {val}")
 
 
-def _need(oid, objs, line):
+def _oid(ref):
+    """The object id in a view reference: APP-01, or APP-01#dev for one of
+    several boxes drawing APP-01."""
+    return str(ref).split("#", 1)[0]
+
+
+def _need(ref, objs, line):
+    oid = _oid(ref)
+    if "#" in str(ref) and not str(ref).split("#", 1)[1]:
+        raise DslError(f"line {line}: {ref} needs a tag after the # (APP-01#dev)")
     if oid not in objs:
         raise DslError(f"line {line}: {oid} is not in the model")
     return objs[oid]
 
 
 def _place(item, v, parent, seen):
-    oid = item.oid
-    if oid:
-        if oid in seen:
-            raise DslError(f"line {item.line}: {oid} is already drawn in this view (line {seen[oid]})")
-        seen[oid] = item.line
+    ref = item.ref
+    if ref:
+        if ref in seen:
+            raise DslError(f"line {item.line}: {ref} is already drawn in this view (line {seen[ref]}); "
+                           f"a second box for it needs a tag ({item.oid}#…)")
+        seen[ref] = item.line
     item.parent = parent
     (parent.children if parent else v.items).append(item)
 
@@ -450,6 +476,12 @@ def _view_stmt(st, v, parent, objs, mm, seen, bpmn):
             v.edges_mode = _choice(_one(w, line), ("auto", "explicit"), line, "edges")
         elif head == "labels":
             v.labels = _choice(_one(w, line), ("text", "verb", "none"), line, "labels")
+        elif head == "platform":
+            v.platform = _choice(_one(w, line), ("aws", "azure", "gcp"), line, "platform")
+        elif head == "direction":
+            v.direction = _choice(_one(w, line), ("tb", "lr"), line, "direction")
+        elif head == "join":
+            v.join = _choice(_one(w, line), ("in", "out", "both", "off"), line, "join")
         elif head == "legend":
             v.legend = _choice(_one(w, line), ("on", "off"), line, "legend") == "on"
         elif head == "key":
@@ -465,9 +497,13 @@ def _view_stmt(st, v, parent, objs, mm, seen, bpmn):
                     raise DslError(f"line {line}: bands takes 'off' or layer names "
                                    f"({', '.join(mm.layers)}); not {', '.join(bad) or 'nothing'}")
                 v.bands = w[1:]
+        elif head == "same" and "by" in st.attrs:
+            if len(w) != 1 or set(st.attrs) != {"by"}:
+                raise DslError(f"line {line}: same by=FIELD takes only the field")
+            v.same_by.append((str(st.attrs["by"]), line))
         elif head == "same":
             if len(w) < 3:
-                raise DslError(f"line {line}: same needs two or more ids")
+                raise DslError(f"line {line}: same needs two or more ids, or by=FIELD")
             for oid in w[1:]:
                 _need(oid, objs, line)
             v.same.append((w[1:], line))
@@ -493,7 +529,8 @@ def _view_stmt(st, v, parent, objs, mm, seen, bpmn):
             if len(types) != 1:
                 raise DslError(f"line {line}: a group's members share one type; these are {', '.join(sorted(types))}")
             item = Item("group", None, line, dict(st.attrs), label=w[1])
-            item.members = members
+            item.refs = members
+            item.members = [_oid(m) for m in members]
             item.otype = types.pop()
             for m in members:
                 if m in seen:
@@ -525,10 +562,11 @@ def _view_stmt(st, v, parent, objs, mm, seen, bpmn):
         seen[w[0]] = line
         v.attached.append((w[0], w[2], line, dict(st.attrs)))
         return
-    if len(w) == 3 and w[1] == "above":
+    if len(w) >= 3 and w[1] in ("above", "before") and "arrow" not in kinds:
         _need(w[0], objs, line)
-        _need(w[2], objs, line)
-        v.above.append((w[0], w[2], line))
+        for low in w[2:]:
+            _need(low, objs, line)
+            v.above.append((w[0], low, line))
         return
     if len(w) != 1 or kinds[0] != "word":
         raise DslError(f"line {line}: don't know what '{' '.join(map(str, w))}' means in a view")
@@ -634,9 +672,10 @@ def _ids_or_type(words, kinds, objs, mm, line):
 
 # ------------------------------------------------------------------ rendering
 
-def render_document(doc, outdir, only=None, render=True):
+def render_document(doc, outdir, only=None, render=True, scale=None):
     """Validate the model, lay out and draw each view (or those in `only`),
-    and save them to outdir. Returns (paths, views drawn)."""
+    and save them to outdir, the PNGs at `scale` (else the file's 'scale',
+    else 2). Returns (paths, views drawn)."""
     from .metamodel import validate
     validate(doc.model)
     from .layout import draw
@@ -645,7 +684,7 @@ def render_document(doc, outdir, only=None, render=True):
         if only and spec.vid not in only:
             continue
         v, height = draw(doc.model, spec)
-        paths += v.save(height, outdir, render=render)
+        paths += v.save(height, outdir, render=render, scale=scale or doc.scale or 2)
         drawn.append(v)
     if only:
         missing = set(only) - {v.vid for v in drawn}

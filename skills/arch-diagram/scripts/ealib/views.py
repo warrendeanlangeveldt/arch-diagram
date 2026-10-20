@@ -70,7 +70,8 @@ class View(Canvas):
     SUB = 8.5
     PILL_H = 22
 
-    def __init__(self, model, vid, title=None, viewpoint=None, theme=None, type_labels=None):
+    def __init__(self, model, vid, title=None, viewpoint=None, theme=None, type_labels=None,
+                 platform=None):
         self.mm = metamodel_of(model)
         if self.mm.key == "bpmn":
             raise ValueError("BPMN models are drawn with ealib.bpmn.BpmnView")
@@ -82,9 +83,10 @@ class View(Canvas):
         # ArchiMate identifies types by symbol; box notation prints the type.
         self.type_labels = (not self.archimate) if type_labels is None else type_labels
         self.viewpoint = viewpoint
+        self.platform = platform  # aws / azure / gcp: icon names resolve to that pack first
         self.vp_types = set(self.mm.viewpoint(viewpoint)["types"]) if viewpoint else None
         self.drawn, self.types, self.rel_types = [], [], []
-        self.placed = {}          # oid -> (box, kind) for exchange-format export
+        self.placed = {}          # oid (oid#2 … for a copy) -> (box, kind) for exchange-format export
         self.edges = []           # (relationship index, points) for export
         self.used_dashed = False
         self.forms = {}           # type -> how it was drawn: box, pill, junction, matrix
@@ -153,7 +155,12 @@ class View(Canvas):
             if w not in self.warnings:
                 self.warnings.append(w)
         if bx is not None:
-            self.placed[oid] = (bx, kind)
+            # an object drawn more than once in the view: oid#2, oid#3 …
+            key, n = oid, 1
+            while key in self.placed and self.placed[key][0] != bx:
+                n += 1
+                key = f"{oid}#{n}"
+            self.placed[key] = (bx, kind)
 
     # ---- shapes
     def _dash(self, dashed):
@@ -203,7 +210,9 @@ class View(Canvas):
 
     def _platform_icon(self, ref, x, y, size, colour):
         from .icons import inline
-        self.add(inline(ref, x, y, size, colour=colour))
+        self.icon_seq = getattr(self, "icon_seq", 0) + 1
+        self.add(inline(ref, x, y, size, colour=colour, platform=self.platform,
+                        prefix=f"i{self.icon_seq}-{self.slug}-"))
 
     def _subs(self, sub, w):
         if not sub:
@@ -212,6 +221,16 @@ class View(Canvas):
         for s in ([sub] if isinstance(sub, str) else sub):
             out.extend(wrap(s, self.SUB, w - 14))
         return out
+
+    def _icon_place(self, title, w, name_size, icon):
+        """Where a box's icon goes: 'body' (20px at the left, the text beside
+        it), or 'label' (a 12px glyph before the type label) when the box is
+        narrow or the icon would make the name wrap onto more lines."""
+        if not icon:
+            return None
+        beside = len(wrap(title, name_size, w - 14 - 30, True))
+        alone = len(wrap(title, name_size, w - 14, True))
+        return "label" if w < 120 or beside > alone else "body"
 
     def _block_height(self, title, w, sub, name_size, icon=False):
         n = len(wrap(title, name_size, w - 14 - (30 if icon else 0), True))
@@ -246,7 +265,9 @@ class View(Canvas):
 
     # ---- nodes
     def node_height(self, oid, w, sub=None, name_size=None, icon=None):
-        return self._block_height(self.obj[oid]["name"], w, sub, name_size or self.NAME, bool(icon))
+        ns = name_size or self.NAME
+        name = self.obj[oid]["name"]
+        return self._block_height(name, w, sub, ns, self._icon_place(name, w, ns, icon) == "body")
 
     def node(self, oid, x, y, w, h=None, sub=None, dashed=None, name_size=None,
              type_label=None, icon=None):
@@ -266,12 +287,17 @@ class View(Canvas):
         self._shape(o["type"], x, y, w, h, fill, stroke,
                     self.not_built(oid) if dashed is None else dashed)
         show_type = self.type_labels if type_label is None else bool(type_label)
+        place = self._icon_place(o["name"], w, ns, icon)
+        lx = x + 6
+        if place == "label":
+            self._platform_icon(icon, x + 5, y + 2.5, 11, stroke)
+            lx = x + 19
         if show_type:
             label = type_label if isinstance(type_label, str) else o["type"]
-            self._type_label(x + 6, y + 10, label, stroke, w - 12 - (22 if self.archimate else 0))
+            self._type_label(lx, y + 10, label, stroke, w - 6 - (lx - x) - (22 if self.archimate else 0))
         self._symbol(o["type"], x, y, w)
         top = 16 if self.archimate and self.mm.types[o["type"]].get("shape") in ("object", "contract") else 14
-        if icon:
+        if place == "body":
             self._platform_icon(icon, x + 8, y + (h - 20) / 2 + (4 if show_type else 0), 20, stroke)
             self._centred_block(x + 30, y, w - 30, h, o["name"], sub, ns, top)
         else:
@@ -279,13 +305,14 @@ class View(Canvas):
         self.text(x + w - 5, y + h - 4, oid, 7, self.t["id"], anchor="end")
         return box(x, y, w, h)
 
-    def group_height(self, title, w, sub=None):
-        return self._block_height(title, w, sub, self.NAME)
+    def group_height(self, title, w, sub=None, icon=None):
+        return self._block_height(title, w, sub, self.NAME, self._icon_place(title, w, self.NAME, icon) == "body")
 
-    def group(self, otype, title, members, x, y, w, h=None, sub=None, ids=None):
+    def group(self, otype, title, members, x, y, w, h=None, sub=None, ids=None, icon=None):
         """One box standing for several objects of one type: the type label
         carries the count (REQUIREMENT ×7), the id slot the range. Dashed only
-        when every member is unbuilt. The catalogue still lists each."""
+        when every member is unbuilt. The catalogue still lists each. `icon`
+        as on node(): the icon the members share."""
         if not members:
             raise ValueError(f"{self.vid}: group '{title}' has no members")
         for m in members:
@@ -294,12 +321,21 @@ class View(Canvas):
                 raise ValueError(f"{self.vid}: {m} is a {self.obj[m]['type']}, not a {otype}")
         stroke, fill = self.colours(otype)
         if h is None:
-            h = self.group_height(title, w, sub)
+            h = self.group_height(title, w, sub, icon)
         self._shape(otype, x, y, w, h, fill, stroke, all(self.not_built(m) for m in members))
-        self._type_label(x + 6, y + 10, f"{otype} ×{len(members)}", stroke,
-                         w - 12 - (22 if self.archimate else 0))
+        place = self._icon_place(title, w, self.NAME, icon)
+        lx = x + 6
+        if place == "label":
+            self._platform_icon(icon, x + 5, y + 2.5, 11, stroke)
+            lx = x + 19
+        self._type_label(lx, y + 10, f"{otype} ×{len(members)}", stroke,
+                         w - 6 - (lx - x) - (22 if self.archimate else 0))
         self._symbol(otype, x, y, w)
-        self._centred_block(x, y, w, h, title, sub, self.NAME)
+        if place == "body":
+            self._platform_icon(icon, x + 8, y + (h - 20) / 2 + 4, 20, stroke)
+            self._centred_block(x + 30, y, w - 30, h, title, sub, self.NAME)
+        else:
+            self._centred_block(x, y, w, h, title, sub, self.NAME)
         label = ids or (members[0] if len(members) == 1 else f"{members[0]}–{members[-1]}")
         self.text(x + w - 5, y + h - 4, label, 7, self.t["id"], anchor="end")
         return box(x, y, w, h)

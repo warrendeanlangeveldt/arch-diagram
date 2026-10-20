@@ -1,5 +1,37 @@
 # Changelog
 
+## 2.2.0 — 2026-10-20
+
+The automatic layout handles denser views: rows narrow before they wrap, lines can join, views can run left to right, and an object can be drawn more than once. CoreEA lines are labelled with their verb by default.
+
+### Added
+
+- `direction lr` lays a view out in columns read left to right. CoreEA's Business Strategy Diagram, Project Context and Risk Catalogue viewpoints default to it, as `coreea.md` describes them, with the band order their recipes use.
+- `join in`, `join out` and `join both` join lines of one verb into, or out of, one box into a single trunk with one label, as hand-drawn SAD views do.
+- An object can be drawn more than once in a view (`TEC-15#dev`, `TEC-15#prod`). Relationships join the matching boxes, and the ArchiMate exchange file gets a node per box.
+- `same by=FIELD` puts each box in a row with the boxes its object field names. Across two containers side by side, the pairs line up level.
+- `A before B C` places boxes in earlier rows (or columns to the left), and wins over the order a relationship implies. `above` still works and also takes several boxes.
+- `platform azure` in a view resolves icon names to that platform first; `icon=` works on a group; `scale 3` in the view file or `render --scale 3` sets the PNG resolution.
+- A view that draws every relationship between its boxes and ends up with more than one and a half lines per box warns, and suggests `edges explicit` or `hide`.
+- `scripts/examples/coreea-sad/`: six SAD views (application context, logical data, business strategy, capability, risk, infrastructure) of a 131-object CoreEA model declared in the view file.
+
+### Changed
+
+- The box notation labels each line with its verb by default, as `coreea.md` says. `labels text` shows the relationship's name or note, as before.
+- A `same` row holds. Its boxes narrow to three-line names and close up first; if it still doesn't fit, the page widens and the view warns. Two `same` rows too wide together take a row each.
+- A row too wide for the page narrows its boxes (names on two lines) and its containers before it moves anything to another row. Boxes with no line between them sit 24px apart rather than 40.
+- Unconnected boxes flow into rows without a warning, so a container's parts pack into its width. Three or more containers with no lines between them flow into columns.
+- Boxes listed one under another in a container take one width and sit closer together.
+- Row order takes account of where a line meets a box inside a container, and a line from a large box leaves in line with the box it goes to.
+- Icon names resolve to a fetched pack's icon of that exact name before a concept alias, so "Application Gateway", "Container Registry", "Managed Identity", "Application Insights", "AI Foundry" and "Network Security Group" get their own icons. "Entra ID" is the Entra Domain Services icon, and Web PubSub, Document Intelligence, Static Web Apps, Private DNS and Microsoft Graph have aliases. A generic glyph's own name, such as "server", stays generic unless a platform is given.
+- An icon on a box under 120px wide, or one that would make the name wrap further, goes before the type label at 12px.
+
+### Fixed
+
+- Lines that run along the same channel count as overlapping even when their routes are built on different grids. Before, three lines could share one vertical and read as joined.
+- Two lines that cross are routed again in the other order even when they share no box.
+- A vendor icon's ids are numbered per view, so drawing a view twice gives the same SVG.
+
 ## 2.1.0 — 2026-10-19
 
 Views can be written as text and laid out automatically, with warnings when the layout isn't clean and hand placement for the views that need it. Colour now separates types within a layer.

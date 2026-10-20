@@ -5,6 +5,7 @@ model "model.json"
 
 view V1 "V1 Application Communication diagram" {
   viewpoint "Application Communication diagram"
+  labels text                 # the relationship names say what flows
   PAC-01 icon=user-browser
   PAC-02 icon=server
   frame "External" {

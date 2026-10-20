@@ -58,10 +58,10 @@ class Geometry:
 
     def check_view(self, model, spec, v):
         objs = {o["id"]: o for o in model["objects"]}
+        # a box key is the object id, or id#2, id#3 … for a second box of it
         placed = {oid: bx for oid, (bx, kind) in v.placed.items()}
         kinds = {oid: kind for oid, (bx, kind) in v.placed.items()}
-        pills = {oid for oid in placed if v.forms.get(objs[oid]["type"]) and "pill" in v.forms[objs[oid]["type"]]
-                 and placed[oid]["h"] <= v.PILL_H + 10}
+        obj_of = {k: k.split("#")[0] for k in placed}
         leaves = [oid for oid in placed if kinds[oid] != "container"]
         hosts = {p: h for p, h, _, _ in spec.attached}
         # no two leaves overlap, apart from a pill on its host's edge
@@ -71,12 +71,12 @@ class Geometry:
                     continue
                 self.assertFalse(overlap(placed[a], placed[b]), f"{spec.vid}: {a} overlaps {b}")
         # every child is inside its container, and containers don't overlap siblings
+        geo = lambda i: {"x": i.x, "y": i.y, "w": i.w, "h": i.h}  # noqa: E731
         for top in spec.items:
             for it in top.walk():
                 for c in it.children:
                     if it.oid and c.oid:
-                        self.assertTrue(inside(placed[c.oid], placed[it.oid]),
-                                        f"{spec.vid}: {c.oid} is not inside {it.oid}")
+                        self.assertTrue(inside(geo(c), geo(it)), f"{spec.vid}: {c.ref} is not inside {it.ref}")
         # pills on an edge sit on their host's top edge
         for p, h in hosts.items():
             self.assertAlmostEqual(placed[p]["y"] + placed[p]["h"] / 2, placed[h]["y"], delta=0.6)
@@ -87,17 +87,14 @@ class Geometry:
             for a, b in zip(pts, pts[1:]):
                 self.assertTrue(abs(a[0] - b[0]) < 0.01 or abs(a[1] - b[1]) < 0.01,
                                 f"{spec.vid}: {r['from']}->{r['to']} has a diagonal {a}->{b}")
-            ends = []
-            for oid in (r["from"], r["to"]):
-                end = oid if oid in placed else next(
-                    (it for it in spec.items for it in [it] if it.kind == "group" and oid in it.members), None)
-                ends.append(end)
-            if all(isinstance(e, str) for e in ends):
-                self.assertTrue(on_border(pts[0], placed[ends[0]]), f"{spec.vid}: {r} starts off its box")
-                self.assertTrue(on_border(pts[-1], placed[ends[1]]), f"{spec.vid}: {r} ends off its box")
+            boxes = [[placed[k] for k in placed if obj_of[k] == oid] for oid in (r["from"], r["to"])]
+            if all(boxes):
+                self.assertTrue(any(on_border(pts[0], b) for b in boxes[0]), f"{spec.vid}: {r} starts off its box")
+                self.assertTrue(any(on_border(pts[-1], b) for b in boxes[1]), f"{spec.vid}: {r} ends off its box")
             mine = {r["from"], r["to"]}
             for oid in leaves:
-                if oid in mine or hosts.get(oid) in mine or any(hosts.get(m) == oid for m in mine):
+                o = obj_of[oid]
+                if o in mine or hosts.get(o) in mine or any(hosts.get(m) == o for m in mine):
                     continue
                 for seg in zip(pts, pts[1:]):
                     self.assertFalse(crosses(seg, placed[oid]),
@@ -240,7 +237,7 @@ view V {
 
 class Layout(Geometry, unittest.TestCase):
     def test_examples_keep_the_invariants(self):
-        for name in ("coreea", "archimate", "togaf", "essential"):
+        for name in ("coreea", "coreea-sad", "archimate", "togaf", "essential"):
             d = doc_of(name)
             for spec in d.views:
                 v, h = draw(d.model, spec)
@@ -532,7 +529,7 @@ class LayoutWarnings(unittest.TestCase):
         # coreea: the actor lines and the line to the Case API pill all meet
         # the Portal web app, and only cross when each takes its own
         # cheapest port; the untangle pass moves them apart
-        for name in ("essential", "coreea"):
+        for name in ("essential", "coreea", "coreea-sad", "archimate"):
             d = doc_of(name)
             for spec in d.views:
                 v, _ = draw(d.model, spec)
@@ -629,14 +626,20 @@ class ScriptViews(unittest.TestCase):
             self.assertIn("drew view V2 instead", str(e.exception))
 
     def test_cli_hint_and_validate_warnings(self):
-        r = subprocess.run(["python3", EA, "validate", os.path.join(EXAMPLES, "archimate", "views.ead")],
-                           capture_output=True, text=True)
-        self.assertEqual(r.returncode, 0, r.stderr)
-        self.assertIn("warning: LAYERED: layout: a row is too wide", r.stdout)
-        self.assertEqual(json.loads(r.stdout.splitlines()[-1])["views"], 1)
+        # nine services chained by flows can't share a 740px row
+        objs = "\n".join(f'ACMP-{i}: Application Component "Service number {i}"' for i in range(9))
+        flows = "\n".join(f"ACMP-{i} -[flow]-> ACMP-{i + 1}" for i in range(8))
+        ids = "\n".join(f"  ACMP-{i}" for i in range(9))
         with tempfile.TemporaryDirectory() as out:
-            r = subprocess.run(["python3", EA, "render", os.path.join(EXAMPLES, "archimate", "views.ead"),
-                                "--no-png", "--out", out], capture_output=True, text=True)
+            ead = os.path.join(out, "chain.ead")
+            with open(ead, "w") as f:
+                f.write(f"metamodel archimate\n{objs}\n{flows}\nview CHAIN {{\n{ids}\n}}\n")
+            r = subprocess.run(["python3", EA, "validate", ead], capture_output=True, text=True)
+            self.assertEqual(r.returncode, 0, r.stderr)
+            self.assertIn("warning: CHAIN: layout: a row is too wide", r.stdout)
+            self.assertEqual(json.loads(r.stdout.splitlines()[-1])["views"], 1)
+            r = subprocess.run(["python3", EA, "render", ead, "--no-png", "--out", out],
+                               capture_output=True, text=True)
             self.assertEqual(r.returncode, 0, r.stderr)
             self.assertIn("place the view by hand", r.stderr)
             r = subprocess.run(["python3", EA, "render", os.path.join(EXAMPLES, "essential", "views.ead"),

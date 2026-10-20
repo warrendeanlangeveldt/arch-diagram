@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 410" font-family="-apple-system, 'Helvetica Neue', Arial, sans-serif">
+<title>V2 Logical Data</title>
+<rect x="0" y="0" width="740" height="410" fill="#ffffff"/>
+<defs><marker id="arr-ldd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" fill="#475569"/></marker></defs>
+<rect x="16.0" y="16.0" width="225.3" height="194.0" rx="5" fill="#dee7f6" fill-opacity="0.45" stroke="#4570a8" stroke-width="1.2"/>
+<text x="23.0" y="27.0" font-size="7.5" fill="#4570a8" font-weight="700" letter-spacing="0.6">DATA CATEGORY</text>
+<text x="235.3" y="27.0" font-size="7" fill="#94a3b8" text-anchor="end">DTC-01</text>
+<text x="23.0" y="40.5" font-size="10.5" fill="#0f172a" font-weight="600">Application record</text>
+<text x="23.0" y="52.5" font-size="8.5" fill="#64748b">OFFICIAL: Sensitive</text>
+<rect x="257.3" y="16.0" width="225.3" height="240.0" rx="5" fill="#dee7f6" fill-opacity="0.45" stroke="#4570a8" stroke-width="1.2"/>
+<text x="264.3" y="27.0" font-size="7.5" fill="#4570a8" font-weight="700" letter-spacing="0.6">DATA CATEGORY</text>
+<text x="476.7" y="27.0" font-size="7" fill="#94a3b8" text-anchor="end">DTC-02</text>
+<text x="264.3" y="40.5" font-size="10.5" fill="#0f172a" font-weight="600">Assessment</text>
+<text x="264.3" y="52.5" font-size="8.5" fill="#64748b">OFFICIAL: Sensitive</text>
+<rect x="498.7" y="16.0" width="225.3" height="194.0" rx="5" fill="#dee7f6" fill-opacity="0.45" stroke="#4570a8" stroke-width="1.2"/>
+<text x="505.7" y="27.0" font-size="7.5" fill="#4570a8" font-weight="700" letter-spacing="0.6">DATA CATEGORY</text>
+<text x="718.0" y="27.0" font-size="7" fill="#94a3b8" text-anchor="end">DTC-03</text>
+<text x="505.7" y="40.5" font-size="10.5" fill="#0f172a" font-weight="600">Financial</text>
+<text x="505.7" y="52.5" font-size="8.5" fill="#64748b">OFFICIAL: Sensitive</text>
+<rect x="16.0" y="226.0" width="225.3" height="114.5" rx="5" fill="#dee7f6" fill-opacity="0.45" stroke="#4570a8" stroke-width="1.2"/>
+<text x="23.0" y="237.0" font-size="7.5" fill="#4570a8" font-weight="700" letter-spacing="0.6">DATA CATEGORY</text>
+<text x="235.3" y="237.0" font-size="7" fill="#94a3b8" text-anchor="end">DTC-04</text>
+<text x="23.0" y="250.5" font-size="10.5" fill="#0f172a" font-weight="600">Reference data</text>
+<text x="23.0" y="262.5" font-size="8.5" fill="#64748b">OFFICIAL</text>
+<rect x="498.7" y="226.0" width="225.3" height="102.0" rx="5" fill="#dee7f6" fill-opacity="0.45" stroke="#4570a8" stroke-width="1.2"/>
+<text x="505.7" y="237.0" font-size="7.5" fill="#4570a8" font-weight="700" letter-spacing="0.6">DATA CATEGORY</text>
+<text x="718.0" y="237.0" font-size="7" fill="#94a3b8" text-anchor="end">DTC-05</text>
+<text x="505.7" y="250.5" font-size="10.5" fill="#0f172a" font-weight="600">Operational</text>
+<text x="505.7" y="262.5" font-size="8.5" fill="#64748b">OFFICIAL</text>
+<rect x="53.7" y="68.0" width="150.0" height="36.0" rx="4" fill="#edf3f8" stroke="#3b6a8f" stroke-width="1.2"/>
+<text x="59.7" y="78.0" font-size="7.5" fill="#3b6a8f" font-weight="700" letter-spacing="0.6">DATA ENTITY</text>
+<text x="128.7" y="91.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Applicant organisation</text>
+<text x="198.7" y="100.0" font-size="7" fill="#94a3b8" text-anchor="end">DAT-01</text>
+<rect x="53.7" y="114.0" width="150.0" height="36.0" rx="4" fill="#edf3f8" stroke="#3b6a8f" stroke-width="1.2"/>
+<text x="59.7" y="124.0" font-size="7.5" fill="#3b6a8f" font-weight="700" letter-spacing="0.6">DATA ENTITY</text>
+<text x="128.7" y="137.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Application</text>
+<text x="198.7" y="146.0" font-size="7" fill="#94a3b8" text-anchor="end">DAT-02</text>
+<rect x="53.7" y="160.0" width="150.0" height="36.0" rx="4" fill="#edf3f8" stroke="#3b6a8f" stroke-width="1.2"/>
+<text x="59.7" y="170.0" font-size="7.5" fill="#3b6a8f" font-weight="700" letter-spacing="0.6">DATA ENTITY</text>
+<text x="128.7" y="183.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Supporting document</text>
+<text x="198.7" y="192.0" font-size="7" fill="#94a3b8" text-anchor="end">DAT-03</text>
+<rect x="295.0" y="68.0" width="150.0" height="36.0" rx="4" fill="#edf3f8" stroke="#3b6a8f" stroke-width="1.2"/>
+<text x="301.0" y="78.0" font-size="7.5" fill="#3b6a8f" font-weight="700" letter-spacing="0.6">DATA ENTITY</text>
+<text x="370.0" y="91.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Eligibility check</text>
+<text x="440.0" y="100.0" font-size="7" fill="#94a3b8" text-anchor="end">DAT-04</text>
+<rect x="295.0" y="114.0" width="150.0" height="36.0" rx="4" fill="#edf3f8" stroke="#3b6a8f" stroke-width="1.2"/>
+<text x="301.0" y="124.0" font-size="7.5" fill="#3b6a8f" font-weight="700" letter-spacing="0.6">DATA ENTITY</text>
+<text x="370.0" y="137.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Score and comment</text>
+<text x="440.0" y="146.0" font-size="7" fill="#94a3b8" text-anchor="end">DAT-05</text>
+<rect x="295.0" y="160.0" width="150.0" height="36.0" rx="4" fill="#edf3f8" stroke="#3b6a8f" stroke-width="1.2"/>
+<text x="301.0" y="170.0" font-size="7.5" fill="#3b6a8f" font-weight="700" letter-spacing="0.6">DATA ENTITY</text>
+<text x="370.0" y="183.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Conflict declaration</text>
+<text x="440.0" y="192.0" font-size="7" fill="#94a3b8" text-anchor="end">DAT-06</text>
+<rect x="295.0" y="206.0" width="150.0" height="36.0" rx="4" fill="#edf3f8" stroke="#3b6a8f" stroke-width="1.2"/>
+<text x="301.0" y="216.0" font-size="7.5" fill="#3b6a8f" font-weight="700" letter-spacing="0.6">DATA ENTITY</text>
+<text x="370.0" y="229.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Panel decision</text>
+<text x="440.0" y="238.0" font-size="7" fill="#94a3b8" text-anchor="end">DAT-07</text>
+<rect x="536.3" y="68.0" width="150.0" height="36.0" rx="4" fill="#edf3f8" stroke="#3b6a8f" stroke-width="1.2"/>
+<text x="542.3" y="78.0" font-size="7.5" fill="#3b6a8f" font-weight="700" letter-spacing="0.6">DATA ENTITY</text>
+<text x="611.3" y="91.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Funding agreement</text>
+<text x="681.3" y="100.0" font-size="7" fill="#94a3b8" text-anchor="end">DAT-08</text>
+<rect x="536.3" y="114.0" width="150.0" height="36.0" rx="4" fill="#edf3f8" stroke="#3b6a8f" stroke-width="1.2"/>
+<text x="542.3" y="124.0" font-size="7.5" fill="#3b6a8f" font-weight="700" letter-spacing="0.6">DATA ENTITY</text>
+<text x="611.3" y="137.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Payment</text>
+<text x="681.3" y="146.0" font-size="7" fill="#94a3b8" text-anchor="end">DAT-09</text>
+<rect x="536.3" y="160.0" width="150.0" height="36.0" rx="4" fill="#edf3f8" stroke="#3b6a8f" stroke-width="1.2"/>
+<text x="542.3" y="170.0" font-size="7.5" fill="#3b6a8f" font-weight="700" letter-spacing="0.6">DATA ENTITY</text>
+<text x="611.3" y="183.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Acquittal</text>
+<text x="681.3" y="192.0" font-size="7" fill="#94a3b8" text-anchor="end">DAT-10</text>
+<rect x="32.0" y="278.0" width="84.7" height="48.5" rx="4" fill="#edf3f8" stroke="#3b6a8f" stroke-width="1.2"/>
+<text x="38.0" y="288.0" font-size="7.5" fill="#3b6a8f" font-weight="700" letter-spacing="0.6">DATA ENTITY</text>
+<text x="74.3" y="301.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Funding</text>
+<text x="74.3" y="314.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">round</text>
+<text x="111.7" y="322.5" font-size="7" fill="#94a3b8" text-anchor="end">DAT-11</text>
+<rect x="140.7" y="278.0" width="84.7" height="48.5" rx="4" fill="#edf3f8" stroke="#3b6a8f" stroke-width="1.2"/>
+<text x="146.7" y="288.0" font-size="7.5" fill="#3b6a8f" font-weight="700" letter-spacing="0.6">DATA ENTITY</text>
+<text x="183.0" y="301.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Assessment</text>
+<text x="183.0" y="314.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">criterion</text>
+<text x="220.3" y="322.5" font-size="7" fill="#94a3b8" text-anchor="end">DAT-12</text>
+<rect x="514.7" y="278.0" width="84.7" height="36.0" rx="4" fill="#edf3f8" stroke="#3b6a8f" stroke-width="1.2"/>
+<text x="520.7" y="288.0" font-size="7.5" fill="#3b6a8f" font-weight="700" letter-spacing="0.6">DATA ENTITY</text>
+<text x="557.0" y="301.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Audit event</text>
+<text x="594.3" y="310.0" font-size="7" fill="#94a3b8" text-anchor="end">DAT-13</text>
+<rect x="623.3" y="278.0" width="84.7" height="36.0" rx="4" fill="#edf3f8" stroke="#3b6a8f" stroke-width="1.2"/>
+<text x="629.3" y="288.0" font-size="7.5" fill="#3b6a8f" font-weight="700" letter-spacing="0.6">DATA ENTITY</text>
+<text x="665.7" y="301.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Notification</text>
+<text x="703.0" y="310.0" font-size="7" fill="#94a3b8" text-anchor="end">DAT-14</text>
+<line x1="16" y1="360.5" x2="724" y2="360.5" stroke="#e2e8f0" stroke-width="1"/>
+<text x="16.0" y="381.0" font-size="7.5" fill="#3b6a8f" font-weight="700" letter-spacing="0.6">DATA</text>
+<rect x="47.388000000000005" y="372.5" width="16" height="10" rx="2" fill="#edf3f8" stroke="#3b6a8f" stroke-width="1.2"/>
+<text x="68.4" y="381.0" font-size="8.5" fill="#475569">Data Entity</text>
+<rect x="121.738" y="372.5" width="16" height="10" rx="2" fill="#dee7f6" stroke="#4570a8" stroke-width="1.2"/>
+<text x="142.7" y="381.0" font-size="8.5" fill="#475569">Data Category</text>
+<text x="16.0" y="397.0" font-size="8.5" fill="#475569">Entity inside a data category: classified as; the category's sub-line gives its classification</text>
+</svg>
