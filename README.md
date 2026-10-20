@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/warrendeanlangeveldt/arch-diagram/main/assets/logo-dark.png">
+    <img src="https://raw.githubusercontent.com/warrendeanlangeveldt/arch-diagram/main/assets/logo.png" alt="ArchDiagram" width="300">
+  </picture>
+</p>
+
 # arch-diagram
 
 A Claude Code plugin for print-grade architecture diagrams. Claude lays out each diagram by hand as inline SVG in one house style, renders it, looks at the render and fixes it before handing it over. The output drops straight into markdown, a Word document or a PDF without any diagramming tool.
