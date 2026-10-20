@@ -46,7 +46,20 @@ def _view_xml(view, rel_ids, lang, out, ind="      "):
             if best is None or cb["w"] * cb["h"] < placed[best][0]["w"] * placed[best][0]["h"]:
                 best = cid
         parent[oid] = best
-    nid = {oid: f"n-{view.slug}-{oid}" for oid in placed}
+    nid = {oid: f"n-{view.slug}-{oid.replace('#', '-')}" for oid in placed}
+
+    def node_at(oid, pt):
+        """The node of `oid` (or of a copy of it) whose border is nearest pt."""
+        keys = [k for k in placed if k.split("#")[0] == oid]
+        if not keys:
+            return None
+
+        def off(k):
+            b = placed[k][0]
+            dx = max(b["x"] - pt[0], 0, pt[0] - b["r"])
+            dy = max(b["y"] - pt[1], 0, pt[1] - b["b"])
+            return dx + dy
+        return nid[min(keys, key=off)]
     vp = view.viewpoint
     vpa = f' viewpoint={quoteattr(vp)}' if vp else ""
     out.append(f'{ind}<view identifier="v-{view.slug}" xsi:type="Diagram"{vpa}>\n')
@@ -58,7 +71,7 @@ def _view_xml(view, rel_ids, lang, out, ind="      "):
         x, y = max(0, int(round(bx["x"]))), max(0, int(round(bx["y"])))
         w, h = max(1, int(round(bx["w"]))), max(1, int(round(bx["h"])))
         kids = [k for k in placed if parent[k] == oid]
-        head = (f'{pad}<node identifier="{nid[oid]}" elementRef="{oid}" xsi:type="Element" '
+        head = (f'{pad}<node identifier="{nid[oid]}" elementRef="{oid.split("#")[0]}" xsi:type="Element" '
                 f'x="{x}" y="{y}" w="{w}" h="{h}"')
         if not kids:
             out.append(head + "/>\n")
@@ -73,11 +86,12 @@ def _view_xml(view, rel_ids, lang, out, ind="      "):
             emit(oid, 0)
     for n, (ri, pts) in enumerate(view.edges):
         r = view.rels[ri]
-        if r["from"] not in nid or r["to"] not in nid:
+        src, tgt = node_at(r["from"], pts[0]), node_at(r["to"], pts[-1])
+        if src is None or tgt is None:
             continue
         pad = ind + "  "
         out.append(f'{pad}<connection identifier="c-{view.slug}-{n}" relationshipRef="{rel_ids[ri]}" '
-                   f'xsi:type="Relationship" source="{nid[r["from"]]}" target="{nid[r["to"]]}"')
+                   f'xsi:type="Relationship" source="{src}" target="{tgt}"')
         bends = pts[1:-1]
         if not bends:
             out.append("/>\n")

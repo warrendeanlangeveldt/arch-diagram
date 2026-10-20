@@ -116,7 +116,8 @@ Layer colours (stroke / fill), configurable via `make_theme`:
   whenever one is drawn.
 - **Edge**: 1.2px body, orthogonal, canonical arrowhead, stop 2px short;
   verb label 8.5px italic muted with a white halo. Label = the verb,
-  exactly. Edges leave the object that owns the relationship (the
+  exactly (the view language's default; `labels text` shows a relationship's
+  name or note instead). Edges leave the object that owns the relationship (the
   consumer, not its container).
 - **Interface**: a pill (r11, white fill, Application stroke) sitting
   on the top edge of the application that exposes it, or listed inside
@@ -162,6 +163,16 @@ view has both. No colour that is not in the legend.
 
 Name each view `V<n> <View>` and record its CoreEA view type in the
 caption so the office can recreate it in OrbusInfinity.
+
+In the view language (`dsl.md`), a view that names its viewpoint takes the
+recipe's direction. Business Strategy Diagram, Project Context and Risk
+Catalogue read left to right in columns; Project Context runs Project,
+Motivation, Application, Technology, Control, and Risk Catalogue runs Risk,
+Control, then what the controls realise and apply to. The other viewpoints
+stack layers top to bottom. `direction` and `bands` in the view override
+either. A SAD model is dense, so list each view's lines (`edges explicit`);
+`scripts/examples/coreea-sad/views.ead` is a worked set of six SAD views on a
+model of 131 objects.
 
 ## Skeleton — Application Context Diagram
 

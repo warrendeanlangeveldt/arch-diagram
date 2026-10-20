@@ -29,7 +29,5 @@
   "R-NODE-01-serving-ACMP-01",
   "R-SSW-01-serving-ACMP-03"
  ],
- "warnings": [
-  "LAYERED: layout: a row is too wide for the page, so ACMP-NOTIFY, DOBJ-01 moved to a row below"
- ]
+ "warnings": []
 }

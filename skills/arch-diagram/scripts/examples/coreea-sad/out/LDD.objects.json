@@ -1,0 +1,29 @@
+{
+ "view": "LDD",
+ "title": "V2 Logical Data",
+ "metamodel": "coreea",
+ "viewpoint": "Logical Data Diagram",
+ "objects": [
+  "DTC-01",
+  "DTC-02",
+  "DTC-03",
+  "DTC-04",
+  "DTC-05",
+  "DAT-01",
+  "DAT-02",
+  "DAT-03",
+  "DAT-04",
+  "DAT-05",
+  "DAT-06",
+  "DAT-07",
+  "DAT-08",
+  "DAT-09",
+  "DAT-10",
+  "DAT-11",
+  "DAT-12",
+  "DAT-13",
+  "DAT-14"
+ ],
+ "relationships": [],
+ "warnings": []
+}

@@ -92,7 +92,13 @@ class Packs(unittest.TestCase):
                                  "amazon-simple-storage-service-bucket": "resource",
                                  "users": "resource", "group-region": "group"})
         self.assertEqual(icons.resolve("S3")["ref"], "aws:amazon-simple-storage-service")
-        self.assertEqual(icons.resolve("Kinesis Video Streams")["via"], "search")
+        # an icon's exact name (vendor prefix and plural allowed) beats the aliases
+        self.assertEqual(icons.resolve("Kinesis Video Streams")["via"], "name")
+        self.assertEqual(icons.resolve("Amazon Kinesis Video Stream")["ref"], "aws:amazon-kinesis-video-streams")
+        self.assertEqual(icons.resolve("Kinesis Video")["via"], "search")
+        # a generic glyph's own name stays generic, and never goes to the fuzzy match
+        self.assertEqual(icons.resolve("users")["ref"], "generic:users")
+        self.assertEqual(icons.resolve("server", "aws")["ref"], "generic:server")
         self.assertEqual(icons.resolve("Blob Storage")["ref"], "generic:bucket")
         self.assertIn("azure pack not fetched", icons.resolve("Blob Storage")["via"])
         self.assertEqual(icons.resolve("MinIO")["ref"], "generic:bucket")

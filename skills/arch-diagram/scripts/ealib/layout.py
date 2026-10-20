@@ -27,12 +27,20 @@ from .common import box, text_width, wrap
 from .metamodel import metamodel_of
 from .views import View, make_theme
 
-GAP_X, GAP_Y = 40, 44
+GAP_Y = 44
+TIGHT_X, TIGHT_Y = 12, 24     # boxes a 'same' squeezes; rows no line runs between
+LOOSE_X = 24                  # neighbours with no line between them
+PILL_GAP = 10                 # between boxes listed one under another in a box
+COL_MIN, COL_GAP = 200, 16    # containers flowing into columns
+LR_GAP = 16                   # between boxes down a column (direction lr)
 PAD, PAD_TOP, PAD_BOTTOM = 16, 10, 14
 CLEAR = 8                     # lines keep this far from boxes
 EPS = 0.2
 BEND, OVERLAP, CROSS, PORT_USED = 40, 5.0, 14, 70
+JOIN = 0.5                    # cost per px of running along a line of the same bundle
+NEAR = 4                      # lines closer than this run along each other
 PILL_OVERHANG = 14
+DENSE = 1.5                   # lines per box above which a view with every line warns
 
 
 class LayoutError(ValueError):
@@ -70,9 +78,55 @@ class Router:
     def __init__(self, width, height, boxes):
         self.W, self.H = width, height
         self.boxes = boxes                  # every box drawn, for channel lines
-        self.used_h, self.used_v = {}, {}   # (y, x0, x1) / (x, y0, y1) grid segments
-        self.pts_h, self.pts_v = set(), set()
+        # what routed lines use, per bundle (lines joined into one trunk; None
+        # for a line on its own): runs along each y / x ({line: {(lo, hi):
+        # {bundle: n}}}), the points on horizontal / vertical runs, and ports
+        self.used_h, self.used_v = {}, {}
+        self.pts_h, self.pts_v = {}, {}
         self.ports = {}
+        self.bundle = None
+
+    def _others(self, table, key):
+        """How many lines outside the bundle being routed use `key`."""
+        d = table.get(key)
+        if not d:
+            return 0
+        return sum(n for b, n in d.items() if self.bundle is None or b != self.bundle)
+
+    def _bundle_port(self, r):
+        """The ports on rect r's border that the bundle being routed uses,
+        as candidate ports (with the side's outward normal)."""
+        x, y, w, h = (round(v, 1) for v in r)
+        out = []
+        for (px, py), d in self.ports.items():
+            if not d.get(self.bundle):
+                continue
+            if abs(py - y) < EPS and x <= px <= x + w:
+                out.append((px, py, 0, -1, 0))
+            elif abs(py - (y + h)) < EPS and x <= px <= x + w:
+                out.append((px, py, 0, 1, 0))
+            elif abs(px - x) < EPS and y <= py <= y + h:
+                out.append((px, py, -1, 0, 0))
+            elif abs(px - (x + w)) < EPS and y <= py <= y + h:
+                out.append((px, py, 1, 0, 0))
+        return out
+
+    def _along(self, table, line, lo, hi):
+        """(own, other): px of [lo, hi] on `line` that lines of the bundle
+        being routed, and other lines, already run along. A run within NEAR
+        px counts: two lines that close read as one."""
+        own = other = 0.0
+        runs = [r for at, rs in table.items() if abs(at - line) < NEAR for r in rs.items()]
+        for (a, b), d in runs:
+            ov = min(hi, b) - max(lo, a)
+            if ov <= EPS:
+                continue
+            for bundle, n in d.items():
+                if self.bundle is not None and bundle == self.bundle:
+                    own = max(own, ov)
+                else:
+                    other += ov * n
+        return own, other
 
     def _lines(self, rects, extra):
         xs, ys = set(), set()
@@ -95,12 +149,16 @@ class Router:
 
         return fill(xs, 4, self.W - 4), fill(ys, 4, self.H - 4)
 
-    def route(self, sbox, tbox, obstacles, skind="box", tkind="box", soft=(), forbid=()):
+    def route(self, sbox, tbox, obstacles, skind="box", tkind="box", soft=(), forbid=(), bundle=None,
+              sides=False):
         """Points from sbox's border to tbox's border avoiding `obstacles`
         (rects); sbox and tbox are avoided too, apart from their ports.
         `soft` rects (the containers the line has to leave or enter) may be
         crossed but not run along. Ports at the points in `forbid` aren't
-        used."""
+        used. Lines of one `bundle` share segments and ports for less than
+        a line on its own would pay, so they join into one trunk. `sides`
+        keeps both ends on the boxes' left and right sides."""
+        self.bundle = bundle
         obs = [o for o in obstacles] + [sbox, tbox]
         sp = [p for p in _ports(sbox, skind)]
         tp = [p for p in _ports(tbox, tkind)]
@@ -131,6 +189,23 @@ class Router:
                 elif ty + th <= sy:
                     sp.append((m, sy, 0, -1, 0))
                     tp.append((m, ty + th, 0, 1, 0))
+            # on a long side, the port in line with the other box's centre,
+            # so a line from a container leaves above or beside its target
+            for (bx, by, bw, bh), (ox, oy, ow, oh), ports in (((sx, sy, sw, sh), (tx, ty, tw, th), sp),
+                                                              ((tx, ty, tw, th), (sx, sy, sw, sh), tp)):
+                if bw >= 90:
+                    px = round(min(max(ox + ow / 2, bx + 12), bx + bw - 12), 1)
+                    ports += [(px, by, 0, -1, 2), (px, round(by + bh, 1), 0, 1, 2)]
+                if bh >= 60:
+                    py = round(min(max(oy + oh / 2, by + 12), by + bh - 12), 1)
+                    ports += [(bx, py, -1, 0, 2), (round(bx + bw, 1), py, 1, 0, 2)]
+        if sides:
+            sp = [p for p in sp if p[2]] or sp
+            tp = [p for p in tp if p[2]] or tp
+        if bundle is not None:
+            # a bundle meets its shared box at one port: the one it already uses
+            sp = self._bundle_port(sbox) or sp
+            tp = self._bundle_port(tbox) or tp
         if forbid:
             sp = [p for p in sp if (p[0], p[1]) not in forbid]
             tp = [p for p in tp if (p[0], p[1]) not in forbid]
@@ -173,7 +248,7 @@ class Router:
         for p in tp:
             s = stub(p)
             if s[0] in xi and s[1] in yi and not self._outside(s):
-                cost = p[4] + PORT_USED * self.ports.get((round(p[0], 1), round(p[1], 1)), 0)
+                cost = p[4] + PORT_USED * self._others(self.ports, (round(p[0], 1), round(p[1], 1)))
                 goals.setdefault(s, []).append((p, cost))
         if not goals:
             return None
@@ -187,7 +262,7 @@ class Router:
             s = stub(p)
             if s[0] not in xi or s[1] not in yi or self._outside(s):
                 continue
-            g = p[4] + PORT_USED * self.ports.get((round(p[0], 1), round(p[1], 1)), 0)
+            g = p[4] + PORT_USED * self._others(self.ports, (round(p[0], 1), round(p[1], 1)))
             d = (p[2], p[3])
             st = (s, d)
             if g < best.get(st, 1e18):
@@ -221,17 +296,15 @@ class Router:
                 if blocked(pt, q):
                     continue
                 length = abs(q[0] - pt[0]) + abs(q[1] - pt[1])
-                cost = length + (BEND if nd != d else 0)
                 if nd[1] == 0:
-                    key = (pt[1], min(pt[0], q[0]), max(pt[0], q[0]))
-                    cost += OVERLAP * length * self.used_h.get(key, 0)
-                    if q in self.pts_v:
-                        cost += CROSS
+                    own, other = self._along(self.used_h, pt[1], min(pt[0], q[0]), max(pt[0], q[0]))
+                    across = self.pts_v
                 else:
-                    key = (pt[0], min(pt[1], q[1]), max(pt[1], q[1]))
-                    cost += OVERLAP * length * self.used_v.get(key, 0)
-                    if q in self.pts_h:
-                        cost += CROSS
+                    own, other = self._along(self.used_v, pt[0], min(pt[1], q[1]), max(pt[1], q[1]))
+                    across = self.pts_h
+                cost = length - own * (1 - JOIN) + (BEND if nd != d else 0) + OVERLAP * other
+                if self._others(across, q):
+                    cost += CROSS
                 ng = g + cost
                 st = (q, nd)
                 if ng < best.get(st, 1e18):
@@ -253,41 +326,34 @@ class Router:
             st = prev
         path.append((sport[0], sport[1]))
         path.reverse()
-        self.last = (path, [(round(p[0], 1), round(p[1], 1)) for p in (sport, tport)])
+        self.last = (path, [(round(p[0], 1), round(p[1], 1)) for p in (sport, tport)], bundle)
         self.occupy(self.last, 1)
         return _simplify(path)
 
     def occupy(self, footprint, sign):
         """Add (sign 1) or remove (sign -1) a routed path's use of the grid
         and its ports."""
-        path, ports = footprint
+        path, ports, bundle = footprint
+
+        def bump(table, key):
+            d = table.setdefault(key, {})
+            d[bundle] = d.get(bundle, 0) + sign
+            if d[bundle] <= 0:
+                del d[bundle]
+                if not d:
+                    del table[key]
+
         for k in ports:
-            self.ports[k] = self.ports.get(k, 0) + sign
+            bump(self.ports, k)
         for a, b in zip(path[1:-1], path[2:-1]):
             if a[1] == b[1]:
-                k = (a[1], min(a[0], b[0]), max(a[0], b[0]))
-                self.used_h[k] = self.used_h.get(k, 0) + sign
+                bump(self.used_h.setdefault(a[1], {}), (min(a[0], b[0]), max(a[0], b[0])))
+                for q in (a, b):
+                    bump(self.pts_h, q)
             else:
-                k = (a[0], min(a[1], b[1]), max(a[1], b[1]))
-                self.used_v[k] = self.used_v.get(k, 0) + sign
-        pts = set(path[1:-1])
-        if sign > 0:
-            for a, b in zip(path[1:-1], path[2:-1]):
-                (self.pts_h if a[1] == b[1] else self.pts_v).update((a, b))
-        else:
-            self.pts_h = {q for q in self.pts_h if q not in pts or self._still_used(q, "h")}
-            self.pts_v = {q for q in self.pts_v if q not in pts or self._still_used(q, "v")}
-
-    def _still_used(self, q, axis):
-        used = self.used_h if axis == "h" else self.used_v
-        for k, n in used.items():
-            if n <= 0:
-                continue
-            if axis == "h" and k[0] == q[1] and k[1] <= q[0] <= k[2]:
-                return True
-            if axis == "v" and k[0] == q[0] and k[1] <= q[1] <= k[2]:
-                return True
-        return False
+                bump(self.used_v.setdefault(a[0], {}), (min(a[1], b[1]), max(a[1], b[1])))
+                for q in (a, b):
+                    bump(self.pts_v, q)
 
     def _outside(self, pt):
         return not (0 < pt[0] < self.W and 0 < pt[1] < self.H)
@@ -312,20 +378,28 @@ def _crossings(p, q):
 
 
 def route_all(router, jobs):
-    """Route `jobs` [(key, sbox, tbox, obstacles, skind, tkind, soft)] in
-    order, then untangle two lines that share a box and cross. Routing one
-    line at a time, the first takes the port that suits it and can leave the
-    second only a port it has to cross to reach, whichever goes first. So
-    the pair is routed again three ways: in the other order, and with each
-    line in turn kept off the port it used on the shared box (it goes
-    first, the other line routes around it). The way that crosses least is
-    kept, if it crosses less than before. Returns ({key: points}, [keys the
-    grid found no route for, drawn as a plain elbow])."""
+    """Route `jobs` [(key, sbox, tbox, obstacles, skind, tkind, soft[,
+    bundle[, sides]])] in order, then untangle two lines that cross; lines
+    of one bundle join and never count as crossing. Routing one line at a
+    time, the first takes the way that suits it and can leave the second
+    only a way across it, whichever goes first; where both meet one box (or
+    a container and a box inside it) the first can take the port the
+    second needed. So the pair is routed again in the other order and, at
+    a shared box, with each line in turn kept off the port it used there
+    (it goes first, the other routes around it). The way that crosses least
+    is kept, if it crosses less than before. Returns ({key: points}, [keys
+    the grid found no route for, drawn as a plain elbow])."""
     out, prints = {}, {}
 
+    bundle = {j[0]: (j[7] if len(j) > 7 else None) for j in jobs}
+    sides = {j[0]: (j[8] if len(j) > 8 else False) for j in jobs}
+
+    def apart(a, b):
+        return bundle[a] is None or bundle[a] != bundle[b]
+
     def one(job, forbid=()):
-        key, sbox, tbox, obstacles, sk, tk, soft = job
-        pts = router.route(sbox, tbox, obstacles, sk, tk, soft, forbid)
+        key, sbox, tbox, obstacles, sk, tk, soft = job[:7]
+        pts = router.route(sbox, tbox, obstacles, sk, tk, soft, forbid, bundle[key], sides[key])
         if pts is None:
             return _fallback(sbox, tbox), None
         return pts, router.last
@@ -334,7 +408,8 @@ def route_all(router, jobs):
         out[job[0]], prints[job[0]] = one(job)
 
     def total(keys):
-        return sum(_crossings(out[a], out[b]) for i, a in enumerate(keys) for b in keys[i + 1:])
+        return sum(_crossings(out[a], out[b]) for i, a in enumerate(keys) for b in keys[i + 1:]
+                   if apart(a, b))
 
     keys = [j[0] for j in jobs]
     byk = {j[0]: j for j in jobs}
@@ -343,14 +418,15 @@ def route_all(router, jobs):
         for i, a in enumerate(keys):
             for b in keys[i + 1:]:
                 ja, jb = byk[a], byk[b]
-                share = {tuple(ja[1]), tuple(ja[2])} & {tuple(jb[1]), tuple(jb[2])}
-                if not share or not _crossings(out[a], out[b]):
+                share = {r for p in (ja[1], ja[2]) for q in (jb[1], jb[2])
+                         if _nested(p, q) for r in (tuple(p), tuple(q))}
+                if not apart(a, b) or not _crossings(out[a], out[b]):
                     continue
                 before = total(keys) + len(keys) * sum(prints[k] is None for k in keys)
                 saved = {k: (out[k], prints[k]) for k in (a, b)}
                 shared = [r for r in share]
                 tries = [((b, ()), (a, ()))]
-                for first, second in ((a, b), (b, a)):
+                for first, second in ((a, b), (b, a)) if shared else ():
                     used = _ports_on(prints[first], shared)
                     if used:
                         tries.append(((first, used), (second, ())))
@@ -386,6 +462,14 @@ def route_all(router, jobs):
     return out, [k for k in keys if prints[k] is None]
 
 
+def _nested(p, q):
+    """The same box, or one box inside the other (a container and its part)."""
+    def inside(a, b):
+        return (b[0] - EPS <= a[0] and a[0] + a[2] <= b[0] + b[2] + EPS
+                and b[1] - EPS <= a[1] and a[1] + a[3] <= b[1] + b[3] + EPS)
+    return inside(p, q) or inside(q, p)
+
+
 def _ports_on(footprint, rects):
     """The ports of a routed line (its footprint) that sit on one of `rects`."""
     if not footprint:
@@ -398,11 +482,14 @@ def _ports_on(footprint, rects):
     return tuple(out)
 
 
-def crossing_pairs(lines):
-    """[(key a, key b)] for every two lines {key: points} that cross."""
+def crossing_pairs(lines, bundles=None):
+    """[(key a, key b)] for every two lines {key: points} that cross, apart
+    from two lines of one bundle ({key: bundle}), which join."""
     keys = list(lines)
+    bundles = bundles or {}
     return [(a, b) for i, a in enumerate(keys) for b in keys[i + 1:]
-            if _crossings(lines[a], lines[b])]
+            if (bundles.get(a) is None or bundles.get(a) != bundles.get(b))
+            and _crossings(lines[a], lines[b])]
 
 
 def _simplify(pts):
@@ -539,7 +626,8 @@ def draw(model, spec):
     if mm.key == "bpmn":
         return BpmnLayout(model, spec).run()
     theme = make_theme(width=spec.width) if spec.width else make_theme()
-    v = View(model, spec.vid, title=spec.title, viewpoint=spec.viewpoint, theme=theme)
+    v = View(model, spec.vid, title=spec.title, viewpoint=spec.viewpoint, theme=theme,
+             platform=spec.platform)
     if spec.matrices:
         return _draw_matrix(v, spec)
     L = _EaLayout(v, model, mm, spec)
@@ -588,18 +676,23 @@ def _draw_matrix(v, spec):
 NODE_ATTRS = {"icon", "sub", "w", "h", "type_label", "dashed", "name_size"}
 CONTAINER_ATTRS = {"icon", "sub", "w", "fill_opacity", "name_size"}
 FRAME_ATTRS = {"icon", "dashed", "colour"}
-GROUP_ATTRS = {"w", "sub", "ids"}
+GROUP_ATTRS = {"w", "sub", "ids", "icon"}
 
 
 class _EaLayout:
     def __init__(self, v, model, mm, spec):
         self.v, self.model, self.mm, self.spec = v, model, mm, spec
         self.objs = {o["id"]: o for o in model["objects"]}
-        bands = spec.bands if spec.bands is not None else (mm.data.get("bands") or mm.layer_order)
+        vp = mm.viewpoints.get(spec.viewpoint, {}) if spec.viewpoint else {}
+        self.direction = spec.direction or vp.get("direction") or "tb"
+        bands = spec.bands if spec.bands is not None else (vp.get("bands") or mm.data.get("bands")
+                                                             or mm.layer_order)
         self.band_of_layer = {b: i for i, b in enumerate(bands)}
         self.banded = spec.bands != []
-        self.item_of = {}
+        self.item_of = {}             # view reference (id, or id#tag) -> item
+        self.copies = {}              # object id -> [(reference, item)], one per box drawing it
         self.attached = {}            # pill oid -> (pill item, host item)
+        self.same_of = {}             # id(item) -> the items a 'same' keeps in its row
         self.errors = []
 
     def fail(self, line, msg):
@@ -615,10 +708,12 @@ class _EaLayout:
             for it in top.walk():
                 self._check_attrs(it)
                 if it.kind == "group":
-                    for m in it.members:
-                        self.item_of[m] = it
+                    for ref, m in zip(it.refs, it.members):
+                        self.item_of[ref] = it
+                        self.copies.setdefault(m, []).append((ref, it))
                 elif it.oid:
-                    self.item_of[it.oid] = it
+                    self.item_of[it.ref] = it
+                    self.copies.setdefault(it.oid, []).append((it.ref, it))
         from .dsl import Item
         for pill, host, line, attrs in spec.attached:
             p = Item("pill", pill, line, attrs)
@@ -626,11 +721,18 @@ class _EaLayout:
             p.host.pills.append(p)
             self.attached[pill] = p
             self.item_of[pill] = p
+            self.copies.setdefault(p.oid, []).append((pill, p))
+        self._same_keys()
         edges = self._edges()
         if self.errors:
             from .dsl import DslError
             raise DslError(f"view {spec.vid}:\n  " + "\n  ".join(self.errors))
         self.edges = edges
+        boxes = sum(1 for it in self._all() if it.kind != "frame") + len(self.attached)
+        if spec.edges_mode == "auto" and len(edges) > 6 and len(edges) > DENSE * boxes:
+            self.warn(f"{len(edges)} lines between {boxes} boxes, every relationship the model "
+                      "has between them; list the lines the view is about with 'edges explicit', "
+                      "or leave some out with 'hide'")
         avail = v.W - 32
         root_w, root_h = self._block(None, spec.items, avail)
         W = max(v.W, int(root_w + 32 + 0.5))
@@ -680,13 +782,56 @@ class _EaLayout:
             yield from top.walk()
 
     # -------------------------------------------------- which edges
+    def _same_keys(self):
+        """Which boxes a 'same' (or 'same by=') puts together, across the
+        whole view: id(item) -> key. _align uses it to line up boxes listed
+        in side-by-side containers."""
+        parent = {}
+
+        def find(k):
+            parent.setdefault(k, k)
+            while parent[k] != k:
+                parent[k] = parent[parent[k]]
+                k = parent[k]
+            return k
+
+        def union(a, b):
+            parent[find(id(b))] = find(id(a))
+
+        for ids, _ in self.spec.same:
+            its = [self.item_of[r] for r in ids if r in self.item_of]
+            for it in its[1:]:
+                union(its[0], it)
+        for field, _ in self.spec.same_by:
+            for it in list(self.item_of.values()):
+                if it.kind == "group" or not it.oid:
+                    continue
+                val = self.objs[it.oid].get(field)
+                for t in (val if isinstance(val, list) else [val] if val else []):
+                    for _, other in self.copies.get(t, []):
+                        union(it, other)
+        self.same_key = {k: find(k) for k in list(parent)}
+
+    def _pairs(self, f, t):
+        """The boxes a relationship from object f to object t joins: every
+        box of one with the box of the other when either is drawn once; when
+        both are drawn more than once, the boxes with the same tag."""
+        a, b = self.copies.get(f, []), self.copies.get(t, [])
+        if len(a) > 1 and len(b) > 1:
+            tag = lambda ref: ref.split("#", 1)[1] if "#" in ref else ""  # noqa: E731
+            same = [(x, y) for rx, x in a for ry, y in b if tag(rx) == tag(ry)]
+            if same:
+                return same
+        return [(x, y) for _, x in a for _, y in b]
+
     def _edges(self):
         spec, mm = self.spec, self.mm
         rels = self.model["relationships"]
         drawn = self.item_of
         notation_box = mm.notation != "archimate"
-        explicit = {}
-        for f, verb, t, label, line in spec.edges:
+        explicit = {}                 # relationship index -> {(ref from, ref to): label}
+        for f_ref, verb, t_ref, label, line in spec.edges:
+            f, t = f_ref.split("#", 1)[0], t_ref.split("#", 1)[0]
             found = [i for i, r in enumerate(rels)
                      if r["from"] == f and r["to"] == t and (verb is None or r["type"] == verb)]
             if verb is not None and verb not in mm.relationships:
@@ -699,12 +844,15 @@ class _EaLayout:
                 kinds = ", ".join(rels[i]["type"] for i in found)
                 self.fail(line, f"{f} --> {t} matches {kinds}; name the verb with -[verb]->")
                 continue
-            for oid in (f, t):
-                if oid not in drawn:
-                    self.fail(line, f"{oid} is not drawn in this view")
-            explicit[found[0]] = label
+            missing = [ref for ref in (f_ref, t_ref) if ref not in drawn and
+                       (ref != ref.split("#", 1)[0] or ref not in self.copies)]
+            for ref in missing:
+                self.fail(line, f"{ref} is not drawn in this view")
+            if not missing:
+                explicit.setdefault(found[0], {})[(f_ref, t_ref)] = label
         hidden = set()
         for f, verb, t, line in spec.hidden:
+            f, t = f.split("#", 1)[0], t.split("#", 1)[0]
             found = [i for i, r in enumerate(rels)
                      if r["from"] == f and r["to"] == t and (verb is None or r["type"] == verb)]
             if not found:
@@ -713,30 +861,48 @@ class _EaLayout:
         if spec.edges_mode == "explicit":
             chosen = sorted(explicit)
         else:
-            chosen = [i for i, r in enumerate(rels) if r["from"] in drawn and r["to"] in drawn]
+            chosen = [i for i, r in enumerate(rels) if r["from"] in self.copies and r["to"] in self.copies]
+        # the box notation labels a line with its verb (coreea.md, togaf.md);
+        # ArchiMate labels only the relationships that have a name
+        labels = spec.labels or ("verb" if notation_box else "text")
         merged = {}
         for i in chosen:
             if i in hidden:
                 continue
             r = rels[i]
-            a, b = drawn[r["from"]], drawn[r["to"]]
-            if a is b:
-                continue
-            if i not in explicit and self._implied(a, b):
-                continue
-            key = (id(a), id(b), r["type"])
-            if key in merged:
-                merged[key].triples.append((r["from"], r["type"], r["to"]))
-                continue
-            label = explicit.get(i)
-            if label is None:
-                if spec.labels == "verb":
-                    label = r["type"]
-                elif spec.labels == "text":
-                    label = r.get("name") or r.get("note") or (r["type"] if notation_box else None)
-                    if not notation_box and r["type"] == "influence" and not label:
-                        label = r.get("modifier")
-            merged[key] = _Edge(a, b, r["type"], [(r["from"], r["type"], r["to"])], label, i in explicit)
+            named = explicit.get(i, {})
+            # a line the view names joins the boxes it names (an untagged id
+            # names every box of that object)
+            pairs = self._pairs(r["from"], r["to"])
+            picked = {}
+            for (fr, tr), label in named.items():
+                for a, b in pairs:
+                    if (fr in (a.ref, r["from"]) or a.kind == "group" and fr in a.refs) and \
+                            (tr in (b.ref, r["to"]) or b.kind == "group" and tr in b.refs):
+                        picked[(id(a), id(b))] = label
+            if spec.edges_mode == "explicit":
+                pairs = [(a, b) for a, b in pairs if (id(a), id(b)) in picked]
+            # nesting or a pill already says it for one box: then it's said
+            said = any(self._implied(a, b) for a, b in pairs)
+            for a, b in pairs:
+                if a is b:
+                    continue
+                listed = (id(a), id(b)) in picked
+                if not listed and said:
+                    continue
+                key = (id(a), id(b), r["type"])
+                if key in merged:
+                    merged[key].triples.append((r["from"], r["type"], r["to"]))
+                    continue
+                label = picked.get((id(a), id(b)))
+                if label is None:
+                    if labels == "verb":
+                        label = r["type"]
+                    elif labels == "text":
+                        label = r.get("name") or r.get("note") or (r["type"] if notation_box else None)
+                        if not notation_box and r["type"] == "influence" and not label:
+                            label = r.get("modifier")
+                merged[key] = _Edge(a, b, r["type"], [(r["from"], r["type"], r["to"])], label, listed)
         return list(merged.values())
 
     def _implied(self, a, b):
@@ -763,8 +929,8 @@ class _EaLayout:
             it.w = a.get("w") or v.pill_width(it.oid)
             it.h = v.pill_height(it.oid, it.w)
         elif it.kind == "group":
-            it.w = a.get("w") or 190
-            it.h = v.group_height(it.label, it.w, a.get("sub"))
+            it.w = a.get("w") or 190 + (30 if a.get("icon") else 0)
+            it.h = v.group_height(it.label, it.w, a.get("sub"), a.get("icon"))
         else:
             it.w = a.get("w") or max(self._node_width(it), self._pill_room(it))
             it.h = a.get("h") or v.node_height(it.oid, it.w, a.get("sub"), a.get("name_size"), a.get("icon"))
@@ -794,6 +960,116 @@ class _EaLayout:
         tl = text_width(label, 7.5, True) + 0.6 * len(label) + 20
         return max(150, min(216, max(name, min(tl, 216))))
 
+    # -------------------------------------------------- narrowing
+    def _flexible(self, it):
+        """The layout may narrow a box whose width the view doesn't fix."""
+        return it.kind in ("node", "group", "pill", "container", "frame") and "w" not in it.attrs
+
+    def _narrowest(self, it, lines):
+        """The narrowest width at which `it` still reads: its name on at most
+        `lines` lines with no word broken, and room for its type label (at
+        the smallest size the label tightens to) and its id."""
+        v, a = self.v, it.attrs
+        if it.kind == "pill":
+            # on one line down to two lines, the id under the name below that
+            name = self.objs[it.oid]["name"]
+            if lines <= 2:
+                return min(it.w, text_width(name, 7.75, True) * 1.08 + 18 + text_width(it.oid, 7) + 4)
+            return max(text_width(name, 7.25, True) * 1.1 + 26, text_width(it.oid, 7) + 26)
+        if it.kind == "group":
+            title, ns, icon = it.label, v.NAME, 0
+            label, idtext = f"{it.otype} ×{len(it.members)}", a.get("ids") or f"{it.members[0]}–{it.members[-1]}"
+        else:
+            o = self.objs[it.oid]
+            title, ns = o["name"], a.get("name_size") or v.NAME
+            icon = 0                    # a narrow box carries its icon in the type-label row
+            label, idtext = o["type"], it.oid
+            tl = a.get("type_label")
+            if isinstance(tl, str) and tl != "off":
+                label = tl
+            if tl == "off" or not v.type_labels:
+                label = ""
+        floor = 80 if self.mm.notation == "archimate" else 64
+        words = [text_width(w, ns, True) for w in str(title).split()] or [0]
+        floor = max(floor, max(words) + 14 + icon, text_width(idtext, 7) + 14,
+                    text_width(label.upper(), 6, True) + 0.15 * len(label) + 12
+                    + (22 if self.mm.notation == "archimate" else 0))
+        if it.kind == "node":
+            floor = max(floor, self._pill_room(it))
+        w = floor
+        while len(wrap(title, ns, w - 14 - icon, True)) > lines and w < it.w:
+            w += 2
+        return min(max(w, floor), max(it.w, floor))
+
+    def _set_width(self, it, w):
+        v, a = self.v, it.attrs
+        it.w = w
+        if it.kind == "pill":
+            it.h = v.pill_height(it.oid, w)
+        elif it.kind == "group":
+            it.h = v.group_height(it.label, w, a.get("sub"), a.get("icon"))
+        elif "h" not in a:
+            it.h = v.node_height(it.oid, w, a.get("sub"), a.get("name_size"), a.get("icon"))
+
+    def _squeeze(self, items, excess, lines, boxes=True):
+        """Narrow the flexible boxes among `items` by up to `excess` px in all:
+        the widest first, each down to the width where its name takes `lines`
+        lines; then containers, whose children lay out again in less room.
+        A container narrows only when its children still lay out cleanly.
+        Returns the px saved."""
+        leaves = [it for it in items if self._flexible(it) and it.kind in ("node", "group", "pill")]
+        lo = {id(it): self._narrowest(it, lines) for it in leaves}
+        room = sum(max(0.0, it.w - lo[id(it)]) for it in leaves)
+        saved = 0.0
+        if room > 0:
+            cut = min(excess, room)
+            a, b = 0.0, max(it.w for it in leaves)
+            for _ in range(40):
+                t = (a + b) / 2
+                if sum(it.w - max(lo[id(it)], min(it.w, t)) for it in leaves) > cut:
+                    a = t
+                else:
+                    b = t
+            for it in leaves:
+                w = max(lo[id(it)], min(it.w, b))
+                if w < it.w - 0.5:
+                    saved += it.w - w
+                    self._set_width(it, w)
+        rest = excess - saved
+        if not boxes:
+            return saved
+        for it in sorted((i for i in items if self._flexible(i) and i.kind in ("container", "frame")),
+                         key=lambda i: -i.w):
+            if rest <= 0.5:
+                break
+            before = it.w
+            snap = self._snapshot([it])
+            self._size_box(it, before - rest)
+            if it.w < before - 0.5 and len(self.v.layout_warnings) == snap[1]:
+                saved += before - it.w
+                rest -= before - it.w
+            else:
+                self._restore(snap)
+        return saved
+
+    def _snapshot(self, items):
+        """Positions and sizes of `items` and everything inside them, and the
+        warnings so far, so a layout that doesn't work out can be undone."""
+        state = []
+        for top in items:
+            for it in (top.children if top.kind == "stack" else [top]):
+                for d in it.walk():
+                    state.append((d, d.__dict__.copy()))
+        return state, len(self.v.layout_warnings), len(self.v.warnings)
+
+    def _restore(self, snap):
+        state, nl, nw = snap
+        for d, attrs in state:
+            d.__dict__.clear()
+            d.__dict__.update(attrs)
+        del self.v.layout_warnings[nl:]
+        del self.v.warnings[nw:]
+
     # -------------------------------------------------- block layout
     def _child_of(self, oid_item, owner):
         it = oid_item
@@ -806,25 +1082,9 @@ class _EaLayout:
     def _block(self, owner, items, avail):
         """Lay out `items` (children of owner) inside width `avail`; set their
         x, y relative to the block and return (width, height)."""
-        v = self.v
         for it in items:
             if it.kind in ("container", "frame"):
-                inner = avail - 2 * PAD
-                cw, ch = self._block(it, it.children, inner)
-                if it.kind == "container":
-                    minw = max(it.attrs.get("w") or 0, self._header_min(it), self._pill_room(it))
-                    it.w = max(cw + 2 * PAD, minw)
-                    hh, _ = v.container_header(it.oid, it.w, it.attrs.get("name_size"))
-                    if it.attrs.get("sub"):
-                        hh += 11 * len(wrap(it.attrs["sub"], v.SUB, it.w - 14))
-                    it.head = hh + PAD_TOP
-                else:
-                    it.w = max(cw + 2 * PAD, text_width(it.label.upper(), 8, True) + 40)
-                    it.head = 24
-                top_hang = PILL_OVERHANG if any(c.pills for c in it.children) else 0
-                it.head += top_hang
-                it.h = it.head + ch + PAD_BOTTOM
-                it.inner_off = (it.w - cw) / 2
+                self._size_box(it, avail)
             else:
                 self._leaf_size(it)
         if not items:
@@ -836,8 +1096,81 @@ class _EaLayout:
             a, b = self._child_of(e.src, owner), self._child_of(e.tgt, owner)
             if a is not None and b is not None and a is not b and id(a) in index and id(b) in index:
                 lifted.append((a, b, e))
+        if self._loose(items, lifted):
+            return self._columns(items, avail)
+        if owner is not None and owner.kind == "container" and self._paired_out(items):
+            # paired with boxes in another container: one per row, for _align
+            return self._place([[it] for it in items], lifted, avail, owner)
         rows = self._rows(owner, items, lifted, avail)
         return self._place(rows, lifted, avail, owner)
+
+    def _paired_out(self, items):
+        """Some of `items` share a 'same' with a box outside them."""
+        mine = {id(it) for it in items}
+        keys = {self.same_key[id(it)] for it in items if id(it) in self.same_key}
+        return any(k in keys and i not in mine for i, k in self.same_key.items())
+
+    def _loose(self, items, lifted):
+        """Three or more containers or frames in one band with no lines
+        between them and no hint placing them: they flow into columns."""
+        if len(items) < 3 or lifted or any(it.kind not in ("container", "frame") for it in items):
+            return False
+        if len({self._band(it) for it in items}) > 1:
+            return False
+        if self.spec.same_by:
+            return False
+        named = {oid for ids, _ in self.spec.same for oid in ids}
+        named |= {oid for up, low, _ in self.spec.above for oid in (up, low)}
+        return not any(it.ref in named for it in items)
+
+    def _columns(self, items, avail):
+        """Containers with nothing joining them, in as many columns as fit
+        (each at least COL_MIN wide): every box is laid out to the column
+        width and goes, in list order, to the shortest column."""
+        best = None
+        most = max(1, min(len(items), int((avail + COL_GAP) // (COL_MIN + COL_GAP))))
+        for m in range(most, 0, -1):
+            cw = (avail - (m - 1) * COL_GAP) / m
+            snap = self._snapshot(items)
+            for it in items:
+                self._size_box(it, cw)
+            if all(it.w <= cw + 0.5 for it in items) or m == 1:
+                best = (m, cw)
+                break
+            self._restore(snap)
+        m, cw = best
+        tops = [0.0] * m
+        for it in items:
+            if it.w < cw:
+                inner = it.w - 2 * it.inner_off
+                it.w = cw
+                it.inner_off = (cw - inner) / 2
+            k = min(range(m), key=lambda i: tops[i])
+            it.x, it.y = k * (cw + COL_GAP), tops[k]
+            tops[k] += it.h + COL_GAP
+        used = min(m, len(items))
+        return used * cw + (used - 1) * COL_GAP, max(tops) - COL_GAP
+
+    def _size_box(self, it, avail):
+        """Lay out a container's or frame's children inside `avail` and size
+        the box around them."""
+        v = self.v
+        inner = avail - 2 * PAD
+        cw, ch = self._block(it, it.children, inner)
+        if it.kind == "container":
+            minw = max(it.attrs.get("w") or 0, self._header_min(it), self._pill_room(it))
+            it.w = max(cw + 2 * PAD, minw)
+            hh, _ = v.container_header(it.oid, it.w, it.attrs.get("name_size"))
+            if it.attrs.get("sub"):
+                hh += 11 * len(wrap(it.attrs["sub"], v.SUB, it.w - 14))
+            it.head = hh + PAD_TOP
+        else:
+            it.w = max(cw + 2 * PAD, text_width(it.label.upper(), 8, True) + 40)
+            it.head = 24
+        top_hang = PILL_OVERHANG if any(c.pills for c in it.children) else 0
+        it.head += top_hang
+        it.h = it.head + ch + PAD_BOTTOM
+        it.inner_off = (it.w - cw) / 2
 
     def _header_min(self, it):
         o = self.objs[it.oid]
@@ -869,9 +1202,23 @@ class _EaLayout:
                     members.append(c)
             for c in members[1:]:
                 parent[find(id(c))] = find(id(members[0]))
+        for field, line in spec.same_by:
+            for ref, it in self.item_of.items():
+                if it.kind == "group" or not it.oid:
+                    continue
+                val = self.objs[it.oid].get(field)
+                for t in (val if isinstance(val, list) else [val] if val else []):
+                    for _, other in self.copies.get(t, []):
+                        a, b = self._child_of(it, owner), self._child_of(other, owner)
+                        if a is not None and b is not None and id(a) in parent and id(b) in parent:
+                            parent[find(id(b))] = find(id(a))
         groups = {}
         for it in items:
             groups.setdefault(find(id(it)), []).append(it)
+        for g, its in groups.items():
+            if len(its) > 1:
+                for it in its:
+                    self.same_of[id(it)] = its
         gband = {g: min(band[id(i)] for i in its) for g, its in groups.items()}
         # constraints: u above v
         above = set()
@@ -884,6 +1231,7 @@ class _EaLayout:
                 above.add((gb, ga))
             elif d == "down":
                 above.add((ga, gb))
+        derived = set(above)
         for up, low, line in spec.above:
             if up not in self.item_of or low not in self.item_of:
                 continue
@@ -896,6 +1244,9 @@ class _EaLayout:
                 raise DslError(f"view {spec.vid}: line {line}: {up} is in a lower layer band than {low}; "
                                "use 'bands' to change the band order or 'bands off'")
             if gband[ga] == gband[gb] and ga != gb:
+                # the view's own hint wins over the order a relationship implies
+                if (gb, ga) in derived:
+                    above.discard((gb, ga))
                 above.add((ga, gb))
         rank = _longest_path(list(groups), above, order=[find(id(it)) for it in items])
         # a box with nothing above or below it in its band sits in the row of
@@ -923,7 +1274,7 @@ class _EaLayout:
         running across between them."""
         am = a.children if a.kind == "stack" else [a]
         bm = b.children if b.kind == "stack" else [b]
-        gap = GAP_X
+        gap = TIGHT_X if getattr(a, "tight", False) and getattr(b, "tight", False) else LOOSE_X
         for x, y, e in lifted:
             if (x in am and y in bm) or (x in bm and y in am):
                 if e.label:
@@ -936,41 +1287,146 @@ class _EaLayout:
         return sum(it.w for it in row) + sum(self._gap(a, b, lifted) for a, b in zip(row, row[1:]))
 
     def _wrap(self, rows, lifted, avail):
-        """Rows wider than the block: first try stacking the trailing boxes in
-        a column beside a taller one (an application with its neighbours on
-        its right), else carry them onto a new row."""
+        """Fit each row into the block's width (_fit), then give the plain
+        boxes of each row one height."""
         out = []
         for row in rows:
-            if self._packed(row, lifted) <= avail:
-                out.append(row)
-                continue
-            done = False
-            for cut in range(len(row) - 1, 0, -1):
-                head, tail = row[:cut], row[cut:]
-                if len(tail) < 2:
-                    continue
-                st = _Stack(tail)
-                tall = max(it.h for it in head)
-                if self._packed(head + [st], lifted) <= avail and st.h <= tall + 40:
-                    out.append(head + [st])
-                    done = True
+            out += self._fit(row, lifted, avail)
+        out = [r for r in out if r]
+        for r in out:
+            nodes = [it for it in r if it.kind == "node" and "h" not in it.attrs]
+            if len(nodes) > 1:
+                hmax = max(it.h for it in nodes)
+                for it in nodes:
+                    it.h = hmax
+        return out
+
+    def _fit(self, row, lifted, avail):
+        """A row wider than the block, in this order: narrow its boxes until
+        their names take two lines; put its trailing boxes in a column beside
+        a taller box (an application with its neighbours on its right); keep
+        the boxes a 'same' names in the row, narrowed to three-line names and
+        closer together, and move the others to a row below; else carry boxes
+        onto a new row. Moving a box is a warning when lines join the row's
+        boxes; a row of boxes with no lines between them just flows on."""
+        if self._packed(row, lifted) <= avail + 0.5:
+            return [row]
+        snap = self._snapshot(row)
+        self._squeeze(row, self._packed(row, lifted) - avail, 2, boxes=False)
+        if self._packed(row, lifted) <= avail + 0.5:
+            return [row]
+        self._restore(snap)
+        stacked = self._stack_beside(row, lifted, avail)
+        if stacked:
+            return [stacked]
+        snap = self._snapshot(row)
+        self._squeeze(row, self._packed(row, lifted) - avail, 2)
+        if self._packed(row, lifted) <= avail + 0.5:
+            return [row]
+        self._restore(snap)
+        bound = [it for it in row if id(it) in self.same_of]
+        if bound:
+            return self._fit_same(row, lifted, avail)
+        out, cur, moved = [], [], []
+        for it in row:
+            if cur and self._packed(cur + [it], lifted) > avail + 0.5:
+                out.append(cur)
+                cur = []
+                moved.append(it)
+            elif moved:
+                moved.append(it)
+            cur.append(it)
+        out.append(cur)
+        if moved and self._related(row, lifted):
+            self.warn("a row is too wide for the page, so "
+                      + ", ".join(_name(it) for it in moved) + " moved to a row below")
+        if len(out) == 1:
+            return out
+        return [r2 for r in out for r2 in self._fit(r, lifted, avail)]
+
+    def _fit_same(self, row, lifted, avail):
+        """A too-wide row holding boxes a 'same' keeps together: the boxes of
+        one 'same' never split. Each 'same' gets a row of its own when they
+        don't fit side by side, narrowed (names on two, then three lines, and
+        closer together) until it fits the page; past that the page widens,
+        with a warning. The other boxes join the first of those rows they fit
+        in, or carry on below."""
+        order = {id(it): k for k, it in enumerate(row)}
+        groups = []
+        for it in row:
+            g = self.same_of.get(id(it))
+            if g is not None and not any(g is h for h in groups):
+                groups.append(g)
+        members = [[it for it in row if self.same_of.get(id(it)) is g] for g in groups]
+        together = [it for m in members for it in m]
+        rows = [sorted(together, key=lambda i: order[id(i)])]
+        if self._packed(rows[0], lifted) > avail + 0.5 and len(members) > 1:
+            rows = members
+        for r in rows:
+            for step in ("narrow", "tight", "three lines"):
+                over = self._packed(r, lifted) - avail
+                if over <= 0.5:
                     break
-            if done:
+                if step == "tight":
+                    for it in r:
+                        it.tight = True
+                else:
+                    self._squeeze(r, over, 2 if step == "narrow" else 3)
+            if self._packed(r, lifted) > avail + 0.5:
+                self.warn(f"same {' '.join(_name(i) for i in r)} can't share a row of the page even "
+                          "with their names on three lines, so the view is wider than the page")
+        moved = []
+        for it in row:
+            if id(it) in self.same_of:
                 continue
-            cur, moved = [], []
-            for it in row:
-                if cur and self._packed(cur + [it], lifted) > avail:
-                    out.append(cur)
-                    cur = []
-                    moved.append(it)
-                elif moved:
-                    moved.append(it)
-                cur.append(it)
-            out.append(cur)
-            if moved:
+            for r in rows:
+                if self._packed(sorted(r + [it], key=lambda i: order[id(i)]), lifted) <= avail + 0.5:
+                    r.append(it)
+                    r.sort(key=lambda i: order[id(i)])
+                    break
+            else:
+                moved.append(it)
+        if moved:
+            if self._related(row, lifted):
                 self.warn("a row is too wide for the page, so "
-                          + ", ".join(_name(it) for it in moved) + " moved to a row below")
-        return [r for r in out if r]
+                          + ", ".join(_name(it) for it in moved) + " moved to another row")
+            rows += self._fit(moved, lifted, avail)
+        # the rows keep the order the view lists their boxes in
+        rows.sort(key=lambda r: min(_first_line(i) for i in r))
+        return rows
+
+    def _related(self, row, lifted):
+        ids = {id(it) for it in row}
+        return any(id(a) in ids and id(b) in ids for a, b, _ in lifted)
+
+    def _stack_beside(self, row, lifted, avail):
+        """head + a column of the trailing boxes, when the column is no taller
+        than the head's tallest box (+40) and fits, narrowing the head's boxes
+        if that's what it takes. None when no cut works."""
+        for cut in range(len(row) - 1, 0, -1):
+            head, tail = row[:cut], row[cut:]
+            if len(tail) < 2 or any(id(it) in self.same_of for it in tail):
+                continue
+            st = _Stack(tail)
+            if st.h > max(it.h for it in head) + 40:
+                continue
+            over = self._packed(head + [st], lifted) - avail
+            if over <= 0.5:
+                return head + [st]
+            snap = self._snapshot(head)
+            self._squeeze(head, over, 2)
+            if self._packed(head + [st], lifted) <= avail + 0.5 and st.h <= max(it.h for it in head) + 40:
+                return head + [st]
+            self._restore(snap)
+        return None
+
+    def _frac(self, it, e, end):
+        """Where along `it` (0 left, 1 right) edge `e` meets it: the middle,
+        or for a line into a box inside `it`, that box's middle."""
+        d = e.src if end == "src" else e.tgt
+        if d is it or not it.w:
+            return 0.5
+        return min(1.0, max(0.0, self._rel_cx(d, it) / it.w))
 
     def _rel_cx(self, d, top):
         """Centre of `d` (a descendant of `top`, or top itself) measured from
@@ -983,15 +1439,182 @@ class _EaLayout:
             d = d.parent
         return off
 
+    def _align(self, row, spare):
+        """Containers side by side whose boxes are listed one under another,
+        with 'same' pairing boxes across them: the containers share the
+        `spare` width of the row and their boxes widen to fill them; each
+        pair (or set) gets one slot, level in every container, as tall as
+        its tallest member; a box alone in its container's share of a slot
+        stretches to fill it."""
+        conts = [c for c in row if c.kind == "container" and c.children and self._column(c)]
+        if len(conts) < 2:
+            return
+        keys = lambda it: self.same_key.get(id(it), id(it))  # noqa: E731
+        shared = {}
+        for c in conts:
+            for it in c.children:
+                shared.setdefault(keys(it), set()).add(id(c))
+        if not any(len(cs) > 1 for cs in shared.values()):
+            return
+        for c in conts:
+            if spare > 1 and self._flexible(c):
+                c.w += spare / len(conts)
+            for it in c.children:
+                if self._flexible(it) and it.kind in ("node", "group", "pill"):
+                    self._set_width(it, c.w - 2 * PAD)
+                    it.x = 0.0
+            c.inner_off = PAD
+        slots, slot_of = [], {}
+        for c in conts:
+            for it in sorted(c.children, key=lambda i: i.y):
+                k = keys(it)
+                if k not in slot_of:
+                    slot_of[k] = len(slots)
+                    slots.append([])
+                slots[slot_of[k]].append((c, it))
+        y = 0.0
+        for members in slots:
+            per = {}
+            for c, it in members:
+                per.setdefault(id(c), []).append(it)
+            tall = max(sum(i.h for i in its) + PILL_GAP * (len(its) - 1) for its in per.values())
+            for its in per.values():
+                if len(its) == 1 and its[0].kind == "node" and "h" not in its[0].attrs:
+                    its[0].h = tall
+                yy = y
+                for it in its:
+                    it.y = yy
+                    yy += it.h + PILL_GAP
+            y += tall + PILL_GAP
+        for c in conts:
+            c.h = c.head + y - PILL_GAP + PAD_BOTTOM
+
+    def _column(self, c):
+        """True when a container's children sit one under another."""
+        kids = sorted(c.children, key=lambda i: i.y)
+        return all(a.y + a.h <= b.y + 0.5 for a, b in zip(kids, kids[1:]))
+
+    def _frac_y(self, it, e, end):
+        """Where down `it` (0 top, 1 bottom) edge `e` meets it (direction lr)."""
+        d = e.src if end == "src" else e.tgt
+        if d is it or not it.h:
+            return 0.5
+        return min(1.0, max(0.0, self._rel_cy(d, it) / it.h))
+
+    def _rel_cy(self, d, top):
+        """Middle of `d` measured from top's upper edge (relative coordinates)."""
+        if getattr(d, "host", None) is not None:
+            d = d.host
+        off = d.h / 2
+        while d is not top and d.parent is not None:
+            off += d.y + d.parent.head
+            d = d.parent
+        return off
+
+    def _place_lr(self, cols, lifted, avail, owner):
+        """direction lr: the rows _rows works out become columns, read left to
+        right. A column is as wide as its widest box and every box in it
+        takes that width; columns narrow (names on up to three lines) when
+        they don't fit the page. Boxes stack down a column, each pulled level
+        with the boxes it connects to."""
+        cols = _order(cols, lifted, self._frac_y)
+        col_of = {id(it): n for n, c in enumerate(cols) for it in c}
+
+        def gap(n):
+            g = LOOSE_X
+            for a, b, e in lifted:
+                ca, cb = col_of[id(a)], col_of[id(b)]
+                if min(ca, cb) < n <= max(ca, cb):
+                    g = max(g, text_width(e.label, 8.5) * 1.05 + 28 if e.label else 48)
+            return g
+
+        gaps = [gap(n) for n in range(1, len(cols))]
+        widths = [max(it.w for it in c) for c in cols]
+        if sum(widths) + sum(gaps) > avail + 0.5:
+            lows = [max([self._narrowest(it, 3) if self._flexible(it) else it.w for it in c]) for c in cols]
+            room = avail - sum(gaps)
+            a, b = 0.0, max(widths)
+            for _ in range(40):
+                t = (a + b) / 2
+                if sum(max(lo, min(w, t)) for lo, w in zip(lows, widths)) > room:
+                    b = t
+                else:
+                    a = t
+            widths = [max(lo, min(w, a)) for lo, w in zip(lows, widths)]
+            if sum(widths) + sum(gaps) > avail + 0.5:
+                self.warn("the columns don't fit the page even with names on three lines, "
+                          "so the view is wider than the page")
+        for n, (c, cw) in enumerate(zip(cols, widths)):
+            for it in c:
+                if not self._flexible(it) or abs(it.w - cw) < 0.5:
+                    continue
+                if it.kind in ("container", "frame"):
+                    if it.w > cw:
+                        snap = self._snapshot([it])
+                        self._size_box(it, cw)
+                        if len(self.v.layout_warnings) > snap[1]:
+                            self._restore(snap)
+                    if it.w < cw:
+                        inner = it.w - 2 * it.inner_off
+                        it.w, it.inner_off = cw, (cw - inner) / 2
+                else:
+                    self._set_width(it, cw)
+            widths[n] = max(it.w for it in c)
+        x = 0.0
+        for n, c in enumerate(cols):
+            for it in c:
+                it.x = x + (widths[n] - it.w) / 2
+            x += widths[n] + (gaps[n] if n < len(gaps) else 0)
+        W = x
+
+        def vgaps(c):
+            out = []
+            for p, q in zip(c, c[1:]):
+                linked = any({id(a), id(b)} == {id(p), id(q)} for a, b, _ in lifted)
+                out.append(GAP_Y if linked else LR_GAP + (PILL_OVERHANG if q.pills else 0))
+            return out
+
+        vg = [vgaps(c) for c in cols]
+        H = max(sum(it.h for it in c) + sum(g) for c, g in zip(cols, vg))
+        for c, g in zip(cols, vg):
+            y = 0.0
+            for k, it in enumerate(c):
+                it.y = y
+                y += it.h + (g[k] if k < len(g) else 0)
+        neigh = {}
+        for a, b, e in lifted:
+            if col_of[id(a)] == col_of[id(b)]:
+                continue
+            oa, ob = self._rel_cy(e.src, a), self._rel_cy(e.tgt, b)
+            neigh.setdefault(id(a), []).append((b, ob, oa))
+            neigh.setdefault(id(b), []).append((a, oa, ob))
+        order = list(range(len(cols)))
+        for sweep in range(8):
+            for n in (order if sweep % 2 == 0 else order[::-1]):
+                c = cols[n]
+                desired = []
+                for it in c:
+                    nb = neigh.get(id(it))
+                    desired.append(sum(o.y + off_o - off_me for o, off_o, off_me in nb) / len(nb)
+                                   if nb else it.y)
+                for it, y in zip(c, _isotonic_place([it.h for it in c], vg[n], desired, H)):
+                    it.y = y
+        return W, max(it.y + it.h for c in cols for it in c)
+
     def _place(self, rows, lifted, avail, owner):
-        # same height for plain boxes in a row, unless sized by hand
-        for row in rows:
-            nodes = [it for it in row if it.kind == "node" and "h" not in it.attrs]
-            if len(nodes) > 1:
-                hmax = max(it.h for it in nodes)
-                for it in nodes:
-                    it.h = hmax
-        rows = self._wrap(_order(rows, lifted), lifted, avail)
+        if self.direction == "lr":
+            return self._place_lr(rows, lifted, avail, owner)
+        rows = self._wrap(_order(rows, lifted, self._frac), lifted, avail)
+        for r in rows:
+            self._align(r, avail - self._packed(r, lifted))
+        # boxes listed one under another inside a box: one width, close together
+        listed = (owner is not None and len(rows) > 1 and not lifted
+                  and all(len(r) == 1 and r[0].kind in ("pill", "node", "group") for r in rows))
+        if listed:
+            wmax = max(r[0].w for r in rows)
+            for r in rows:
+                if self._flexible(r[0]):
+                    self._set_width(r[0], wmax)
         slot = {}
         for r in rows:
             for it in r:
@@ -1040,7 +1663,11 @@ class _EaLayout:
                     if {ra, rb} == {n - 1, n} and abs((a.x + a.w / 2) - (b.x + b.w / 2)) > 3:
                         jogs += 1
                 hang = PILL_OVERHANG if any(it.pills for it in r) else 0
-                y += GAP_Y + 8 * min(max(jogs - 1, 0), 3) + hang
+                spans = any(min(row_index[id(slot[id(a)])], row_index[id(slot[id(b)])]) < n
+                            <= max(row_index[id(slot[id(a)])], row_index[id(slot[id(b)])])
+                            for a, b, e in lifted)
+                gap = GAP_Y if spans else (PILL_GAP if listed else TIGHT_Y)
+                y += gap + 8 * min(max(jogs - 1, 0), 3) + hang
             rh = max(it.h for it in r)
             for it in r:
                 it.y = y + (rh - it.h) / 2
@@ -1102,7 +1729,7 @@ class _EaLayout:
                     v.pill(it.oid, it.x, it.y, it.w)
                 elif it.kind == "group":
                     v.group(it.otype, it.label, it.members, it.x, it.y, it.w, it.h,
-                            sub=a.get("sub"), ids=a.get("ids"))
+                            sub=a.get("sub"), ids=a.get("ids"), icon=a.get("icon"))
                 elif it.kind == "junction":
                     v.junction(it.oid, it.x + 5, it.y + 5)
         for it in self._all():
@@ -1138,6 +1765,7 @@ class _EaLayout:
 
         archimate = self.mm.notation == "archimate"
         heads = self._header_rects()
+        bundles = self._bundles()
         jobs = []
         for n, e in enumerate(sorted(self.edges, key=key)):
             anc = self._ancestors(e.src) | self._ancestors(e.tgt)
@@ -1151,13 +1779,14 @@ class _EaLayout:
                     obstacles.append(self._rect(p))
             obstacles += [r for it, r in heads if it is not e.src and it is not e.tgt]
             jobs.append((id(e), self._rect(e.src), self._rect(e.tgt), obstacles,
-                         self._port_kind(e.src), self._port_kind(e.tgt), soft))
+                         self._port_kind(e.src), self._port_kind(e.tgt), soft, bundles.get(id(e)),
+                         self.direction == "lr" and self._apart_x(e.src, e.tgt)))
         routed, failed = route_all(router, jobs)
         byid = {id(e): e for e in self.edges}
         for k in failed:
             self.warn(f"no clear route for {_edge_name(byid[k])}; "
                       "drawn as a plain elbow that may cross boxes")
-        for a, b in crossing_pairs({k: routed[k] for k in byid}):
+        for a, b in crossing_pairs({k: routed[k] for k in byid}, bundles):
             self.warn(f"lines {_edge_name(byid[a])} and {_edge_name(byid[b])} cross")
         for e in self.edges:
             start_gap = 0
@@ -1174,8 +1803,13 @@ class _EaLayout:
                           (x - 1, y - 1, 2, h + 2), (x + w - 1, y - 1, 2, h + 2)]
         labels = []
         segments = [seg for e in self.edges for seg in zip(e.points, e.points[1:])]
+        said = set()
         for e in self.edges:
             label = None
+            b = bundles.get(id(e))
+            if b is not None and (b, e.label) in said:
+                e.label = None              # the trunk already carries it
+            said.add((b, e.label))
             if e.label:
                 own = set(zip(e.points, e.points[1:]))
                 lx, ly, anchor, rect, clean = place_label(e.label, v.SUB, e.points, solid,
@@ -1189,9 +1823,32 @@ class _EaLayout:
                 kw = {"label": label, "label_anchor": anchor, "label_text": e.label}
             v.edge(e.points, e.verb, check=e.triples, **kw)
 
+    def _apart_x(self, a, b):
+        """Side by side, not overlapping across: in a left-to-right view,
+        such a line runs from side to side."""
+        return a.x + a.w <= b.x or b.x + b.w <= a.x
+
+    def _bundles(self):
+        """{id(edge): bundle} for 'join': lines of one verb into one box
+        (in), or out of one box (out), join into one trunk."""
+        mode, out = self.spec.join, {}
+        if mode == "off":
+            return out
+        into, outof = {}, {}
+        for e in self.edges:
+            into.setdefault((id(e.tgt), e.verb), []).append(e)
+            outof.setdefault((id(e.src), e.verb), []).append(e)
+        for e in self.edges:
+            if mode in ("in", "both") and len(into[(id(e.tgt), e.verb)]) > 1:
+                out[id(e)] = ("in", id(e.tgt), e.verb)
+            elif mode in ("out", "both") and len(outof[(id(e.src), e.verb)]) > 1:
+                out[id(e)] = ("out", id(e.src), e.verb)
+        return out
+
     def _header_rects(self):
         """The text in container and frame headers (type label, name, id,
-        ArchiMate symbol), which lines entering the box must not cross."""
+        ArchiMate symbol, and the id ArchiMate puts bottom-right), which lines
+        entering the box must not cross."""
         v, out = self.v, []
         for it in self._all():
             if it.kind == "frame":
@@ -1210,6 +1867,8 @@ class _EaLayout:
                 out.append((it, (it.x + it.w - idw - 8, it.y + 3, idw + 4, 10)))
             else:
                 out.append((it, (it.x + it.w - 22, it.y + 3, 18, 14)))
+                idw = text_width(it.oid, 7)              # ArchiMate: the id sits bottom-right
+                out.append((it, (it.x + it.w - idw - 8, it.y + it.h - 13, idw + 4, 10)))
             out.append((it, (it.x + 3, it.y + 2, tx - it.x + tw + 2, hh - 4)))
         return out
 
@@ -1229,7 +1888,14 @@ def warn_layout(v, msg):
 def _name(it):
     if it.kind == "stack":
         return ", ".join(_name(c) for c in it.children)
-    return it.oid or it.label
+    return it.ref or it.label
+
+
+def _first_line(it):
+    """The view-file line an item (or a stack of them) is listed on."""
+    if it.kind == "stack":
+        return min(_first_line(c) for c in it.children)
+    return it.line
 
 
 def _edge_name(e):
@@ -1276,35 +1942,47 @@ def _longest_path(nodes, above, order):
     return rank
 
 
-def _order(rows, lifted):
-    """Barycentre ordering, keeping the declaration order where nothing pulls."""
+def _order(rows, lifted, frac=None):
+    """Barycentre ordering, keeping the declaration order where nothing pulls.
+    `frac(item, edge, end)` says where along `item` the line meets it (0 its
+    left edge, 1 its right), for a line into a box inside a container; the
+    default is the middle."""
     pos = {}
 
     def refresh():
         for r in rows:
             for k, it in enumerate(r):
-                pos[id(it)] = (k + 0.5) / len(r)
+                pos[id(it)] = (k, len(r))
+
+    def at(it, f):
+        k, n = pos[id(it)]
+        return (k + f) / n
 
     refresh()
     rindex = {id(it): n for n, r in enumerate(rows) for it in r}
-    adj = {}
+    ends = []
     for a, b, e in lifted:
         if rindex[id(a)] != rindex[id(b)]:
-            adj.setdefault(id(a), []).append(b)
-            adj.setdefault(id(b), []).append(a)
+            fa = frac(a, e, "src") if frac else 0.5
+            fb = frac(b, e, "tgt") if frac else 0.5
+            ends.append((a, fa, b, fb))
+    adj = {}
+    for a, fa, b, fb in ends:
+        adj.setdefault(id(a), []).append((b, fb))
+        adj.setdefault(id(b), []).append((a, fa))
 
     def crossings():
         c = 0
-        es = [(a, b) for a, b, _ in lifted if rindex[id(a)] != rindex[id(b)]]
+        es = []
+        for a, fa, b, fb in ends:
+            if rindex[id(a)] > rindex[id(b)]:
+                a, fa, b, fb = b, fb, a, fa
+            es.append((a, fa, b, fb))
         for i in range(len(es)):
             for j in range(i + 1, len(es)):
-                (a1, b1), (a2, b2) = es[i], es[j]
-                if rindex[id(a1)] > rindex[id(b1)]:
-                    a1, b1 = b1, a1
-                if rindex[id(a2)] > rindex[id(b2)]:
-                    a2, b2 = b2, a2
+                (a1, f1, b1, g1), (a2, f2, b2, g2) = es[i], es[j]
                 if rindex[id(a1)] == rindex[id(a2)] and rindex[id(b1)] == rindex[id(b2)]:
-                    if (pos[id(a1)] - pos[id(a2)]) * (pos[id(b1)] - pos[id(b2)]) < 0:
+                    if (at(a1, f1) - at(a2, f2)) * (at(b1, g1) - at(b2, g2)) < 0:
                         c += 1
         return c
 
@@ -1317,7 +1995,7 @@ def _order(rows, lifted):
             keyed = []
             for k, it in enumerate(r):
                 nb = adj.get(id(it))
-                bary = sum(pos[id(o)] for o in nb) / len(nb) if nb else pos[id(it)]
+                bary = sum(at(o, f) for o, f in nb) / len(nb) if nb else at(it, 0.5)
                 keyed.append((bary, k, it))
             keyed.sort(key=lambda t: (t[0], t[1]))
             rows[n] = [t[2] for t in keyed]

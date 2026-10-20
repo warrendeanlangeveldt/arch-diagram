@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 545" font-family="-apple-system, 'Helvetica Neue', Arial, sans-serif">
+<title>V6 Infrastructure</title>
+<rect x="0" y="0" width="740" height="545" fill="#ffffff"/>
+<defs><marker id="arr-infra" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" fill="#475569"/></marker></defs>
+<rect x="16.0" y="16.0" width="451.6" height="441.0" rx="5" fill="#eef3e6" fill-opacity="0.45" stroke="#47652f" stroke-width="1.2"/>
+<text x="23.0" y="27.0" font-size="7.5" fill="#47652f" font-weight="700" letter-spacing="0.6">LOCATION</text>
+<text x="461.6" y="27.0" font-size="7" fill="#94a3b8" text-anchor="end">LOC-01</text>
+<text x="23.0" y="40.5" font-size="10.5" fill="#0f172a" font-weight="600">Azure Australia East</text>
+<rect x="32.0" y="57.0" width="419.6" height="103.5" rx="5" fill="#e2f2db" fill-opacity="0.45" stroke="#549545" stroke-width="1.2"/>
+<text x="39.0" y="68.0" font-size="7.5" fill="#549545" font-weight="700" letter-spacing="0.6">TECHNOLOGY CATEGORY</text>
+<text x="445.6" y="68.0" font-size="7" fill="#94a3b8" text-anchor="end">TCC-01</text>
+<text x="39.0" y="81.5" font-size="10.5" fill="#0f172a" font-weight="600">Compute</text>
+<rect x="32.0" y="204.5" width="419.6" height="103.5" rx="5" fill="#e2f2db" fill-opacity="0.45" stroke="#549545" stroke-width="1.2"/>
+<text x="39.0" y="215.5" font-size="7.5" fill="#549545" font-weight="700" letter-spacing="0.6">TECHNOLOGY CATEGORY</text>
+<text x="445.6" y="215.5" font-size="7" fill="#94a3b8" text-anchor="end">TCC-02</text>
+<text x="39.0" y="229.0" font-size="10.5" fill="#0f172a" font-weight="600">Data</text>
+<rect x="32.0" y="352.0" width="419.6" height="91.0" rx="5" fill="#e2f2db" fill-opacity="0.45" stroke="#549545" stroke-width="1.2"/>
+<text x="39.0" y="363.0" font-size="7.5" fill="#549545" font-weight="700" letter-spacing="0.6">TECHNOLOGY CATEGORY</text>
+<text x="445.6" y="363.0" font-size="7" fill="#94a3b8" text-anchor="end">TCC-03</text>
+<text x="39.0" y="376.5" font-size="10.5" fill="#0f172a" font-weight="600">Operations</text>
+<rect x="542.0" y="182.5" width="182.0" height="108.0" rx="5" fill="#eef3e6" fill-opacity="0.45" stroke="#47652f" stroke-width="1.2"/>
+<text x="549.0" y="193.5" font-size="7.5" fill="#47652f" font-weight="700" letter-spacing="0.6">LOCATION</text>
+<text x="718.0" y="193.5" font-size="7" fill="#94a3b8" text-anchor="end">LOC-02</text>
+<text x="549.0" y="207.0" font-size="10.5" fill="#0f172a" font-weight="600">Azure Australia Southeast</text>
+<rect x="48.0" y="98.0" width="156.6" height="48.5" rx="4" fill="#eff5ea" stroke="#4f7d3a" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="54.0" y="108.0" font-size="7.5" fill="#4f7d3a" font-weight="700" letter-spacing="0.6">TECHNOLOGY</text>
+<text x="126.3" y="121.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Application Gateway and</text>
+<text x="126.3" y="134.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">WAF</text>
+<text x="199.6" y="142.5" font-size="7" fill="#94a3b8" text-anchor="end">TEC-06</text>
+<rect x="279.0" y="98.0" width="156.6" height="48.5" rx="4" fill="#eff5ea" stroke="#4f7d3a" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="285.0" y="108.0" font-size="7.5" fill="#4f7d3a" font-weight="700" letter-spacing="0.6">TECHNOLOGY</text>
+<text x="357.3" y="121.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Container Apps</text>
+<text x="357.3" y="134.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">environment</text>
+<text x="430.6" y="142.5" font-size="7" fill="#94a3b8" text-anchor="end">TEC-01</text>
+<rect x="48.0" y="245.5" width="113.2" height="48.5" rx="4" fill="#eff5ea" stroke="#4f7d3a" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="54.0" y="255.5" font-size="7.5" fill="#4f7d3a" font-weight="700" letter-spacing="0.6">TECHNOLOGY</text>
+<text x="104.6" y="269.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">PostgreSQL</text>
+<text x="104.6" y="281.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">flexible server</text>
+<text x="156.2" y="290.0" font-size="7" fill="#94a3b8" text-anchor="end">TEC-02</text>
+<rect x="185.2" y="245.5" width="113.2" height="48.5" rx="4" fill="#eff5ea" stroke="#4f7d3a" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="191.2" y="255.5" font-size="7.5" fill="#4f7d3a" font-weight="700" letter-spacing="0.6">TECHNOLOGY</text>
+<text x="241.8" y="275.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Blob storage</text>
+<text x="293.4" y="290.0" font-size="7" fill="#94a3b8" text-anchor="end">TEC-03</text>
+<rect x="322.4" y="245.5" width="113.2" height="48.5" rx="4" fill="#eff5ea" stroke="#4f7d3a" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="328.4" y="255.5" font-size="7.5" fill="#4f7d3a" font-weight="700" letter-spacing="0.6">TECHNOLOGY</text>
+<text x="379.0" y="275.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Service Bus</text>
+<text x="430.6" y="290.0" font-size="7" fill="#94a3b8" text-anchor="end">TEC-04</text>
+<rect x="48.0" y="393.0" width="113.2" height="36.0" rx="4" fill="#eff5ea" stroke="#4f7d3a" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="54.0" y="403.0" font-size="7.5" fill="#4f7d3a" font-weight="700" letter-spacing="0.6">TECHNOLOGY</text>
+<text x="104.6" y="416.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Key Vault</text>
+<text x="156.2" y="425.0" font-size="7" fill="#94a3b8" text-anchor="end">TEC-05</text>
+<rect x="185.2" y="393.0" width="113.2" height="36.0" rx="4" fill="#eff5ea" stroke="#4f7d3a" stroke-width="1.2"/>
+<text x="191.2" y="403.0" font-size="7.5" fill="#4f7d3a" font-weight="700" letter-spacing="0.6">TECHNOLOGY</text>
+<text x="241.8" y="416.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Log Analytics</text>
+<text x="293.4" y="425.0" font-size="7" fill="#94a3b8" text-anchor="end">TEC-07</text>
+<rect x="322.4" y="393.0" width="113.2" height="36.0" rx="4" fill="#eff5ea" stroke="#4f7d3a" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="328.4" y="403.0" font-size="7.5" fill="#4f7d3a" font-weight="700" letter-spacing="0.6">TECHNOLOGY</text>
+<text x="379.0" y="416.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Backup vault</text>
+<text x="430.6" y="425.0" font-size="7" fill="#94a3b8" text-anchor="end">TEC-08</text>
+<rect x="558.0" y="223.5" width="150.0" height="53.0" rx="4" fill="#eff5ea" stroke="#4f7d3a" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="564.0" y="233.5" font-size="7.5" fill="#4f7d3a" font-weight="700" letter-spacing="0.6">TECHNOLOGY</text>
+<text x="633.0" y="247.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Backup vault</text>
+<text x="633.0" y="260.0" font-size="8.5" fill="#64748b" text-anchor="middle">geo-redundant copy</text>
+<text x="703.0" y="272.5" font-size="7" fill="#94a3b8" text-anchor="end">TEC-08</text>
+<polyline points="291.0,146.5 291.0,237.5 169.2,237.5 169.2,269.8 163.2,269.8" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-infra)"/>
+<text x="230.1" y="232.5" font-size="8.5" fill="#64748b" text-anchor="middle" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">depends on</text>
+<polyline points="379.0,146.5 379.0,243.5" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-infra)"/>
+<text x="384.0" y="198.0" font-size="8.5" fill="#64748b" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">depends on</text>
+<polyline points="204.6,122.2 277.0,122.2" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-infra)"/>
+<text x="240.8" y="117.2" font-size="8.5" fill="#64748b" text-anchor="middle" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">depends on</text>
+<polyline points="127.2,294.0 127.2,330.0 334.4,330.0 334.4,391.0" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-infra)"/>
+<text x="230.8" y="325.0" font-size="8.5" fill="#64748b" text-anchor="middle" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">depends on</text>
+<polyline points="149.2,294.0 149.2,316.0 570.0,316.0 570.0,278.5" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-infra)"/>
+<text x="575.0" y="300.2" font-size="8.5" fill="#64748b" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">depends on</text>
+<line x1="16" y1="477.0" x2="724" y2="477.0" stroke="#e2e8f0" stroke-width="1"/>
+<text x="16.0" y="497.5" font-size="7.5" fill="#4f7d3a" font-weight="700" letter-spacing="0.6">TECHNOLOGY</text>
+<rect x="82.47000000000001" y="489.0" width="16" height="10" rx="2" fill="#eff5ea" stroke="#4f7d3a" stroke-width="1.2"/>
+<text x="103.5" y="497.5" font-size="8.5" fill="#475569">Technology</text>
+<rect x="158.01" y="489.0" width="16" height="10" rx="2" fill="#e2f2db" stroke="#549545" stroke-width="1.2"/>
+<text x="179.0" y="497.5" font-size="8.5" fill="#475569">Technology Category</text>
+<rect x="270.78" y="489.0" width="16" height="10" rx="2" fill="#eef3e6" stroke="#47652f" stroke-width="1.2"/>
+<text x="291.8" y="497.5" font-size="8.5" fill="#475569">Location</text>
+<rect x="16" y="507.0" width="16" height="10" rx="2" fill="#ffffff" stroke="#475569" stroke-width="1.2" stroke-dasharray="3 2"/>
+<text x="37.0" y="515.5" font-size="8.5" fill="#475569">Proposed / designed / not started</text>
+<text x="16.0" y="531.5" font-size="8.5" fill="#475569">Box inside a box: in that location, then in that technology category</text>
+<text x="291.7" y="531.5" font-size="8.5" fill="#475569">The backup vault is drawn in both regions it spans</text>
+</svg>

@@ -52,9 +52,10 @@ exports to the person's EA tool, and a reviewer can trace every box to a record.
    view file names it (`view ACD script="acd.py"`, `dsl.md`), so the other
    views stay in the language.
 4. Render, read the PNG, fix, repeat (SKILL.md step 5). With a view file the
-   fix is usually a hint (`same`, `A above B`, `hide`) rather than coordinates.
-   `render` warns when a layout isn't clean (wrapped rows, crossing lines,
-   labels with no free spot); read those views' PNGs first.
+   fix is usually a hint (`edges explicit`, `same`, `A before B`, `direction`,
+   `join`, `hide`) rather than coordinates. `render` warns when a layout isn't
+   clean (wrapped rows, crossing lines, labels with no free spot, more lines
+   than a view can show); read those views' PNGs first.
 5. Export for the person's tools (`exports.md`).
 
 Scope: model the subject solution in detail. A neighbouring system with its

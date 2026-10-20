@@ -88,13 +88,15 @@ def cmd_render(a):
     out = a.out or os.path.join(os.path.dirname(os.path.abspath(a.file)), "out")
     try:
         doc = load_document(a.file)
-        paths, views = render_document(doc, out, only=a.view, render=not a.no_png)
+        if a.scale is not None and not 0.5 <= a.scale <= 8:
+            sys.exit("--scale is between 0.5 and 8")
+        paths, views = render_document(doc, out, only=a.view, render=not a.no_png, scale=a.scale)
         for p in paths:
             print(p)
         if any(v.layout_warnings for v in views):
             print("The automatic layout isn't clean in those views. Look at the PNG; steer it with "
-                  "same, above, bands or width, or place the view by hand (view ID script=\"file.py\", "
-                  "references/dsl.md).", file=sys.stderr)
+                  "same, before, bands, direction, join, edges explicit or width, or place the view by "
+                  "hand (view ID script=\"file.py\", references/dsl.md).", file=sys.stderr)
         _exports(doc.model, views, a.export or [], out)
     except ModelError as e:
         sys.exit(str(e))
@@ -197,6 +199,7 @@ def main():
     s.add_argument("--view", action="append", help="draw only this view (repeatable)")
     s.add_argument("--export", action="append", choices=["csv", "archimate", "bpmn"])
     s.add_argument("--no-png", action="store_true", help="SVG and HTML only, no headless Chrome")
+    s.add_argument("--scale", type=float, help="PNG pixels per SVG unit (default: the file's 'scale', else 2)")
     s.set_defaults(fn=cmd_render)
     s = sp.add_parser("validate"); s.add_argument("model"); s.set_defaults(fn=cmd_validate)
     s = sp.add_parser("rules"); s.add_argument("metamodel"); s.add_argument("source"); s.add_argument("target")

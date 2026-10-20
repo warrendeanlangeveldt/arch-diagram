@@ -1,0 +1,29 @@
+{
+ "view": "INFRA",
+ "title": "V6 Infrastructure",
+ "metamodel": "coreea",
+ "viewpoint": "Infrastructure Diagram",
+ "objects": [
+  "LOC-01",
+  "TCC-01",
+  "TCC-02",
+  "TCC-03",
+  "LOC-02",
+  "TEC-06",
+  "TEC-01",
+  "TEC-02",
+  "TEC-03",
+  "TEC-04",
+  "TEC-05",
+  "TEC-07",
+  "TEC-08"
+ ],
+ "relationships": [
+  "R-TEC-01-depends_on-TEC-02",
+  "R-TEC-01-depends_on-TEC-04",
+  "R-TEC-06-depends_on-TEC-01",
+  "R-TEC-02-depends_on-TEC-08",
+  "R-TEC-02-depends_on-TEC-08"
+ ],
+ "warnings": []
+}

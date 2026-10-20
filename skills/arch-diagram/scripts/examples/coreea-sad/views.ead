@@ -1,0 +1,570 @@
+# Community Grants Portal: the CoreEA views of a solution architecture
+# document, written in the view language. The model is declared here too:
+# 131 objects and 189 relationships.
+#   python3 ../../ea.py render views.ead      # writes out/*.svg|html|png|objects.json
+#
+# With a model this dense, every view lists the lines it is about
+# (edges explicit), or the default draws every relationship between the
+# boxes. Box notation labels each line with its verb.
+
+metamodel coreea
+name "Community Grants Portal"
+scale 2
+
+# ------------------------------------------------------------------ motivation
+DRV-01: Driver "Applications arrive on paper and email" status=Built
+DRV-02: Driver "Assessors rekey every application"
+DRV-03: Driver "Applicants can't see where their application is"
+DRV-04: Driver "Audit found grants paid without evidence"
+GOL-01: Goal "Every application is lodged online"
+GOL-02: Goal "Assessment takes days, not weeks"
+GOL-03: Goal "Every payment traces to its evidence"
+OBJ-01: Objective "90% of applications lodged online in year one"
+OBJ-02: Objective "Applicants track status without calling"
+OBJ-03: Objective "Median assessment in 10 business days"
+OBJ-04: Objective "No rekeying between lodgement and assessment"
+OBJ-05: Objective "Payment released only against an approved acquittal"
+OBJ-06: Objective "Every decision has its evidence attached"
+REQ-01: Requirement "Applicants lodge and save drafts online"
+REQ-02: Requirement "Applicants sign in with their existing identity"
+REQ-03: Requirement "Status shown to the applicant at every step"
+REQ-04: Requirement "Assessors score against the published criteria"
+REQ-05: Requirement "Conflicts of interest declared before scoring"
+REQ-06: Requirement "Panel decision recorded with reasons"
+REQ-07: Requirement "Payments created in the finance system, not rekeyed"
+REQ-08: Requirement "Acquittal evidence uploaded and checked"
+REQ-09: Requirement "Documents scanned for malware on upload"
+REQ-10: Requirement "Records kept for seven years"
+REQ-11: Requirement "Accessible to WCAG 2.2 AA"
+REQ-12: Requirement "Available 99.5% in business hours"
+REQ-13: Requirement "Personal information stays in Australia"
+REQ-14: Requirement "Every action audited"
+PRN-01: Principle "Reuse the council's identity service"
+PRN-02: Principle "Buy commodity, build what's ours"
+PRN-03: Principle "One record per grant"
+PRN-04: Principle "Data stays onshore"
+
+# ------------------------------------------------------------------ business
+CAP-00: Capability "Grants management"
+CAP-01: Capability "Grant program design" parent=CAP-00
+CAP-02: Capability "Application intake" parent=CAP-00
+CAP-03: Capability "Assessment and decision" parent=CAP-00
+CAP-04: Capability "Grant payment" parent=CAP-00
+CAP-05: Capability "Acquittal" parent=CAP-00
+CAP-10: Capability "Council shared services"
+CAP-11: Capability "Identity and access" parent=CAP-10 serves=CAP-02
+CAP-12: Capability "Records management" parent=CAP-10 serves=CAP-05
+CAP-13: Capability "Accounts payable" parent=CAP-10 serves=CAP-04
+PRC-01: Process "Publish a funding round"
+PRC-02: Process "Lodge an application"
+PRC-03: Process "Check eligibility"
+PRC-04: Process "Score and moderate"
+PRC-05: Process "Decide and notify"
+PRC-06: Process "Pay and acquit"
+ORG-01: Organization "Community Development"
+ORG-02: Organization "Finance"
+ORG-03: Organization "Digital Services"
+ORG-04: Organization "Records and Information"
+ACT-01: Actor "Applicant (community group)"
+ACT-02: Actor "Grants officer"
+ACT-03: Actor "Assessment panel member"
+ACT-04: Actor "Finance officer"
+ACT-05: Actor "Service desk analyst"
+ROL-01: Role "Program owner"
+ROL-02: Role "Assessor"
+ROL-03: Role "Payments approver"
+ROL-04: Role "Platform owner"
+
+# ------------------------------------------------------------------ application
+APP-01: Application "Grants Portal" status=Designed owner=ORG-03
+APP-02: Application "Applicant site" parent=APP-01 status=Designed
+APP-03: Application "Staff workspace" parent=APP-01 status=Designed
+APP-04: Application "Grants API" parent=APP-01 status=Designed
+APP-05: Application "Workflow engine" parent=APP-01 status=Designed
+APP-06: Application "Document service" parent=APP-01 status=Designed
+APP-07: Application "Notification worker" parent=APP-01 status=Designed
+APP-ID: Application "Council identity service — defined in the Identity SAD" status=Built
+APP-FIN: Application "Finance system" status=Built
+APP-EDRMS: Application "Records system (EDRMS)" status=Built
+APP-CRM: Application "Customer request system" status=Built
+APP-MAIL: Application "Email and SMS gateway" status=Built
+APP-SCAN: Application "Malware scanning service" status=Built
+APC-01: Application Category "Customer-facing"
+APC-02: Application Category "Corporate systems"
+APC-03: Application Category "Shared platform services"
+INT-01: Interface "Sign-in (OIDC)" status=Built
+INT-02: Interface "Grants REST API" status=Designed
+INT-03: Interface "Supplier and payment import" status=Built
+INT-04: Interface "Record capture" status=Built
+INT-05: Interface "Case lookup" status=Built
+INT-06: Interface "Send message" status=Built
+INT-07: Interface "Scan file" status=Built
+INT-08: Interface "Payment status feed" status=Built
+
+# ------------------------------------------------------------------ data
+DTC-01: Data Category "Application record" classification="OFFICIAL: Sensitive"
+DTC-02: Data Category "Assessment" classification="OFFICIAL: Sensitive"
+DTC-03: Data Category "Financial" classification="OFFICIAL: Sensitive"
+DTC-04: Data Category "Reference data" classification=OFFICIAL
+DTC-05: Data Category "Operational" classification=OFFICIAL
+DAT-01: Data Entity "Applicant organisation" systemOfRecord="Grants Portal"
+DAT-02: Data Entity "Application" systemOfRecord="Grants Portal"
+DAT-03: Data Entity "Supporting document" systemOfRecord="Records system"
+DAT-04: Data Entity "Eligibility check" systemOfRecord="Grants Portal"
+DAT-05: Data Entity "Score and comment" systemOfRecord="Grants Portal"
+DAT-06: Data Entity "Conflict declaration" systemOfRecord="Grants Portal"
+DAT-07: Data Entity "Panel decision" systemOfRecord="Records system"
+DAT-08: Data Entity "Funding agreement" systemOfRecord="Records system"
+DAT-09: Data Entity "Payment" systemOfRecord="Finance system"
+DAT-10: Data Entity "Acquittal" systemOfRecord="Grants Portal"
+DAT-11: Data Entity "Funding round" systemOfRecord="Grants Portal"
+DAT-12: Data Entity "Assessment criterion" systemOfRecord="Grants Portal"
+DAT-13: Data Entity "Audit event" systemOfRecord="Log workspace"
+DAT-14: Data Entity "Notification" systemOfRecord="not kept"
+
+# ------------------------------------------------------------------ technology
+LOC-01: Location "Azure Australia East"
+LOC-02: Location "Azure Australia Southeast"
+LOC-03: Location "Council data centre"
+TCC-01: Technology Category "Compute"
+TCC-02: Technology Category "Data"
+TCC-03: Technology Category "Operations"
+TEC-01: Technology "Container Apps environment" status=Designed
+TEC-02: Technology "PostgreSQL flexible server" status=Designed
+TEC-03: Technology "Blob storage" status=Designed
+TEC-04: Technology "Service Bus" status=Designed
+TEC-05: Technology "Key Vault" status=Designed
+TEC-06: Technology "Application Gateway and WAF" status=Designed
+TEC-07: Technology "Log Analytics" status=Built
+TEC-08: Technology "Backup vault" status=Designed
+TEC-09: Technology "Council data centre network" status=Built
+
+# ------------------------------------------------------------------ risk and control
+RSK-01: Risk "Malicious file uploaded with an application"
+RSK-02: Risk "Applicant data exposed through the public site"
+RSK-03: Risk "Payment made twice or to the wrong account"
+RSK-04: Risk "Decision challenged without a record of reasons"
+RSK-05: Risk "Platform unavailable at a round's closing date"
+RSK-06: Risk "Assessor scores an application they're conflicted on"
+CTL-01: Control "Every upload scanned before it's stored" status=Designed
+CTL-02: Control "WAF and private endpoints in front of the platform" status=Designed
+CTL-03: Control "Payments created only from the approved agreement" status=Designed
+CTL-04: Control "Decision and reasons captured to the records system" status=Designed
+CTL-05: Control "Zone-redundant runtime and tested restore" status=Designed
+CTL-06: Control "Conflict declared before the scoring form opens" status=Designed
+PRJ-01: Project "Grants Portal delivery" status=Designed
+
+# ------------------------------------------------------------------ relationships
+DRV-01 -[motivates]-> GOL-01
+DRV-02 -[motivates]-> GOL-02
+DRV-03 -[motivates]-> GOL-01
+DRV-04 -[motivates]-> GOL-03
+DRV-02 -[motivates]-> GOL-03
+GOL-01 -[achieved by]-> OBJ-01
+GOL-01 -[achieved by]-> OBJ-02
+GOL-02 -[achieved by]-> OBJ-03
+GOL-02 -[achieved by]-> OBJ-04
+GOL-03 -[achieved by]-> OBJ-05
+GOL-03 -[achieved by]-> OBJ-06
+CAP-02 -[supports]-> OBJ-01
+CAP-02 -[supports]-> OBJ-02
+CAP-03 -[supports]-> OBJ-03
+CAP-03 -[supports]-> OBJ-04
+CAP-04 -[supports]-> OBJ-05
+CAP-05 -[supports]-> OBJ-06
+
+APP-01 -[realises]-> CAP-02
+APP-01 -[realises]-> CAP-03
+APP-01 -[realises]-> CAP-05
+APP-FIN -[realises]-> CAP-04
+APP-EDRMS -[realises]-> CAP-12
+APP-ID -[realises]-> CAP-11
+APP-02 -[supports]-> PRC-02
+APP-03 -[supports]-> PRC-03
+APP-03 -[supports]-> PRC-04
+APP-05 -[supports]-> PRC-05
+APP-FIN -[supports]-> PRC-06
+ROL-01 -[performs]-> PRC-01
+ROL-02 -[performs]-> PRC-04
+ROL-03 -[performs]-> PRC-06
+ACT-02 -[assigned to]-> ROL-01
+ACT-03 -[assigned to]-> ROL-02
+ACT-04 -[assigned to]-> ROL-03
+ORG-03 -[owns]-> APP-01
+ORG-02 -[owns]-> APP-FIN
+ORG-04 -[owns]-> APP-EDRMS
+ORG-01 -[owns]-> DAT-02
+APP-01 -[supported by]-> ROL-04
+
+APP-01 -[satisfies]-> REQ-01
+APP-01 -[satisfies]-> REQ-03
+APP-01 -[satisfies]-> REQ-04
+APP-01 -[satisfies]-> REQ-06
+APP-01 -[satisfies]-> REQ-11
+APP-ID -[satisfies]-> REQ-02
+APP-FIN -[satisfies]-> REQ-07
+APP-EDRMS -[satisfies]-> REQ-10
+TEC-07 -[satisfies]-> REQ-14
+TEC-01 -[satisfies]-> REQ-12
+PRN-01 -[constrains]-> APP-01
+PRN-02 -[constrains]-> APP-01
+PRN-03 -[constrains]-> APP-01
+PRN-04 -[constrains]-> TEC-02
+
+ACT-01 -[uses]-> APP-02
+ACT-02 -[uses]-> APP-03
+ACT-03 -[uses]-> APP-03
+ACT-04 -[uses]-> APP-FIN
+ACT-05 -[uses]-> APP-CRM
+APP-ID -[exposes]-> INT-01
+APP-04 -[exposes]-> INT-02
+APP-FIN -[exposes]-> INT-03
+APP-FIN -[exposes]-> INT-08
+APP-EDRMS -[exposes]-> INT-04
+APP-CRM -[exposes]-> INT-05
+APP-MAIL -[exposes]-> INT-06
+APP-SCAN -[exposes]-> INT-07
+APP-02 -[consumes]-> INT-01
+APP-03 -[consumes]-> INT-01
+APP-02 -[consumes]-> INT-02
+APP-03 -[consumes]-> INT-02
+APP-05 -[consumes]-> INT-03
+APP-05 -[consumes]-> INT-08
+APP-06 -[consumes]-> INT-04
+APP-06 -[consumes]-> INT-07
+APP-03 -[consumes]-> INT-05
+APP-07 -[consumes]-> INT-06
+APP-02 -[depends on]-> APP-04
+APP-03 -[depends on]-> APP-04
+APP-04 -[depends on]-> APP-05
+APP-04 -[depends on]-> APP-06
+APP-05 -[depends on]-> APP-07
+APP-01 -[depends on]-> APP-ID note=DEP-01
+APP-05 -[depends on]-> APP-FIN note=DEP-02
+APP-06 -[depends on]-> APP-EDRMS note=DEP-03
+APP-07 -[depends on]-> APP-MAIL note=DEP-04
+APP-06 -[depends on]-> APP-SCAN note=DEP-05
+APP-03 -[depends on]-> APP-CRM note=DEP-06
+APP-01 -[categorised as]-> APC-01
+APP-FIN -[categorised as]-> APC-02
+APP-EDRMS -[categorised as]-> APC-02
+APP-CRM -[categorised as]-> APC-02
+APP-ID -[categorised as]-> APC-03
+APP-MAIL -[categorised as]-> APC-03
+APP-SCAN -[categorised as]-> APC-03
+
+DAT-01 -[classified as]-> DTC-01
+DAT-02 -[classified as]-> DTC-01
+DAT-03 -[classified as]-> DTC-01
+DAT-04 -[classified as]-> DTC-02
+DAT-05 -[classified as]-> DTC-02
+DAT-06 -[classified as]-> DTC-02
+DAT-07 -[classified as]-> DTC-02
+DAT-08 -[classified as]-> DTC-03
+DAT-09 -[classified as]-> DTC-03
+DAT-10 -[classified as]-> DTC-03
+DAT-11 -[classified as]-> DTC-04
+DAT-12 -[classified as]-> DTC-04
+DAT-13 -[classified as]-> DTC-05
+DAT-14 -[classified as]-> DTC-05
+APP-02 -[writes]-> DAT-01
+APP-02 -[writes]-> DAT-02
+APP-06 -[writes]-> DAT-03
+APP-03 -[writes]-> DAT-04
+APP-03 -[writes]-> DAT-05
+APP-03 -[writes]-> DAT-06
+APP-05 -[writes]-> DAT-07
+APP-05 -[writes]-> DAT-08
+APP-FIN -[writes]-> DAT-09
+APP-02 -[writes]-> DAT-10
+APP-03 -[writes]-> DAT-11
+APP-03 -[writes]-> DAT-12
+APP-07 -[writes]-> DAT-14
+APP-03 -[reads]-> DAT-02
+APP-03 -[reads]-> DAT-03
+APP-05 -[reads]-> DAT-05
+APP-02 -[reads]-> DAT-11
+APP-02 -[reads]-> DAT-09
+DAT-02 -[relates to]-> DAT-01 note="many to one"
+DAT-03 -[relates to]-> DAT-02 note="many to one"
+DAT-05 -[relates to]-> DAT-02 note="many to one"
+
+APP-01 -[hosted on]-> TEC-01
+APP-04 -[hosted on]-> TEC-01
+APP-05 -[hosted on]-> TEC-01
+APP-06 -[hosted on]-> TEC-03
+APP-07 -[hosted on]-> TEC-04
+TEC-01 -[depends on]-> TEC-02
+TEC-01 -[depends on]-> TEC-03
+TEC-01 -[depends on]-> TEC-04
+TEC-01 -[depends on]-> TEC-05
+TEC-06 -[depends on]-> TEC-01
+TEC-01 -[depends on]-> TEC-07
+TEC-02 -[depends on]-> TEC-08
+TEC-03 -[depends on]-> TEC-08
+TEC-08 -[depends on]-> TEC-09
+TEC-01 -[located in]-> LOC-01
+TEC-02 -[located in]-> LOC-01
+TEC-03 -[located in]-> LOC-01
+TEC-04 -[located in]-> LOC-01
+TEC-05 -[located in]-> LOC-01
+TEC-06 -[located in]-> LOC-01
+TEC-07 -[located in]-> LOC-01
+TEC-08 -[located in]-> LOC-02
+TEC-09 -[located in]-> LOC-03
+TEC-01 -[categorised as]-> TCC-01
+TEC-06 -[categorised as]-> TCC-01
+TEC-02 -[categorised as]-> TCC-02
+TEC-03 -[categorised as]-> TCC-02
+TEC-04 -[categorised as]-> TCC-02
+TEC-05 -[categorised as]-> TCC-03
+TEC-07 -[categorised as]-> TCC-03
+TEC-08 -[categorised as]-> TCC-03
+
+RSK-01 -[threatens]-> APP-06
+RSK-02 -[threatens]-> APP-02
+RSK-03 -[threatens]-> DAT-09
+RSK-04 -[threatens]-> DAT-07
+RSK-05 -[threatens]-> APP-01
+RSK-06 -[threatens]-> DAT-05
+CTL-01 -[mitigates]-> RSK-01
+CTL-02 -[mitigates]-> RSK-02
+CTL-03 -[mitigates]-> RSK-03
+CTL-04 -[mitigates]-> RSK-04
+CTL-05 -[mitigates]-> RSK-05
+CTL-06 -[mitigates]-> RSK-06
+CTL-01 -[realises]-> REQ-09
+CTL-02 -[realises]-> REQ-13
+CTL-03 -[realises]-> REQ-07
+CTL-04 -[realises]-> REQ-06
+CTL-05 -[realises]-> REQ-12
+CTL-06 -[realises]-> REQ-05
+CTL-01 -[applies to]-> APP-06
+CTL-02 -[applies to]-> TEC-06
+CTL-03 -[applies to]-> APP-FIN
+CTL-04 -[applies to]-> APP-EDRMS
+CTL-05 -[applies to]-> TEC-01
+CTL-05 -[applies to]-> TEC-08
+CTL-06 -[applies to]-> APP-03
+PRJ-01 -[delivers]-> APP-01
+PRJ-01 -[delivers]-> TEC-01
+PRJ-01 -[delivers]-> TEC-02
+PRJ-01 -[delivers]-> TEC-06
+
+# ------------------------------------------------------------------ views
+
+view ACD "V1 Application Context" {
+  viewpoint "Application Context Diagram"
+  platform azure
+  edges explicit                  # the model joins these boxes 60-odd ways; draw the context
+  join both                       # lines of one verb into or out of one box share a trunk
+  ACT-01
+  ACT-02
+  ACT-03
+  same ACT-01 ACT-02 ACT-03
+  APP-01 {
+    APP-02
+    APP-03
+    APP-04
+    APP-05
+    APP-06
+    APP-07
+  }
+  INT-02 on APP-04
+  APP-ID {
+    INT-01
+  }
+  APP-FIN {
+    INT-03
+    INT-08
+  }
+  APP-EDRMS {
+    INT-04
+  }
+  APP-CRM {
+    INT-05
+  }
+  APP-MAIL {
+    INT-06
+  }
+  APP-SCAN {
+    INT-07
+  }
+  APP-01 before APP-ID APP-FIN APP-EDRMS APP-CRM APP-MAIL APP-SCAN
+  same APP-ID APP-FIN APP-EDRMS
+  same APP-CRM APP-MAIL APP-SCAN
+  TEC-01 icon="Container Apps"
+  LOC-01
+  ACT-01 -[uses]-> APP-02
+  ACT-02 -[uses]-> APP-03
+  ACT-03 -[uses]-> APP-03
+  APP-01 -[depends on]-> APP-ID
+  APP-05 -[depends on]-> APP-FIN
+  APP-06 -[depends on]-> APP-EDRMS
+  APP-03 -[depends on]-> APP-CRM
+  APP-07 -[depends on]-> APP-MAIL
+  APP-06 -[depends on]-> APP-SCAN
+  APP-01 -[hosted on]-> TEC-01
+  TEC-01 -[located in]-> LOC-01
+  key "Box inside a box: part of it (parent)" "Pill on an application: interface it exposes" "Pills inside a box: interfaces it exposes"
+}
+
+view LDD "V2 Logical Data" {
+  viewpoint "Logical Data Diagram"
+  edges explicit                  # categories flow into columns when no lines join them
+  DTC-01 sub="OFFICIAL: Sensitive" {
+    DAT-01
+    DAT-02
+    DAT-03
+  }
+  DTC-02 sub="OFFICIAL: Sensitive" {
+    DAT-04
+    DAT-05
+    DAT-06
+    DAT-07
+  }
+  DTC-03 sub="OFFICIAL: Sensitive" {
+    DAT-08
+    DAT-09
+    DAT-10
+  }
+  DTC-04 sub=OFFICIAL {
+    DAT-11
+    DAT-12
+  }
+  DTC-05 sub=OFFICIAL {
+    DAT-13
+    DAT-14
+  }
+  key "Entity inside a data category: classified as; the category's sub-line gives its classification"
+}
+
+view STRAT "V3 Business Outcome Alignment" {
+  viewpoint "Business Strategy Diagram"   # this viewpoint reads left to right
+  edges explicit
+  join both                               # lines of one verb share a trunk and one label
+  DRV-01
+  DRV-02
+  DRV-03
+  DRV-04
+  GOL-01
+  GOL-02
+  GOL-03
+  OBJ-01
+  OBJ-02
+  OBJ-03
+  OBJ-04
+  OBJ-05
+  OBJ-06
+  CAP-02
+  CAP-03
+  CAP-04
+  CAP-05
+  DRV-01 -[motivates]-> GOL-01
+  DRV-02 -[motivates]-> GOL-02
+  DRV-03 -[motivates]-> GOL-01
+  DRV-04 -[motivates]-> GOL-03
+  DRV-02 -[motivates]-> GOL-03
+  GOL-01 -[achieved by]-> OBJ-01
+  GOL-01 -[achieved by]-> OBJ-02
+  GOL-02 -[achieved by]-> OBJ-03
+  GOL-02 -[achieved by]-> OBJ-04
+  GOL-03 -[achieved by]-> OBJ-05
+  GOL-03 -[achieved by]-> OBJ-06
+  CAP-02 -[supports]-> OBJ-01
+  CAP-02 -[supports]-> OBJ-02
+  CAP-03 -[supports]-> OBJ-03
+  CAP-03 -[supports]-> OBJ-04
+  CAP-04 -[supports]-> OBJ-05
+  CAP-05 -[supports]-> OBJ-06
+  OBJ-01 before CAP-02 CAP-03 CAP-04 CAP-05
+  key "Joined lines: one relationship per source or target"
+}
+
+view CAP "V4 Capability Alignment" {
+  viewpoint "Capability Diagram"
+  edges explicit
+  same by=serves                  # each shared service beside the grants capability it serves (a field)
+  CAP-00 {
+    CAP-01
+    CAP-02
+    CAP-03
+    CAP-04
+    CAP-05
+  }
+  CAP-10 {
+    CAP-11
+    CAP-12
+    CAP-13
+  }
+  key "Box inside a box: part of it (parent)" "Same row: the shared service a grants capability relies on (its 'serves' field)"
+}
+
+view RISK "V5 Control Traceability" {
+  viewpoint "Risk Catalogue"            # three columns: risks, controls, what they realise and apply to
+  edges explicit
+  join in
+  RSK-01
+  RSK-02
+  RSK-03
+  RSK-04
+  RSK-05
+  RSK-06
+  CTL-01
+  CTL-02
+  CTL-03
+  CTL-04
+  CTL-05
+  CTL-06
+  REQ-05
+  REQ-06
+  REQ-07
+  REQ-09
+  REQ-12
+  REQ-13
+  CTL-01 -[mitigates]-> RSK-01
+  CTL-02 -[mitigates]-> RSK-02
+  CTL-03 -[mitigates]-> RSK-03
+  CTL-04 -[mitigates]-> RSK-04
+  CTL-05 -[mitigates]-> RSK-05
+  CTL-06 -[mitigates]-> RSK-06
+  CTL-01 -[realises]-> REQ-09
+  CTL-02 -[realises]-> REQ-13
+  CTL-03 -[realises]-> REQ-07
+  CTL-04 -[realises]-> REQ-06
+  CTL-05 -[realises]-> REQ-12
+  CTL-06 -[realises]-> REQ-05
+  key "Read left to right: the risk, the control that mitigates it, the requirement the control realises"
+}
+
+view INFRA "V6 Infrastructure" {
+  viewpoint "Infrastructure Diagram"
+  platform azure
+  edges explicit
+  LOC-01 {
+    TCC-01 {
+      TEC-06
+      TEC-01
+    }
+    TCC-02 {
+      TEC-02
+      TEC-03
+      TEC-04
+    }
+    TCC-03 {
+      TEC-05
+      TEC-07
+      TEC-08#primary
+    }
+  }
+  LOC-02 {
+    TEC-08#copy sub="geo-redundant copy"
+  }
+  TCC-01 before TCC-02             # the categories one under another, in this order
+  TCC-02 before TCC-03
+  TEC-06 -[depends on]-> TEC-01
+  TEC-01 -[depends on]-> TEC-02
+  TEC-01 -[depends on]-> TEC-04
+  TEC-02 -[depends on]-> TEC-08
+  key "Box inside a box: in that location, then in that technology category" "The backup vault is drawn in both regions it spans"
+}

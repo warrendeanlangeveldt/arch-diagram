@@ -11,12 +11,19 @@ indexes it. Everything else reads the cache.
 Resolution (`resolve()`), for a component name such as "S3", "Cosmos DB",
 "Pub/Sub", "Kafka" or "aws:amazon-simple-queue-service":
 1. an explicit "pack:slug" reference;
-2. the alias table (scripts/icon_aliases.json): a term names a concept and,
+2. a generic glyph's own name ("server", "firewall"), unless a platform is
+   given;
+3. the exact name of an icon in a fetched pack ("Application Gateway" is
+   azure:application-gateways; a vendor prefix and plurals are allowed),
+   in the platform's pack when one is given, else when only one fetched
+   pack has it;
+4. the alias table (scripts/icon_aliases.json): a term names a concept and,
    when it belongs to a platform, that platform's icon. The platform icon is
-   used when its pack is fetched; otherwise the concept's generic glyph;
-3. a fuzzy match on the names in the fetched packs (restricted to a
+   used when its pack is fetched; otherwise the concept's generic glyph. A
+   platform-neutral term takes the platform's icon when a platform is given;
+5. a fuzzy match on the names in the fetched packs (restricted to a
    platform when one is given);
-4. the generic glyph whose name matches.
+6. the generic glyph whose name matches.
 Anything that is not a platform service (users, browsers, SaaS, on-premises
 kit) resolves to a generic glyph.
 """
@@ -329,6 +336,35 @@ def search(query, pack=None, limit=12, kinds=None):
     return res[:limit]
 
 
+VENDOR = ("azure-", "microsoft-", "aws-", "amazon-", "google-cloud-", "gcp-", "cloud-")
+
+
+def _exact(pack, name):
+    """The icon in `pack` whose slug or name is `name`, allowing a vendor
+    prefix on either and a plural on the icon ("Application Gateway" is
+    Application Gateways). None when nothing matches exactly."""
+    base = slugify(name)
+    forms = {base}
+    for v in VENDOR:
+        if base.startswith(v):
+            forms.add(base[len(v):])
+    want = set()
+    for f in forms:
+        if not f:
+            continue
+        want |= {f, f + "s", f + "es", f[:-1] + "ies" if f.endswith("y") else f}
+    for e in pack_index(pack) or []:
+        for cand in (e["slug"], slugify(e["name"])):
+            bare = cand
+            for v in VENDOR:
+                if bare.startswith(v):
+                    bare = bare[len(v):]
+                    break
+            if cand in want or bare in want:
+                return e
+    return None
+
+
 def resolve(name, platform=None):
     """The icon for a component name; see the module docstring for the order.
     Returns {ref, pack, slug, name, via}. Raises IconError with suggestions
@@ -347,6 +383,14 @@ def resolve(name, platform=None):
             raise IconError(f"no icon '{slug}' in {pack}" + (f"; closest: {hint}" if hint else ""))
         return {"ref": name, "pack": pack, "slug": slug, "name": e["name"], "via": "explicit"}
     q = norm(name)
+    g = slugify(name)
+    if platform is None and g in generic():
+        return {"ref": f"generic:{g}", "pack": "generic", "slug": g, "name": g, "via": "generic"}
+    exact = [p for p in ([platform] if platform else PACKS) if pack_index(p) and _exact(p, name)]
+    if len(exact) == 1:
+        e = _exact(exact[0], name)
+        return {"ref": f"{exact[0]}:{e['slug']}", "pack": exact[0], "slug": e["slug"],
+                "name": e["name"], "via": "name"}
     hit = None
     for c in aliases():                       # a platform's own term wins
         for p in PACKS:
@@ -371,7 +415,9 @@ def resolve(name, platform=None):
         return {"ref": f"generic:{c['generic']}", "pack": "generic", "slug": c["generic"],
                 "name": c["concept"], "via": f"alias {c['concept']}"
                 + ("" if not owner else f" ({owner} pack not fetched)")}
-    packs = [platform] if platform else [p for p in PACKS]
+    # a generic glyph's own name never goes to the fuzzy match ("server" is
+    # not SQL Server)
+    packs = [] if g in generic() else [platform] if platform else [p for p in PACKS]
     for p in packs:
         if not pack_index(p):
             continue
@@ -379,7 +425,6 @@ def resolve(name, platform=None):
         if hits and hits[0]["score"] >= 75:
             h = hits[0]
             return {"ref": h["ref"], "pack": p, "slug": h["slug"], "name": h["name"], "via": "search"}
-    g = slugify(name)
     if g in generic():
         return {"ref": f"generic:{g}", "pack": "generic", "slug": g, "name": g, "via": "generic"}
     sugg = ", ".join(r["ref"] for r in search(name, None, 5))
@@ -410,9 +455,11 @@ def vendor_svg(pack, slug):
         return f.read()
 
 
-def inline(ref, x, y, size=20, colour="#475569", platform=None):
+def inline(ref, x, y, size=20, colour="#475569", platform=None, prefix=None):
     """An SVG fragment drawing the icon with its top-left at (x, y), `size`
-    px square. Generic glyphs take `colour`; vendor icons keep theirs."""
+    px square. Generic glyphs take `colour`; vendor icons keep theirs. A
+    vendor icon's ids get `prefix` (a view passes its own, so the same view
+    draws the same SVG every time) or a process-wide sequence number."""
     r = resolve(ref, platform)
     if r["pack"] == "generic":
         inner = generic()[r["slug"]].replace("currentColor", colour)
@@ -431,8 +478,10 @@ def inline(ref, x, y, size=20, colour="#475569", platform=None):
         h = re.search(r'\bheight="([\d.]+)', attrs)
         viewbox = f"0 0 {w.group(1) if w else 64} {h.group(1) if h else 64}"
     body = re.sub(r"<title>.*?</title>|<!--.*?-->|<\?xml.*?\?>|<metadata>.*?</metadata>", "", body, flags=re.S)
-    _SEQ[0] += 1
-    body = _prefix_ids(body, f"i{_SEQ[0]}-{r['pack']}-")
+    if prefix is None:
+        _SEQ[0] += 1
+        prefix = f"i{_SEQ[0]}-"
+    body = _prefix_ids(body, f"{prefix}{r['pack']}-")
     xlink = ' xmlns:xlink="http://www.w3.org/1999/xlink"' if "xlink:" in body else ""
     return (f'<svg x="{x:.1f}" y="{y:.1f}" width="{size}" height="{size}" viewBox="{viewbox}"'
             f'{xlink} overflow="visible"><title>{esc(r["name"])}</title>{body.strip()}</svg>')

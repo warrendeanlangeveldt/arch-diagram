@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 475" font-family="-apple-system, 'Helvetica Neue', Arial, sans-serif">
+<title>V5 Control Traceability</title>
+<rect x="0" y="0" width="740" height="475" fill="#ffffff"/>
+<defs><marker id="arr-risk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" fill="#475569"/></marker></defs>
+<rect x="16.0" y="16.0" width="194.2" height="48.5" rx="4" fill="#fbeeed" stroke="#b4443c" stroke-width="1.2"/>
+<text x="22.0" y="26.0" font-size="7.5" fill="#b4443c" font-weight="700" letter-spacing="0.6">RISK</text>
+<text x="113.1" y="39.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Malicious file uploaded with an</text>
+<text x="113.1" y="52.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">application</text>
+<text x="205.2" y="60.5" font-size="7" fill="#94a3b8" text-anchor="end">RSK-01</text>
+<rect x="16.0" y="209.5" width="194.2" height="48.5" rx="4" fill="#fbeeed" stroke="#b4443c" stroke-width="1.2"/>
+<text x="22.0" y="219.5" font-size="7.5" fill="#b4443c" font-weight="700" letter-spacing="0.6">RISK</text>
+<text x="113.1" y="233.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Applicant data exposed through the</text>
+<text x="113.1" y="245.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">public site</text>
+<text x="205.2" y="254.0" font-size="7" fill="#94a3b8" text-anchor="end">RSK-02</text>
+<rect x="16.0" y="80.5" width="194.2" height="48.5" rx="4" fill="#fbeeed" stroke="#b4443c" stroke-width="1.2"/>
+<text x="22.0" y="90.5" font-size="7.5" fill="#b4443c" font-weight="700" letter-spacing="0.6">RISK</text>
+<text x="113.1" y="104.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Payment made twice or to the</text>
+<text x="113.1" y="116.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">wrong account</text>
+<text x="205.2" y="125.0" font-size="7" fill="#94a3b8" text-anchor="end">RSK-03</text>
+<rect x="16.0" y="145.0" width="194.2" height="48.5" rx="4" fill="#fbeeed" stroke="#b4443c" stroke-width="1.2"/>
+<text x="22.0" y="155.0" font-size="7.5" fill="#b4443c" font-weight="700" letter-spacing="0.6">RISK</text>
+<text x="113.1" y="168.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Decision challenged without a</text>
+<text x="113.1" y="181.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">record of reasons</text>
+<text x="205.2" y="189.5" font-size="7" fill="#94a3b8" text-anchor="end">RSK-04</text>
+<rect x="16.0" y="338.5" width="194.2" height="48.5" rx="4" fill="#fbeeed" stroke="#b4443c" stroke-width="1.2"/>
+<text x="22.0" y="348.5" font-size="7.5" fill="#b4443c" font-weight="700" letter-spacing="0.6">RISK</text>
+<text x="113.1" y="362.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Platform unavailable at a round's</text>
+<text x="113.1" y="374.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">closing date</text>
+<text x="205.2" y="383.0" font-size="7" fill="#94a3b8" text-anchor="end">RSK-05</text>
+<rect x="16.0" y="274.0" width="194.2" height="48.5" rx="4" fill="#fbeeed" stroke="#b4443c" stroke-width="1.2"/>
+<text x="22.0" y="284.0" font-size="7.5" fill="#b4443c" font-weight="700" letter-spacing="0.6">RISK</text>
+<text x="113.1" y="297.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Assessor scores an application</text>
+<text x="113.1" y="310.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">they're conflicted on</text>
+<text x="205.2" y="318.5" font-size="7" fill="#94a3b8" text-anchor="end">RSK-06</text>
+<rect x="275.7" y="16.0" width="194.2" height="48.5" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="281.7" y="26.0" font-size="7.5" fill="#475569" font-weight="700" letter-spacing="0.6">CONTROL</text>
+<text x="372.9" y="39.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Every upload scanned before it's</text>
+<text x="372.9" y="52.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">stored</text>
+<text x="465.0" y="60.5" font-size="7" fill="#94a3b8" text-anchor="end">CTL-01</text>
+<rect x="275.7" y="209.5" width="194.2" height="48.5" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="281.7" y="219.5" font-size="7.5" fill="#475569" font-weight="700" letter-spacing="0.6">CONTROL</text>
+<text x="372.9" y="233.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">WAF and private endpoints in front</text>
+<text x="372.9" y="245.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">of the platform</text>
+<text x="465.0" y="254.0" font-size="7" fill="#94a3b8" text-anchor="end">CTL-02</text>
+<rect x="275.7" y="80.5" width="194.2" height="48.5" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="281.7" y="90.5" font-size="7.5" fill="#475569" font-weight="700" letter-spacing="0.6">CONTROL</text>
+<text x="372.9" y="104.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Payments created only from the</text>
+<text x="372.9" y="116.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">approved agreement</text>
+<text x="465.0" y="125.0" font-size="7" fill="#94a3b8" text-anchor="end">CTL-03</text>
+<rect x="275.7" y="145.0" width="194.2" height="48.5" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="281.7" y="155.0" font-size="7.5" fill="#475569" font-weight="700" letter-spacing="0.6">CONTROL</text>
+<text x="372.9" y="168.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Decision and reasons captured to</text>
+<text x="372.9" y="181.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">the records system</text>
+<text x="465.0" y="189.5" font-size="7" fill="#94a3b8" text-anchor="end">CTL-04</text>
+<rect x="275.7" y="338.5" width="194.2" height="48.5" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="281.7" y="348.5" font-size="7.5" fill="#475569" font-weight="700" letter-spacing="0.6">CONTROL</text>
+<text x="372.9" y="362.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Zone-redundant runtime and tested</text>
+<text x="372.9" y="374.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">restore</text>
+<text x="465.0" y="383.0" font-size="7" fill="#94a3b8" text-anchor="end">CTL-05</text>
+<rect x="275.7" y="274.0" width="194.2" height="48.5" rx="4" fill="#f1f5f9" stroke="#475569" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="281.7" y="284.0" font-size="7.5" fill="#475569" font-weight="700" letter-spacing="0.6">CONTROL</text>
+<text x="372.9" y="297.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Conflict declared before the</text>
+<text x="372.9" y="310.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">scoring form opens</text>
+<text x="465.0" y="318.5" font-size="7" fill="#94a3b8" text-anchor="end">CTL-06</text>
+<rect x="529.8" y="274.0" width="194.2" height="48.5" rx="4" fill="#eed1e6" stroke="#9d6a91" stroke-width="1.2"/>
+<text x="535.8" y="284.0" font-size="7.5" fill="#9d6a91" font-weight="700" letter-spacing="0.6">REQUIREMENT</text>
+<text x="626.9" y="297.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Conflicts of interest declared</text>
+<text x="626.9" y="310.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">before scoring</text>
+<text x="719.0" y="318.5" font-size="7" fill="#94a3b8" text-anchor="end">REQ-05</text>
+<rect x="529.8" y="145.0" width="194.2" height="48.5" rx="4" fill="#eed1e6" stroke="#9d6a91" stroke-width="1.2"/>
+<text x="535.8" y="155.0" font-size="7.5" fill="#9d6a91" font-weight="700" letter-spacing="0.6">REQUIREMENT</text>
+<text x="626.9" y="168.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Panel decision recorded with</text>
+<text x="626.9" y="181.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">reasons</text>
+<text x="719.0" y="189.5" font-size="7" fill="#94a3b8" text-anchor="end">REQ-06</text>
+<rect x="529.8" y="80.5" width="194.2" height="48.5" rx="4" fill="#eed1e6" stroke="#9d6a91" stroke-width="1.2"/>
+<text x="535.8" y="90.5" font-size="7.5" fill="#9d6a91" font-weight="700" letter-spacing="0.6">REQUIREMENT</text>
+<text x="626.9" y="104.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Payments created in the finance</text>
+<text x="626.9" y="116.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">system, not rekeyed</text>
+<text x="719.0" y="125.0" font-size="7" fill="#94a3b8" text-anchor="end">REQ-07</text>
+<rect x="529.8" y="16.0" width="194.2" height="48.5" rx="4" fill="#eed1e6" stroke="#9d6a91" stroke-width="1.2"/>
+<text x="535.8" y="26.0" font-size="7.5" fill="#9d6a91" font-weight="700" letter-spacing="0.6">REQUIREMENT</text>
+<text x="626.9" y="39.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Documents scanned for malware</text>
+<text x="626.9" y="52.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">on upload</text>
+<text x="719.0" y="60.5" font-size="7" fill="#94a3b8" text-anchor="end">REQ-09</text>
+<rect x="529.8" y="344.8" width="194.2" height="36.0" rx="4" fill="#eed1e6" stroke="#9d6a91" stroke-width="1.2"/>
+<text x="535.8" y="354.8" font-size="7.5" fill="#9d6a91" font-weight="700" letter-spacing="0.6">REQUIREMENT</text>
+<text x="626.9" y="368.2" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Available 99.5% in business hours</text>
+<text x="719.0" y="376.8" font-size="7" fill="#94a3b8" text-anchor="end">REQ-12</text>
+<rect x="529.8" y="209.5" width="194.2" height="48.5" rx="4" fill="#eed1e6" stroke="#9d6a91" stroke-width="1.2"/>
+<text x="535.8" y="219.5" font-size="7.5" fill="#9d6a91" font-weight="700" letter-spacing="0.6">REQUIREMENT</text>
+<text x="626.9" y="233.0" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Personal information stays in</text>
+<text x="626.9" y="245.5" font-size="10.5" fill="#0f172a" text-anchor="middle" font-weight="600">Australia</text>
+<text x="719.0" y="254.0" font-size="7" fill="#94a3b8" text-anchor="end">REQ-13</text>
+<polyline points="275.7,40.2 212.2,40.2" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-risk)"/>
+<text x="243.9" y="35.2" font-size="8.5" fill="#64748b" text-anchor="middle" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">mitigates</text>
+<polyline points="275.7,233.8 212.2,233.8" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-risk)"/>
+<text x="243.9" y="228.8" font-size="8.5" fill="#64748b" text-anchor="middle" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">mitigates</text>
+<polyline points="275.7,104.8 212.2,104.8" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-risk)"/>
+<text x="243.9" y="99.8" font-size="8.5" fill="#64748b" text-anchor="middle" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">mitigates</text>
+<polyline points="275.7,169.2 212.2,169.2" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-risk)"/>
+<text x="243.9" y="164.2" font-size="8.5" fill="#64748b" text-anchor="middle" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">mitigates</text>
+<polyline points="275.7,362.8 212.2,362.8" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-risk)"/>
+<text x="243.9" y="357.8" font-size="8.5" fill="#64748b" text-anchor="middle" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">mitigates</text>
+<polyline points="275.7,298.2 212.2,298.2" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-risk)"/>
+<text x="243.9" y="293.2" font-size="8.5" fill="#64748b" text-anchor="middle" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">mitigates</text>
+<polyline points="470.0,40.2 527.8,40.2" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-risk)"/>
+<text x="498.9" y="35.2" font-size="8.5" fill="#64748b" text-anchor="middle" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">realises</text>
+<polyline points="470.0,233.8 527.8,233.8" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-risk)"/>
+<text x="498.9" y="228.8" font-size="8.5" fill="#64748b" text-anchor="middle" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">realises</text>
+<polyline points="470.0,104.8 527.8,104.8" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-risk)"/>
+<text x="498.9" y="99.8" font-size="8.5" fill="#64748b" text-anchor="middle" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">realises</text>
+<polyline points="470.0,169.2 527.8,169.2" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-risk)"/>
+<text x="498.9" y="164.2" font-size="8.5" fill="#64748b" text-anchor="middle" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">realises</text>
+<polyline points="470.0,362.8 527.8,362.8" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-risk)"/>
+<text x="498.9" y="357.8" font-size="8.5" fill="#64748b" text-anchor="middle" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">realises</text>
+<polyline points="470.0,298.2 527.8,298.2" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arr-risk)"/>
+<text x="498.9" y="293.2" font-size="8.5" fill="#64748b" text-anchor="middle" font-style="italic" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">realises</text>
+<line x1="16" y1="407.0" x2="724" y2="407.0" stroke="#e2e8f0" stroke-width="1"/>
+<text x="16.0" y="427.5" font-size="7.5" fill="#734c74" font-weight="700" letter-spacing="0.6">MOTIVATION</text>
+<rect x="78.81300000000002" y="419.0" width="16" height="10" rx="2" fill="#eed1e6" stroke="#9d6a91" stroke-width="1.2"/>
+<text x="99.8" y="427.5" font-size="8.5" fill="#475569">Requirement</text>
+<text x="166.1" y="427.5" font-size="7.5" fill="#b4443c" font-weight="700" letter-spacing="0.6">RISK</text>
+<rect x="194.937" y="419.0" width="16" height="10" rx="2" fill="#fbeeed" stroke="#b4443c" stroke-width="1.2"/>
+<text x="215.9" y="427.5" font-size="8.5" fill="#475569">Risk</text>
+<text x="250.9" y="427.5" font-size="7.5" fill="#475569" font-weight="700" letter-spacing="0.6">CONTROL</text>
+<rect x="299.866" y="419.0" width="16" height="10" rx="2" fill="#f1f5f9" stroke="#475569" stroke-width="1.2"/>
+<text x="320.9" y="427.5" font-size="8.5" fill="#475569">Control</text>
+<rect x="16" y="437.0" width="16" height="10" rx="2" fill="#ffffff" stroke="#475569" stroke-width="1.2" stroke-dasharray="3 2"/>
+<text x="37.0" y="445.5" font-size="8.5" fill="#475569">Proposed / designed / not started</text>
+<text x="16.0" y="461.5" font-size="8.5" fill="#475569">Read left to right: the risk, the control that mitigates it, the requirement the control realises</text>
+</svg>
